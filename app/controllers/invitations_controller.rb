@@ -11,14 +11,28 @@ class InvitationsController < ApplicationController
   end
 
   def verify
+    if @guest.locked_out?
+      minutes_left = (((@guest.verify_locked_until - Time.current) / 60)).ceil
+      return redirect_to invitation_path(@guest.token),
+                         alert: "Too many incorrect attempts. Please try again in #{minutes_left} minute#{"s" if minutes_left != 1}."
+    end
+
     phone = normalise_phone(params[:phone])
     if normalise_phone(@guest.phone) == phone
+      @guest.record_successful_verification!(request.remote_ip)
       session["verified_#{@guest.token}"] = true
       redirect_to invitation_path(@guest.token),
                   notice: "Welcome #{@guest.name.split.first} ❤️"
     else
-      redirect_to invitation_path(@guest.token),
-                  alert: "This invitation is not assigned to this phone number."
+      @guest.record_failed_attempt!
+      attempts_left = Guest::MAX_VERIFY_ATTEMPTS - (@guest.verify_attempts || 0)
+      if @guest.locked_out?
+        redirect_to invitation_path(@guest.token),
+                    alert: "Too many incorrect attempts. This invitation is locked for 15 minutes."
+      else
+        redirect_to invitation_path(@guest.token),
+                    alert: "That number doesn't match this invitation. #{attempts_left} attempt#{"s" if attempts_left != 1} remaining."
+      end
     end
   end
 
@@ -28,10 +42,14 @@ class InvitationsController < ApplicationController
                          alert: "Please verify your phone number first."
     end
 
-    # Guest may revisit — update existing or build new
     @rsvp = @guest.rsvp || @guest.build_rsvp
+    attrs = rsvp_params
+    # Derive seats from bringing_spouse — max 2
+    if attrs[:status] == "accepted"
+      attrs = attrs.merge(seats_reserved: attrs[:bringing_spouse] == "true" ? 2 : 1)
+    end
 
-    if @rsvp.update(rsvp_params)
+    if @rsvp.update(attrs)
       redirect_to invitation_path(@guest.token), notice: confirmation_notice
     else
       @wedding  = @guest.wedding

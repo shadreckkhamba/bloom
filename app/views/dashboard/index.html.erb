@@ -14,9 +14,23 @@
     </div>
     <div class="d-flex gap-2">
       <%= link_to "Edit details", edit_wedding_path, class: "btn btn-bloom-outline btn-sm" %>
+      <%= link_to "Messages 💌", messages_path, class: "btn btn-bloom-outline btn-sm" %>
       <%= link_to "Manage guests", guests_path, class: "btn btn-bloom btn-sm" %>
     </div>
   </div>
+
+  <!-- Shared link warning -->
+  <% if @flagged.any? %>
+    <div class="alert-shared mb-4">
+      <span style="font-size:1.1rem;">⚠️</span>
+      <div>
+        <strong>Possible shared links detected</strong> —
+        <%= @flagged.count %> invitation#{"s" if @flagged.count != 1} were opened from more than one device:
+        <span class="text-muted"><%= @flagged.map(&:name).join(", ") %></span>.
+        Someone may have forwarded their link.
+      </div>
+    </div>
+  <% end %>
 
   <!-- Stats -->
   <div class="row g-3 mb-5">

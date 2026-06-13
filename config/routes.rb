@@ -10,6 +10,7 @@ Rails.application.routes.draw do
 
   # Florence's dashboard
   get "/dashboard", to: "dashboard#index", as: :dashboard
+  get "/messages",  to: "dashboard#messages", as: :messages
 
   # Wedding management
   resource :wedding, only: [:new, :create, :edit, :update, :show]

@@ -1,0 +1,39 @@
+<div class="container py-4">
+
+  <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
+    <div>
+      <h1 class="mb-0" style="font-size:1.9rem;">Messages 💌</h1>
+      <p class="text-muted small mb-0">Notes left by your guests</p>
+    </div>
+    <%= link_to "← Dashboard", dashboard_path, class: "btn btn-bloom-outline btn-sm" %>
+  </div>
+
+  <% if @messages.any? %>
+    <div class="row g-3">
+      <% @messages.each do |guest| %>
+        <div class="col-md-6">
+          <div class="message-card">
+            <div class="message-card-header">
+              <div>
+                <span class="message-guest-name"><%= guest.name %></span>
+                <span class="status-badge badge-<%= guest.rsvp.status %> ms-2">
+                  <%= guest.rsvp.status.capitalize %>
+                  <% if guest.rsvp.bringing_spouse? %>· +1<% end %>
+                </span>
+              </div>
+              <span class="message-time"><%= time_ago_in_words(guest.rsvp.updated_at) %> ago</span>
+            </div>
+            <p class="message-body">"<%= guest.rsvp.message %>"</p>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="text-center py-5 text-muted">
+      <p style="font-size:2rem;">💌</p>
+      <p class="mb-1">No messages yet.</p>
+      <p class="small">Guests can leave a note when they RSVP.</p>
+    </div>
+  <% end %>
+
+</div>

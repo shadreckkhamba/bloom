@@ -10,14 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_06_08_131420) do
+ActiveRecord::Schema[8.1].define(version: 2026_06_13_143312) do
   create_table "guests", force: :cascade do |t|
     t.datetime "created_at", null: false
+    t.boolean "flagged_shared"
     t.datetime "invitation_sent_at"
     t.string "name"
     t.string "phone"
     t.string "token"
     t.datetime "updated_at", null: false
+    t.string "verified_ip"
+    t.integer "verify_attempts"
+    t.datetime "verify_locked_until"
     t.integer "wedding_id", null: false
     t.index ["token"], name: "index_guests_on_token", unique: true
     t.index ["wedding_id"], name: "index_guests_on_wedding_id"

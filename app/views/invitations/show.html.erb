@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="turbo-cache-control" content="no-cache">
   <title><%= @wedding.couple_names %> — You're Invited</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Lato:wght@300;400&display=swap" rel="stylesheet">
@@ -42,52 +43,51 @@
 
           <div class="inv-divider">🌸</div>
 
-          <!-- Date & Venue -->
+          <!-- Date: always visible as a teaser -->
           <p class="inv-detail">
             <%= image_tag "calendar.png", alt: "Date", style: "width:20px;height:20px;object-fit:contain;vertical-align:middle;margin-right:6px;" %>
             <%= @wedding.wedding_date.strftime("%A, %d %B %Y") %>
           </p>
-          <p class="inv-detail inv-detail--muted">
-            <%= image_tag "location-icon.png", alt: "Venue", style: "width:16px;height:16px;object-fit:contain;vertical-align:middle;margin-right:6px;" %>
-            <%= @wedding.venue %>
-            <button class="inv-map-btn" onclick="document.getElementById('map-modal').classList.add('open')" aria-label="View venue map">
-              🗺️ View Map
-            </button>
-          </p>
 
-          <!-- Couple photo -->
-          <% if @wedding.couple_photo.present? %>
-            <div class="inv-photo-wrap">
-              <img src="<%= @wedding.couple_photo %>"
-                   alt="<%= @wedding.couple_names %>"
-                   class="inv-photo">
-            </div>
-          <% end %>
-
-          <!-- Welcome message -->
-          <% if @wedding.welcome_message.present? %>
-            <p class="inv-quote">"<%= @wedding.welcome_message %>"</p>
-          <% end %>
-
-
-          <div class="inv-gift-note">
-            <p class="inv-gift-icon">🎁</p>
-            <p class="inv-gift-text">
-              While your presence is the greatest gift of all, should you wish to honour us with something more,
-              we kindly invite cash gifts in envelopes or neatly wrapped presents.
-              Thank you for celebrating this moment with us and for your warmth and generosity.
+          <% if @verified || @rsvp %>
+            <%# ── Venue, map, photo, message — only after verification ── %>
+            <p class="inv-detail inv-detail--muted">
+              <%= image_tag "location-icon.png", alt: "Venue", style: "width:16px;height:16px;object-fit:contain;vertical-align:middle;margin-right:6px;" %>
+              <%= @wedding.venue %>
+              <button class="inv-map-btn" onclick="document.getElementById('map-modal').classList.add('open')" aria-label="View venue map">
+                🗺️ View Map
+              </button>
             </p>
-          </div>
 
-          <!-- Countdown -->
-          <div class="inv-countdown" id="countdown" data-date="<%= @wedding.wedding_date.to_s %>">
-            <% [:days, :hours, :mins, :secs].each do |unit| %>
-              <div class="inv-cd-unit">
-                <span class="inv-cd-num" id="cd-<%= unit %>">—</span>
-                <span class="inv-cd-label"><%= unit.to_s.upcase %></span>
+            <% if @wedding.couple_photo.present? %>
+              <div class="inv-photo-wrap">
+                <img src="<%= @wedding.couple_photo %>"
+                     alt="<%= @wedding.couple_names %>"
+                     class="inv-photo">
               </div>
             <% end %>
-          </div>
+
+            <% if @wedding.welcome_message.present? %>
+              <p class="inv-quote">"<%= @wedding.welcome_message %>"</p>
+            <% end %>
+
+            <!-- Countdown -->
+            <div class="inv-countdown" id="countdown" data-date="<%= @wedding.wedding_date.to_s %>">
+              <% [:days, :hours, :mins, :secs].each do |unit| %>
+                <div class="inv-cd-unit">
+                  <span class="inv-cd-num" id="cd-<%= unit %>">—</span>
+                  <span class="inv-cd-label"><%= unit.to_s.upcase %></span>
+                </div>
+              <% end %>
+            </div>
+
+          <% else %>
+            <%# ── Locked state — before verification ── %>
+            <div class="inv-locked-hint">
+              <span class="inv-locked-icon">🔒</span>
+              <p class="inv-locked-text">Venue details and full invitation are revealed once you confirm your phone number below.</p>
+            </div>
+          <% end %>
 
           <div class="inv-divider">❤️</div>
 
@@ -122,6 +122,15 @@
                 </button>
               </div>
 
+              <div class="inv-gift-note mt-4">
+                <p class="inv-gift-icon">🎁</p>
+                <p class="inv-gift-text">
+                  While your presence is the greatest gift of all, should you wish to honour us with something more,
+                  we kindly invite cash gifts in envelopes or neatly wrapped presents.
+                  Thank you for celebrating this moment with us and for your warmth and generosity.
+                </p>
+              </div>
+
               <% if @rsvp.message.present? %>
                 <p class="text-muted mt-4 small fst-italic">"<%= @rsvp.message %>"</p>
               <% end %>
@@ -152,12 +161,12 @@
                   <div>
                     <input type="radio" class="btn-check" name="rsvp[status]"
                            id="rsvp_yes" value="accepted" required>
-                    <label class="btn btn-bloom px-4" for="rsvp_yes">✅ I'll be there</label>
+                    <label class="btn inv-rsvp-btn inv-rsvp-btn--yes px-4" for="rsvp_yes">✅ I'll be there</label>
                   </div>
                   <div>
                     <input type="radio" class="btn-check" name="rsvp[status]"
                            id="rsvp_no" value="declined">
-                    <label class="btn btn-bloom-outline px-4" for="rsvp_no">I can't make it</label>
+                    <label class="btn inv-rsvp-btn inv-rsvp-btn--no px-4" for="rsvp_no">🙁 I can't make it</label>
                   </div>
                 </div>
 
@@ -165,35 +174,22 @@
                 <div id="attending-extras" style="display:none;" class="text-start">
 
                   <div class="inv-form-group">
-                    <p class="inv-form-label">Will you bring a spouse?</p>
-                    <div class="d-flex gap-4">
-                      <div class="form-check">
-                        <%= f.radio_button :bringing_spouse, "true",
-                              class: "form-check-input", id: "spouse_yes",
-                              data: { role: "spouse-toggle" } %>
-                        <label class="form-check-label" for="spouse_yes">Yes</label>
+                    <p class="inv-form-label">Will you be bringing your spouse?</p>
+                    <div class="d-flex gap-3 justify-content-center">
+                      <div>
+                        <input type="radio" class="btn-check" name="rsvp[bringing_spouse]"
+                               id="spouse_yes" value="true">
+                        <label class="btn inv-rsvp-btn px-4" for="spouse_yes">👫 Yes, +1</label>
                       </div>
-                      <div class="form-check">
-                        <%= f.radio_button :bringing_spouse, "false",
-                              class: "form-check-input", id: "spouse_no",
-                              checked: true, data: { role: "spouse-toggle" } %>
-                        <label class="form-check-label" for="spouse_no">No</label>
+                      <div>
+                        <input type="radio" class="btn-check" name="rsvp[bringing_spouse]"
+                               id="spouse_no" value="false" checked>
+                        <label class="btn inv-rsvp-btn px-4" for="spouse_no">🙋 Just me</label>
                       </div>
                     </div>
-                  </div>
-
-                  <div class="inv-form-group">
-                    <p class="inv-form-label">How many seats should we reserve?</p>
-                    <div class="d-flex gap-2" id="seats-wrap">
-                      <% [1,2,3].each do |n| %>
-                        <input type="radio" class="btn-check" name="rsvp[seats_reserved]"
-                               id="seats_<%= n %>" value="<%= n %>"
-                               <%= "checked" if n == 1 %>>
-                        <label class="btn btn-bloom-outline-sm px-3 py-2" for="seats_<%= n %>">
-                          <%= n %>
-                        </label>
-                      <% end %>
-                    </div>
+                    <p class="text-muted mt-2 mb-0" style="font-size:0.75rem;text-align:center;">
+                      Each invitation covers a maximum of 2 guests.
+                    </p>
                   </div>
 
                   <div class="inv-form-group">
@@ -335,7 +331,7 @@ if (flash) setTimeout(function () {
 
 /* ── Falling petals ────────────────────────────── */
 (function () {
-  const emojis = ['🌸', '🌷', '✿', '❀', '🌺'];
+  const emojis = ['🌸', '🌷', '✿', '❀', '🌺', '💍'];
   const container = document.getElementById('petals');
   if (!container) return;
   for (let i = 0; i < 22; i++) {

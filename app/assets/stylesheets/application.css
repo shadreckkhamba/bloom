@@ -276,6 +276,56 @@ h1, h2, h3, .display-1, .display-2, .serif {
   margin-top: 1.5rem;
 }
 
+/* ── Message cards ── */
+.message-card {
+  background: white;
+  border: 1px solid #f0e8d4;
+  border-radius: 16px;
+  padding: 1.2rem 1.4rem;
+  box-shadow: 0 2px 12px rgba(201,168,76,0.06);
+  height: 100%;
+}
+.message-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 0.7rem;
+  gap: 0.5rem;
+}
+.message-guest-name {
+  font-weight: 500;
+  font-size: 0.92rem;
+  color: var(--charcoal);
+}
+.message-time {
+  font-size: 0.72rem;
+  color: #bbb;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.message-body {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 1rem;
+  color: #666;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* ── Shared link warning banner ── */
+.alert-shared {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  background: #fff8e6;
+  border: 1px solid #ffe08a;
+  border-left: 4px solid #f0a500;
+  border-radius: 12px;
+  padding: 1rem 1.2rem;
+  font-size: 0.88rem;
+  color: #5a3e00;
+}
+
 /* ── Gold text util ─────────────────────── */
 .text-gold { color: var(--gold); }
 .bg-gold-pale { background: var(--gold-pale); }
@@ -554,6 +604,60 @@ h1, h2, h3, .display-1, .display-2, .serif {
 .btn-whatsapp:hover {
   background: #1ebe5d;
   color: white;
+}
+
+/* ── RSVP attend choice buttons ── */
+.inv-rsvp-btn {
+  border: 2px solid #ddd;
+  background: white;
+  color: #666;
+  border-radius: 50px;
+  font-size: 0.9rem;
+  padding: 0.55rem 1.4rem;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+.inv-rsvp-btn:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+}
+/* Yes — selected */
+.btn-check:checked + .inv-rsvp-btn--yes {
+  background: linear-gradient(135deg, var(--gold), #b8973f);
+  border-color: transparent;
+  color: white;
+  box-shadow: 0 4px 16px rgba(201,168,76,0.35);
+  transform: translateY(-1px);
+}
+/* No — selected */
+.btn-check:checked + .inv-rsvp-btn--no {
+  background: #f8d7da;
+  border-color: #f5c6cb;
+  color: #721c24;
+  box-shadow: 0 4px 12px rgba(220,53,69,0.15);
+  transform: translateY(-1px);
+}
+
+/* ── Locked hint (before phone verification) ── */
+.inv-locked-hint {
+  margin: 1.6rem auto;
+  max-width: 300px;
+  padding: 1.2rem 1.4rem;
+  background: #fafafa;
+  border: 1px dashed #ddd;
+  border-radius: 14px;
+  text-align: center;
+}
+.inv-locked-icon {
+  font-size: 1.6rem;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+.inv-locked-text {
+  font-size: 0.82rem;
+  color: #999;
+  margin: 0;
+  line-height: 1.55;
 }
 
 /* ── Venue map button (inline with venue text) ── */
