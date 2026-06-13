@@ -18,7 +18,7 @@
                 <span class="message-guest-name"><%= guest.name %></span>
                 <span class="status-badge badge-<%= guest.rsvp.status %> ms-2">
                   <%= guest.rsvp.status.capitalize %>
-                  <% if guest.rsvp.bringing_spouse? %>· +1<% end %>
+                  <% if guest.rsvp.bringing_spouse %>· +1<% end %>
                 </span>
               </div>
               <span class="message-time"><%= time_ago_in_words(guest.rsvp.updated_at) %> ago</span>

@@ -154,7 +154,7 @@
               </p>
               <p class="text-muted small mb-4">Will you be joining us on this special day?</p>
 
-              <%= form_with url: invitation_rsvp_path(@guest.token), id: "rsvp-form" do |f| %>
+              <%= form_with url: invitation_rsvp_path(@guest.token), id: "rsvp-form", scope: :rsvp do |f| %>
 
                 <!-- Attend choice -->
                 <div class="d-flex gap-4 justify-content-center mb-4">
@@ -198,16 +198,17 @@
                     </p>
                   </div>
 
-                  <div class="inv-form-group">
-                    <%= f.label :message,
-                          "Leave a message for the couple (optional)",
-                          class: "inv-form-label" %>
-                    <%= f.text_area :message,
-                          class: "form-control form-control-sm",
-                          rows: 3,
-                          placeholder: "Congratulations! Looking forward to celebrating with you." %>
-                  </div>
+                </div>
 
+                <!-- Message — always visible -->
+                <div class="inv-form-group text-start mt-3">
+                  <%= f.label :message,
+                        "Leave a message for the couple (optional)",
+                        class: "inv-form-label" %>
+                  <%= f.text_area :message,
+                        class: "form-control form-control-sm",
+                        rows: 3,
+                        placeholder: "Congratulations! Looking forward to celebrating with you." %>
                 </div>
 
                 <div class="mt-4">
