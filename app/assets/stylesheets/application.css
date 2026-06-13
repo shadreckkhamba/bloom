@@ -1,0 +1,557 @@
+/*
+ *= require_self
+ */
+
+:root {
+  --gold: #c9a84c;
+  --gold-light: #e8d5a3;
+  --gold-pale: #fdf8ee;
+  --white: #ffffff;
+  --charcoal: #2c2c2c;
+  --muted: #888;
+}
+
+body {
+  font-family: 'Lato', sans-serif;
+  font-weight: 300;
+  color: var(--charcoal);
+  background: var(--white);
+}
+
+h1, h2, h3, .display-1, .display-2, .serif {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 400;
+}
+
+/* ── Navbar ─────────────────────────────── */
+.bloom-nav {
+  background: var(--white);
+  border-bottom: 1px solid #f0e8d4;
+  padding: 1rem 0;
+}
+
+.bloom-brand {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.4rem;
+  color: var(--gold) !important;
+  text-decoration: none;
+  letter-spacing: 0.04em;
+}
+
+/* ── Auth pages ─────────────────────────── */
+.auth-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  background: linear-gradient(135deg, #fdf8ee 0%, #fff 60%, #fdf8ee 100%);
+}
+
+.auth-card {
+  background: white;
+  border: 1px solid #f0e8d4;
+  border-radius: 16px;
+  padding: 2.5rem;
+  box-shadow: 0 8px 40px rgba(201,168,76,0.08);
+}
+
+/* ── Invitation page ────────────────────── */
+.invitation-hero {
+  min-height: 100vh;
+  background: linear-gradient(160deg, #fdf8ee 0%, #fff9f2 50%, #fdf8ee 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.invitation-hero::before,
+.invitation-hero::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.07;
+  background: var(--gold);
+}
+
+.invitation-hero::before {
+  width: 500px; height: 500px;
+  top: -150px; left: -150px;
+}
+
+.invitation-hero::after {
+  width: 400px; height: 400px;
+  bottom: -100px; right: -100px;
+}
+
+.invitation-card {
+  background: white;
+  border: 1px solid #f0e8d4;
+  border-radius: 20px;
+  padding: 3rem 2.5rem;
+  box-shadow: 0 12px 60px rgba(201,168,76,0.10);
+  position: relative;
+  z-index: 1;
+}
+
+.invitation-divider {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  color: var(--gold);
+  font-size: 1.1rem;
+  margin: 1.5rem 0;
+}
+
+.invitation-divider::before,
+.invitation-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--gold-light), transparent);
+}
+
+.couple-names {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2rem, 6vw, 3.5rem);
+  color: var(--charcoal);
+  line-height: 1.2;
+}
+
+.ampersand {
+  color: var(--gold);
+  font-style: italic;
+}
+
+/* ── Countdown ──────────────────────────── */
+.countdown-wrap {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.countdown-unit {
+  text-align: center;
+  min-width: 64px;
+}
+
+.countdown-number {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.4rem;
+  font-weight: 600;
+  color: var(--gold);
+  line-height: 1;
+}
+
+.countdown-label {
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* ── Petals animation ───────────────────── */
+.petals-container {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.petal {
+  position: absolute;
+  top: -20px;
+  font-size: 1.2rem;
+  animation: fall linear infinite;
+  opacity: 0.5;
+}
+
+@keyframes fall {
+  0%   { transform: translateY(-20px) rotate(0deg); opacity: 0.6; }
+  100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+}
+
+/* ── Dashboard stats ────────────────────── */
+.stat-card {
+  background: white;
+  border: 1px solid #f0e8d4;
+  border-radius: 16px;
+  padding: 1.5rem;
+  text-align: center;
+  box-shadow: 0 4px 20px rgba(201,168,76,0.06);
+}
+
+.stat-number {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.8rem;
+  font-weight: 600;
+  color: var(--gold);
+  line-height: 1;
+}
+
+.stat-label {
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-top: 0.3rem;
+}
+
+/* ── Buttons ────────────────────────────── */
+.btn-bloom {
+  background: linear-gradient(135deg, var(--gold), #b8973f);
+  color: white;
+  border: none;
+  border-radius: 50px;
+  padding: 0.6rem 2rem;
+  font-family: 'Lato', sans-serif;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  transition: all 0.25s;
+}
+
+.btn-bloom:hover {
+  background: linear-gradient(135deg, #b8973f, #a07d2f);
+  color: white;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(201,168,76,0.3);
+}
+
+.btn-bloom-outline {
+  background: transparent;
+  color: var(--gold);
+  border: 1.5px solid var(--gold);
+  border-radius: 50px;
+  padding: 0.6rem 2rem;
+  transition: all 0.25s;
+}
+
+.btn-bloom-outline:hover {
+  background: var(--gold);
+  color: white;
+}
+
+/* ── Forms ──────────────────────────────── */
+.form-control:focus {
+  border-color: var(--gold-light);
+  box-shadow: 0 0 0 0.2rem rgba(201,168,76,0.15);
+}
+
+/* ── Guest table ────────────────────────── */
+.guest-table th {
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  border-bottom: 1px solid #f0e8d4;
+  font-weight: 400;
+}
+
+.badge-accepted  { background: #d4edda; color: #276749; }
+.badge-declined  { background: #f8d7da; color: #721c24; }
+.badge-pending   { background: #fff3cd; color: #856404; }
+
+.status-badge {
+  font-size: 0.7rem;
+  padding: 0.3em 0.8em;
+  border-radius: 50px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* ── QR pass ────────────────────────────── */
+.qr-pass {
+  border: 2px solid var(--gold-light);
+  border-radius: 20px;
+  padding: 2rem;
+  background: white;
+  max-width: 340px;
+  margin: 0 auto;
+}
+
+/* ── Check-in screen ────────────────────── */
+.checkin-result {
+  border-radius: 16px;
+  padding: 2rem;
+  margin-top: 1.5rem;
+}
+
+/* ── Gold text util ─────────────────────── */
+.text-gold { color: var(--gold); }
+.bg-gold-pale { background: var(--gold-pale); }
+
+/* ══════════════════════════════════════════════
+   INVITATION PAGE
+   ══════════════════════════════════════════════ */
+
+.inv-body {
+  background: linear-gradient(160deg, #fdf8ee 0%, #fffcf5 50%, #fdf8ee 100%);
+  min-height: 100vh;
+}
+
+.inv-page {
+  padding: 3rem 0 4rem;
+  position: relative;
+  z-index: 1;
+}
+
+/* Card */
+.inv-card {
+  background: rgba(255,255,255,0.96);
+  border: 1px solid #eedfc0;
+  border-radius: 24px;
+  padding: 2.8rem 2rem;
+  box-shadow: 0 16px 64px rgba(201,168,76,0.12), 0 2px 8px rgba(0,0,0,0.04);
+  backdrop-filter: blur(4px);
+}
+
+/* Brand label */
+.inv-brand {
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 0.25rem;
+}
+
+/* Divider with ornament */
+.inv-divider {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  color: var(--gold);
+  font-size: 1rem;
+  margin: 1.4rem 0;
+}
+.inv-divider::before,
+.inv-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to right, transparent, #e8d5a3, transparent);
+}
+
+/* Couple names */
+.inv-names {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2.4rem, 8vw, 3.6rem);
+  font-weight: 300;
+  line-height: 1.15;
+  color: var(--charcoal);
+  letter-spacing: 0.02em;
+}
+.inv-amp {
+  display: block;
+  color: var(--gold);
+  font-style: italic;
+  font-size: 0.7em;
+  line-height: 1.4;
+}
+
+/* Date / venue */
+.inv-detail {
+  font-size: 0.95rem;
+  color: #444;
+  margin-bottom: 0.3rem;
+  letter-spacing: 0.02em;
+}
+.inv-detail--muted { color: #777; }
+
+/* Couple photo */
+.inv-photo-wrap {
+  margin: 1.4rem auto;
+  width: 150px; height: 150px;
+}
+.inv-photo {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 4px solid var(--gold-light);
+  box-shadow: 0 4px 20px rgba(201,168,76,0.2);
+}
+
+/* Welcome quote */
+.inv-quote {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 1.05rem;
+  color: #666;
+  line-height: 1.6;
+  margin: 0.5rem auto 1rem;
+  max-width: 340px;
+}
+
+/* Countdown */
+.inv-countdown {
+  display: flex;
+  gap: 0.8rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 0.5rem 0;
+}
+.inv-cd-unit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 58px;
+  background: var(--gold-pale);
+  border: 1px solid #eedfc0;
+  border-radius: 10px;
+  padding: 0.5rem 0.4rem 0.3rem;
+}
+.inv-cd-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--gold);
+  line-height: 1;
+}
+.inv-cd-label {
+  font-size: 0.6rem;
+  letter-spacing: 0.14em;
+  color: #aaa;
+  margin-top: 2px;
+}
+
+/* ── Verify section ── */
+.inv-verify-section {
+  padding: 0.5rem 0 0.25rem;
+}
+
+/* ── RSVP section ── */
+.inv-rsvp-section { padding-top: 0.25rem; }
+.inv-welcome {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.5rem;
+  color: var(--charcoal);
+  margin-bottom: 0.1rem;
+}
+.inv-form-group { margin-bottom: 1.2rem; }
+.inv-form-label {
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  color: #777;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+/* ── Confirmed / QR pass ── */
+.inv-confirmed { padding: 0.5rem 0; }
+.inv-thank {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.6rem;
+  color: var(--charcoal);
+  margin-bottom: 0.25rem;
+}
+.inv-qr-wrap {
+  display: inline-block;
+  padding: 1rem;
+  background: white;
+  border: 1.5px solid var(--gold-light);
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(201,168,76,0.1);
+}
+.inv-qr-wrap svg {
+  display: block;
+  max-width: 200px;
+  height: auto;
+}
+.inv-token-label {
+  margin-top: 0.6rem;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.3rem;
+  letter-spacing: 0.3em;
+  color: var(--gold);
+}
+
+/* Small button variants for invitation page */
+.btn-bloom-sm {
+  background: linear-gradient(135deg, var(--gold), #b8973f);
+  color: white;
+  border: none;
+  border-radius: 50px;
+  padding: 0.45rem 1.4rem;
+  font-size: 0.82rem;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.btn-bloom-sm:hover {
+  background: linear-gradient(135deg, #b8973f, #a07d2f);
+  color: white;
+  transform: translateY(-1px);
+}
+.btn-bloom-outline-sm {
+  background: transparent;
+  color: var(--gold);
+  border: 1.5px solid var(--gold-light);
+  border-radius: 50px;
+  padding: 0.45rem 1.4rem;
+  font-size: 0.82rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.btn-bloom-outline-sm:hover {
+  background: var(--gold-pale);
+  border-color: var(--gold);
+}
+
+/* Footer */
+.inv-footer {
+  text-align: center;
+  color: #bba46a;
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+  margin-top: 1.5rem;
+}
+
+/* Flash toast on invitation page */
+.inv-flash {
+  position: fixed;
+  top: 1.2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  padding: 0.7rem 1.6rem;
+  border-radius: 50px;
+  font-size: 0.88rem;
+  letter-spacing: 0.02em;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  white-space: nowrap;
+  pointer-events: none;
+}
+.inv-flash--ok    { background: #fff8e6; color: #856404; border: 1px solid #eedfc0; }
+.inv-flash--error { background: #fff0f0; color: #b02a2a; border: 1px solid #f5c2c7; }
+
+/* Petals */
+.petals-container {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+.petal {
+  position: absolute;
+  top: -24px;
+  animation: petal-fall linear infinite;
+}
+@keyframes petal-fall {
+  0%   { transform: translateY(0)     rotate(0deg)   translateX(0); }
+  50%  { transform: translateY(50vh)  rotate(180deg) translateX(30px); }
+  100% { transform: translateY(105vh) rotate(360deg) translateX(-20px); }
+}
+
+/* ── WhatsApp send button ── */
+.btn-whatsapp {
+  background: #25d366;
+  color: white;
+  border: none;
+  border-radius: 50px;
+  font-size: 0.8rem;
+  transition: background 0.2s;
+}
+.btn-whatsapp:hover {
+  background: #1ebe5d;
+  color: white;
+}

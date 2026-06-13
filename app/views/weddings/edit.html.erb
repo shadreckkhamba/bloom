@@ -1,0 +1,54 @@
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-md-7 col-lg-6">
+      <h1 class="mb-1" style="font-size:2rem;">Edit Wedding Details</h1>
+      <p class="text-muted mb-4">Changes take effect immediately.</p>
+
+      <%= form_with model: @wedding, url: wedding_path, method: :patch do |f| %>
+        <% if @wedding.errors.any? %>
+          <div class="alert alert-danger small"><%= @wedding.errors.full_messages.first %></div>
+        <% end %>
+
+        <div class="row g-3 mb-3">
+          <div class="col-sm-6">
+            <%= f.label :bride_name, "Bride's name", class: "form-label small text-muted" %>
+            <%= f.text_field :bride_name, class: "form-control", required: true %>
+          </div>
+          <div class="col-sm-6">
+            <%= f.label :groom_name, "Groom's name", class: "form-label small text-muted" %>
+            <%= f.text_field :groom_name, class: "form-control", required: true %>
+          </div>
+        </div>
+
+        <div class="row g-3 mb-3">
+          <div class="col-sm-6">
+            <%= f.label :wedding_date, "Wedding date", class: "form-label small text-muted" %>
+            <%= f.date_field :wedding_date, class: "form-control", required: true %>
+          </div>
+          <div class="col-sm-6">
+            <%= f.label :theme, "Theme", class: "form-label small text-muted" %>
+            <%= f.text_field :theme, class: "form-control" %>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <%= f.label :venue, "Venue", class: "form-label small text-muted" %>
+          <%= f.text_field :venue, class: "form-control", required: true %>
+        </div>
+
+        <div class="mb-3">
+          <%= f.label :welcome_message, "Welcome message", class: "form-label small text-muted" %>
+          <%= f.text_area :welcome_message, class: "form-control", rows: 3 %>
+        </div>
+
+        <div class="mb-4">
+          <%= f.label :couple_photo, "Couple photo URL", class: "form-label small text-muted" %>
+          <%= f.url_field :couple_photo, class: "form-control" %>
+        </div>
+
+        <%= f.submit "Update 🌸", class: "btn btn-bloom" %>
+        <%= link_to "Cancel", dashboard_path, class: "btn btn-bloom-outline ms-2" %>
+      <% end %>
+    </div>
+  </div>
+</div>

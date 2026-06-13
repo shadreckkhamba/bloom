@@ -1,0 +1,42 @@
+<div class="auth-page">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-5 col-lg-4">
+        <div class="text-center mb-4">
+          <h1 class="text-gold" style="font-size:2rem;">Bloom by Florence</h1>
+          <p class="text-muted small">🌸 Create your account</p>
+        </div>
+        <div class="auth-card">
+          <h2 class="mb-4" style="font-size:1.5rem;">Get started</h2>
+          <%= form_with model: @user, url: signup_path, data: { turbo: false } do |f| %>
+            <% if @user.errors.any? %>
+              <div class="alert alert-danger small">
+                <%= @user.errors.full_messages.first %>
+              </div>
+            <% end %>
+            <div class="mb-3">
+              <%= f.label :name, "Your name", class: "form-label small text-muted" %>
+              <%= f.text_field :name, class: "form-control", required: true %>
+            </div>
+            <div class="mb-3">
+              <%= f.label :email, "Email", class: "form-label small text-muted" %>
+              <%= f.email_field :email, class: "form-control", required: true %>
+            </div>
+            <div class="mb-3">
+              <%= f.label :password, "Password", class: "form-label small text-muted" %>
+              <%= f.password_field :password, class: "form-control", required: true, minlength: 8 %>
+            </div>
+            <div class="mb-4">
+              <%= f.label :password_confirmation, "Confirm password", class: "form-label small text-muted" %>
+              <%= f.password_field :password_confirmation, class: "form-control", required: true %>
+            </div>
+            <%= f.submit "Create account", class: "btn btn-bloom w-100" %>
+          <% end %>
+        </div>
+        <p class="text-center mt-3 small text-muted">
+          Already have an account? <%= link_to "Sign in", login_path, class: "text-gold" %>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

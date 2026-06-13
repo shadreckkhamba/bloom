@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title><%= @wedding.couple_names %> — You're Invited</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Lato:wght@300;400&display=swap" rel="stylesheet">
+  <%= stylesheet_link_tag "application" %>
+</head>
+<body class="inv-body">
+
+<!-- Falling petals (rendered before card so they sit behind) -->
+<div class="petals-container" id="petals" aria-hidden="true"></div>
+
+<!-- Flash messages injected by controller redirects -->
+<% if flash[:notice] || flash[:alert] %>
+  <div class="inv-flash <%= flash[:alert] ? 'inv-flash--error' : 'inv-flash--ok' %>" id="inv-flash">
+    <%= flash[:notice] || flash[:alert] %>
+  </div>
+<% end %>
+
+<div class="inv-page">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-11 col-sm-9 col-md-7 col-lg-5">
+
+        <!-- ═══════════════════════════════════════
+             ACT 1 — The Invitation (always visible)
+             ═══════════════════════════════════════ -->
+        <div class="inv-card text-center">
+
+          <p class="inv-brand">Bloom by Florence 🌸</p>
+
+          <div class="inv-divider">💍</div>
+
+          <h1 class="inv-names">
+            <%= @wedding.bride_name %>
+            <span class="inv-amp">&amp;</span>
+            <%= @wedding.groom_name %>
+          </h1>
+
+          <div class="inv-divider">🌸</div>
+
+          <!-- Date & Venue -->
+          <p class="inv-detail">
+            📅&nbsp; <%= @wedding.wedding_date.strftime("%A, %d %B %Y") %>
+          </p>
+          <p class="inv-detail inv-detail--muted">
+            📍&nbsp; <%= @wedding.venue %>
+          </p>
+
+          <!-- Couple photo -->
+          <% if @wedding.couple_photo.present? %>
+            <div class="inv-photo-wrap">
+              <img src="<%= @wedding.couple_photo %>"
+                   alt="<%= @wedding.couple_names %>"
+                   class="inv-photo">
+            </div>
+          <% end %>
+
+          <!-- Welcome message -->
+          <% if @wedding.welcome_message.present? %>
+            <p class="inv-quote">"<%= @wedding.welcome_message %>"</p>
+          <% end %>
+
+          <!-- Countdown -->
+          <div class="inv-countdown" id="countdown" data-date="<%= @wedding.wedding_date.to_s %>">
+            <% [:days, :hours, :mins, :secs].each do |unit| %>
+              <div class="inv-cd-unit">
+                <span class="inv-cd-num" id="cd-<%= unit %>">—</span>
+                <span class="inv-cd-label"><%= unit.to_s.upcase %></span>
+              </div>
+            <% end %>
+          </div>
+
+          <div class="inv-divider">❤️</div>
+
+          <!-- ═══════════════════════════════════════
+               ACT 2 — STATE-DEPENDENT SECTION
+               ═══════════════════════════════════════ -->
+
+          <% if @rsvp&.accepted? %>
+            <%# ── STATE: Already confirmed → show QR pass ── %>
+            <div class="inv-confirmed" id="qr-pass">
+              <p class="inv-thank">Thank you, <%= @guest.name.split.first %> ❤️</p>
+              <p class="text-muted small mb-4">Your attendance is confirmed. Show this at the entrance.</p>
+
+              <div class="inv-qr-wrap" id="qr-svg">
+                <%= raw RQRCode::QRCode.new("BLOOM:#{@guest.token}:#{@guest.name.upcase}").as_svg(
+                      offset: 0,
+                      color: "c9a84c",
+                      shape_rendering: "crispEdges",
+                      module_size: 6,
+                      standalone: true
+                    ) %>
+              </div>
+
+              <p class="inv-token-label"><%= @guest.token %></p>
+
+              <div class="d-flex gap-2 justify-content-center mt-3 flex-wrap">
+                <button onclick="window.print()" class="btn btn-bloom-sm">
+                  🖨️ Print / Save PDF
+                </button>
+                <button onclick="downloadQR()" class="btn btn-bloom-outline-sm">
+                  ⬇️ Download PNG
+                </button>
+              </div>
+
+              <% if @rsvp.message.present? %>
+                <p class="text-muted mt-4 small fst-italic">"<%= @rsvp.message %>"</p>
+              <% end %>
+            </div>
+
+          <% elsif @rsvp&.declined? %>
+            <%# ── STATE: Declined ── %>
+            <div class="py-3">
+              <p class="inv-thank" style="font-size:1.3rem;">We'll miss you 🌸</p>
+              <p class="text-muted small">
+                Thank you for letting us know, <%= @guest.name.split.first %>.<br>
+                Wishing you all the best.
+              </p>
+            </div>
+
+          <% elsif @verified %>
+            <%# ── STATE: Verified → show RSVP form ── %>
+            <div class="inv-rsvp-section">
+              <p class="inv-welcome">
+                Welcome, <span class="text-gold"><%= @guest.name.split.first %></span> ❤️
+              </p>
+              <p class="text-muted small mb-4">Will you be joining us on this special day?</p>
+
+              <%= form_with url: invitation_rsvp_path(@guest.token), id: "rsvp-form" do |f| %>
+
+                <!-- Attend choice -->
+                <div class="d-flex gap-3 justify-content-center mb-4">
+                  <div>
+                    <input type="radio" class="btn-check" name="rsvp[status]"
+                           id="rsvp_yes" value="accepted" required>
+                    <label class="btn btn-bloom px-4" for="rsvp_yes">✅ I'll be there</label>
+                  </div>
+                  <div>
+                    <input type="radio" class="btn-check" name="rsvp[status]"
+                           id="rsvp_no" value="declined">
+                    <label class="btn btn-bloom-outline px-4" for="rsvp_no">I can't make it</label>
+                  </div>
+                </div>
+
+                <!-- Attending extras (hidden until "yes" selected) -->
+                <div id="attending-extras" style="display:none;" class="text-start">
+
+                  <div class="inv-form-group">
+                    <p class="inv-form-label">Will you bring a spouse?</p>
+                    <div class="d-flex gap-4">
+                      <div class="form-check">
+                        <%= f.radio_button :bringing_spouse, "true",
+                              class: "form-check-input", id: "spouse_yes",
+                              data: { role: "spouse-toggle" } %>
+                        <label class="form-check-label" for="spouse_yes">Yes</label>
+                      </div>
+                      <div class="form-check">
+                        <%= f.radio_button :bringing_spouse, "false",
+                              class: "form-check-input", id: "spouse_no",
+                              checked: true, data: { role: "spouse-toggle" } %>
+                        <label class="form-check-label" for="spouse_no">No</label>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="inv-form-group">
+                    <p class="inv-form-label">How many seats should we reserve?</p>
+                    <div class="d-flex gap-2" id="seats-wrap">
+                      <% [1,2,3].each do |n| %>
+                        <input type="radio" class="btn-check" name="rsvp[seats_reserved]"
+                               id="seats_<%= n %>" value="<%= n %>"
+                               <%= "checked" if n == 1 %>>
+                        <label class="btn btn-bloom-outline-sm px-3 py-2" for="seats_<%= n %>">
+                          <%= n %>
+                        </label>
+                      <% end %>
+                    </div>
+                  </div>
+
+                  <div class="inv-form-group">
+                    <%= f.label :message,
+                          "Leave a message for the couple (optional)",
+                          class: "inv-form-label" %>
+                    <%= f.text_area :message,
+                          class: "form-control form-control-sm",
+                          rows: 3,
+                          placeholder: "Congratulations! Looking forward to celebrating with you." %>
+                  </div>
+
+                </div>
+
+                <div class="mt-4">
+                  <%= f.submit "Confirm my RSVP →", class: "btn btn-bloom px-5", id: "rsvp-submit" %>
+                </div>
+
+              <% end %>
+            </div>
+
+          <% else %>
+            <%# ── STATE: Not verified → phone form ── %>
+            <div class="inv-verify-section">
+              <p class="text-muted mb-1" style="font-size:1rem;">
+                You've been personally invited 💌
+              </p>
+              <p class="text-muted small mb-4">
+                To open your invitation, confirm your phone number.
+              </p>
+
+              <%= form_with url: invitation_verify_path(@guest.token) do |f| %>
+                <div style="max-width:260px; margin:0 auto;">
+                  <input type="tel" name="phone"
+                         class="form-control text-center mb-3"
+                         placeholder="e.g. 0999123456"
+                         style="letter-spacing:0.08em; font-size:1.05rem;"
+                         required autofocus>
+                  <button type="submit" class="btn btn-bloom w-100">
+                    Open my invitation →
+                  </button>
+                </div>
+              <% end %>
+            </div>
+          <% end %>
+
+        </div><!-- /.inv-card -->
+
+        <p class="inv-footer">With love, Bloom by Florence 🌸</p>
+
+      </div>
+    </div>
+  </div>
+</div><!-- /.inv-page -->
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+/* ── Countdown ─────────────────────────────────── */
+(function () {
+  const el = document.getElementById('countdown');
+  if (!el) return;
+  const target = new Date(el.dataset.date + 'T00:00:00');
+  function pad(n) { return String(n).padStart(2, '0'); }
+  function tick() {
+    const diff = target - new Date();
+    if (diff <= 0) {
+      el.innerHTML = '<p class="text-gold fst-italic">Today is the day 🎉</p>';
+      return;
+    }
+    document.getElementById('cd-days').textContent  = pad(Math.floor(diff / 86400000));
+    document.getElementById('cd-hours').textContent = pad(Math.floor((diff % 86400000) / 3600000));
+    document.getElementById('cd-mins').textContent  = pad(Math.floor((diff % 3600000)  / 60000));
+    document.getElementById('cd-secs').textContent  = pad(Math.floor((diff % 60000)    / 1000));
+  }
+  tick(); setInterval(tick, 1000);
+})();
+
+/* ── RSVP form: show/hide extras ──────────────── */
+document.querySelectorAll('input[name="rsvp[status]"]').forEach(function (radio) {
+  radio.addEventListener('change', function () {
+    const extras = document.getElementById('attending-extras');
+    if (extras) extras.style.display = this.value === 'accepted' ? 'block' : 'none';
+  });
+});
+
+/* ── Spouse toggle auto-selects min seats ──────── */
+document.querySelectorAll('[data-role="spouse-toggle"]').forEach(function (radio) {
+  radio.addEventListener('change', function () {
+    if (this.value === 'true') {
+      const s2 = document.getElementById('seats_2');
+      const s1 = document.getElementById('seats_1');
+      if (s1 && s1.checked && s2) s2.checked = true;
+    }
+  });
+});
+
+/* ── Auto-dismiss flash ────────────────────────── */
+const flash = document.getElementById('inv-flash');
+if (flash) setTimeout(function () {
+  flash.style.transition = 'opacity 0.6s';
+  flash.style.opacity = '0';
+  setTimeout(function () { flash.remove(); }, 700);
+}, 4000);
+
+/* ── Falling petals ────────────────────────────── */
+(function () {
+  const emojis = ['🌸', '🌷', '✿', '❀', '🌺'];
+  const container = document.getElementById('petals');
+  if (!container) return;
+  for (let i = 0; i < 22; i++) {
+    const p = document.createElement('span');
+    p.className = 'petal';
+    p.textContent = emojis[i % emojis.length];
+    p.style.left              = (Math.random() * 100) + 'vw';
+    p.style.animationDuration = (7 + Math.random() * 11) + 's';
+    p.style.animationDelay    = (Math.random() * 14) + 's';
+    p.style.fontSize          = (0.7 + Math.random() * 0.9) + 'rem';
+    p.style.opacity           = (0.3 + Math.random() * 0.4).toFixed(2);
+    container.appendChild(p);
+  }
+})();
+
+/* ── Download QR as PNG ────────────────────────── */
+function downloadQR() {
+  const svg = document.querySelector('#qr-svg svg');
+  if (!svg) return;
+  const data = new XMLSerializer().serializeToString(svg);
+  const canvas = document.createElement('canvas');
+  canvas.width = 300; canvas.height = 300;
+  const ctx = canvas.getContext('2d');
+  const img = new Image();
+  img.onload = function () {
+    ctx.fillStyle = '#fff';
+    ctx.fillRect(0, 0, 300, 300);
+    ctx.drawImage(img, 0, 0, 300, 300);
+    const a = document.createElement('a');
+    a.download = 'bloom-invitation-pass.png';
+    a.href = canvas.toDataURL('image/png');
+    a.click();
+  };
+  img.src = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(data)));
+}
+</script>
+
+<!-- Print styles: only show QR pass when printing -->
+<style>
+@media print {
+  .petals-container, .inv-brand, nav, .inv-footer,
+  .inv-verify-section, .inv-rsvp-section, .inv-flash,
+  .d-flex.gap-2.justify-content-center { display: none !important; }
+  body { background: white !important; }
+  .inv-card { box-shadow: none !important; border: none !important; }
+  .inv-confirmed { display: block !important; }
+}
+</style>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6 col-lg-5">
+      <div class="text-center mb-4">
+        <h1 style="font-size:2rem;">Venue Check-In</h1>
+        <p class="text-muted">Enter or scan a guest's 6-character code.</p>
+      </div>
+
+      <div class="auth-card">
+        <div class="input-group mb-3">
+          <input type="text" id="token-input" class="form-control text-center"
+                 placeholder="A8XF7K" maxlength="6"
+                 style="letter-spacing:0.2em;font-size:1.2rem;text-transform:uppercase;">
+          <button class="btn btn-bloom" id="scan-btn">Check In</button>
+        </div>
+        <p class="text-muted text-center" style="font-size:0.78rem;">6-character code from the guest's QR pass</p>
+      </div>
+
+      <div id="checkin-result" class="checkin-result" style="display:none;"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const btn   = document.getElementById('scan-btn');
+  const input = document.getElementById('token-input');
+  const result = document.getElementById('checkin-result');
+
+  async function doCheckin() {
+    const token = input.value.trim().toUpperCase();
+    if (token.length !== 6) { alert('Please enter a 6-character code.'); return; }
+
+    const resp = await fetch('<%= checkin_scan_path %>', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRF-Token': '<%= form_authenticity_token %>'
+      },
+      body: JSON.stringify({ token })
+    });
+
+    const data = await resp.json();
+    result.style.display = 'block';
+
+    if (resp.ok) {
+      result.className = 'checkin-result bg-success bg-opacity-10 border border-success';
+      result.innerHTML = `
+        <h5 class="text-success mb-2">✅ ${data.name}</h5>
+        <p class="mb-1"><strong>Status:</strong> ${data.status}</p>
+        <p class="mb-1"><strong>Guests:</strong> ${data.seats}</p>
+        <p class="mb-0"><strong>Checked In:</strong> ${data.checked_in ? 'Yes ✓' : 'Marked as checked in ✓'}</p>
+      `;
+    } else {
+      result.className = 'checkin-result bg-danger bg-opacity-10 border border-danger';
+      result.innerHTML = `<p class="text-danger mb-0">❌ ${data.error}</p>`;
+    }
+
+    input.value = '';
+    input.focus();
+  }
+
+  btn.addEventListener('click', doCheckin);
+  input.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') doCheckin();
+  });
+</script>

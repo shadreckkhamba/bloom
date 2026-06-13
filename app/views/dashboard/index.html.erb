@@ -1,0 +1,87 @@
+<div class="container py-5">
+
+  <!-- Header -->
+  <div class="d-flex justify-content-between align-items-start mb-5 flex-wrap gap-3">
+    <div>
+      <h1 style="font-size:2.2rem;" class="mb-1"><%= @wedding.couple_names %> 💍</h1>
+      <p class="text-muted mb-0">
+        <%= @wedding.venue %> &nbsp;·&nbsp;
+        <%= @wedding.wedding_date.strftime("%B %d, %Y") %>
+        <% if @wedding.days_until > 0 %>
+          &nbsp;·&nbsp; <span class="text-gold"><%= @wedding.days_until %> days to go</span>
+        <% end %>
+      </p>
+    </div>
+    <div class="d-flex gap-2">
+      <%= link_to "Edit details", edit_wedding_path, class: "btn btn-bloom-outline btn-sm" %>
+      <%= link_to "Manage guests", guests_path, class: "btn btn-bloom btn-sm" %>
+    </div>
+  </div>
+
+  <!-- Stats -->
+  <div class="row g-3 mb-5">
+    <div class="col-6 col-md-3">
+      <div class="stat-card">
+        <div class="stat-number"><%= @total %></div>
+        <div class="stat-label">Invited</div>
+      </div>
+    </div>
+    <div class="col-6 col-md-3">
+      <div class="stat-card">
+        <div class="stat-number text-success"><%= @accepted %></div>
+        <div class="stat-label">Accepted</div>
+      </div>
+    </div>
+    <div class="col-6 col-md-3">
+      <div class="stat-card">
+        <div class="stat-number" style="color:#dc3545;"><%= @declined %></div>
+        <div class="stat-label">Declined</div>
+      </div>
+    </div>
+    <div class="col-6 col-md-3">
+      <div class="stat-card">
+        <div class="stat-number" style="color:#b8973f;"><%= @pending %></div>
+        <div class="stat-label">Pending</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Recent guests -->
+  <% if @guests.any? %>
+    <h2 class="mb-3" style="font-size:1.4rem;">Recent RSVPs</h2>
+    <div class="table-responsive">
+      <table class="table guest-table">
+        <thead>
+          <tr>
+            <th>Guest</th>
+            <th>Status</th>
+            <th>Seats</th>
+            <th>Sent</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @guests.order(created_at: :desc).limit(10).each do |guest| %>
+            <tr>
+              <td><%= guest.name %></td>
+              <td>
+                <% status = guest.rsvp&.status || "pending" %>
+                <span class="status-badge badge-<%= status %>"><%= status.capitalize %></span>
+              </td>
+              <td><%= guest.rsvp&.seats_reserved || "—" %></td>
+              <td class="text-muted small">
+                <%= guest.invitation_sent_at ? time_ago_in_words(guest.invitation_sent_at) + " ago" : "Not sent" %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+    <%= link_to "View all guests →", guests_path, class: "text-gold small" %>
+  <% else %>
+    <div class="text-center py-5 text-muted">
+      <p class="mb-3" style="font-size:1.1rem;">No guests yet.</p>
+      <%= link_to "Import guest list", guests_path, class: "btn btn-bloom" %>
+    </div>
+  <% end %>
+
+</div>
