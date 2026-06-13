@@ -9,14 +9,18 @@
     <span class="status-badge badge-<%= status %>"><%= status.capitalize %></span>
   </td>
   <td>
-    <%= link_to whatsapp_invite_url(guest, @wedding || guest.wedding),
-          target: "_blank", rel: "noopener",
-          class: "btn btn-sm btn-whatsapp-icon #{ guest.invitation_sent_at ? 'btn-whatsapp-icon--sent' : '' }",
-          title: guest.invitation_sent_at ? "Sent #{time_ago_in_words(guest.invitation_sent_at)} ago — click to resend" : "Send invitation via WhatsApp" do %>
-      <span class="d-inline-flex align-items-center gap-1">
-        <%= image_tag "whatsapp-logo.png", alt: "WhatsApp", style: "width:15px;height:15px;flex-shrink:0;" %>
-        <span><%= guest.invitation_sent_at ? "Resend" : "Send" %></span>
-      </span>
+    <% unless guest.rsvp %>
+      <%= link_to whatsapp_invite_url(guest, @wedding || guest.wedding),
+            target: "_blank", rel: "noopener",
+            class: "btn btn-sm btn-whatsapp-icon #{ guest.invitation_sent_at ? 'btn-whatsapp-icon--sent' : '' }",
+            title: guest.invitation_sent_at ? "Sent #{time_ago_in_words(guest.invitation_sent_at)} ago — click to resend" : "Send invitation via WhatsApp" do %>
+        <span class="d-inline-flex align-items-center gap-1">
+          <%= image_tag "whatsapp-logo.png", alt: "WhatsApp", style: "width:15px;height:15px;flex-shrink:0;" %>
+          <span><%= guest.invitation_sent_at ? "Resend" : "Send" %></span>
+        </span>
+      <% end %>
+    <% else %>
+      <span class="text-muted small fst-italic">Responded</span>
     <% end %>
   </td>
   <td class="text-end">

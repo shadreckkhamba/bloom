@@ -157,16 +157,22 @@
               <%= form_with url: invitation_rsvp_path(@guest.token), id: "rsvp-form" do |f| %>
 
                 <!-- Attend choice -->
-                <div class="d-flex gap-3 justify-content-center mb-4">
+                <div class="d-flex gap-4 justify-content-center mb-4">
                   <div>
                     <input type="radio" class="btn-check" name="rsvp[status]"
                            id="rsvp_yes" value="accepted" required>
-                    <label class="btn inv-rsvp-btn inv-rsvp-btn--yes px-4" for="rsvp_yes">✅ I'll be there</label>
+                    <label class="inv-rsvp-card" for="rsvp_yes">
+                      <%= image_tag "yes.png", alt: "Accept", class: "inv-rsvp-card-icon" %>
+                      <span>I'll be there</span>
+                    </label>
                   </div>
                   <div>
                     <input type="radio" class="btn-check" name="rsvp[status]"
                            id="rsvp_no" value="declined">
-                    <label class="btn inv-rsvp-btn inv-rsvp-btn--no px-4" for="rsvp_no">🙁 I can't make it</label>
+                    <label class="inv-rsvp-card" for="rsvp_no">
+                      <%= image_tag "no.png", alt: "Decline", class: "inv-rsvp-card-icon" %>
+                      <span>I can't make it</span>
+                    </label>
                   </div>
                 </div>
 
@@ -283,7 +289,9 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
 /* ── Countdown ─────────────────────────────────── */
-(function () {
+var _countdownTimer = null;
+function initCountdown() {
+  if (_countdownTimer) { clearInterval(_countdownTimer); _countdownTimer = null; }
   const el = document.getElementById('countdown');
   if (!el) return;
   const target = new Date(el.dataset.date + 'T00:00:00');
@@ -299,8 +307,13 @@
     document.getElementById('cd-mins').textContent  = pad(Math.floor((diff % 3600000)  / 60000));
     document.getElementById('cd-secs').textContent  = pad(Math.floor((diff % 60000)    / 1000));
   }
-  tick(); setInterval(tick, 1000);
-})();
+  tick();
+  _countdownTimer = setInterval(tick, 1000);
+}
+// Run on normal load, and after every Turbo navigation / render
+initCountdown();
+document.addEventListener('turbo:load',   initCountdown);
+document.addEventListener('turbo:render', initCountdown);
 
 /* ── RSVP form: show/hide extras ──────────────── */
 document.querySelectorAll('input[name="rsvp[status]"]').forEach(function (radio) {
@@ -322,12 +335,18 @@ document.querySelectorAll('[data-role="spouse-toggle"]').forEach(function (radio
 });
 
 /* ── Auto-dismiss flash ────────────────────────── */
-const flash = document.getElementById('inv-flash');
-if (flash) setTimeout(function () {
-  flash.style.transition = 'opacity 0.6s';
-  flash.style.opacity = '0';
-  setTimeout(function () { flash.remove(); }, 700);
-}, 4000);
+function initFlashDismiss() {
+  const flash = document.getElementById('inv-flash');
+  if (!flash) return;
+  setTimeout(function () {
+    flash.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    flash.style.opacity = '0';
+    flash.style.transform = 'translateX(-50%) translateY(-20px)';
+    setTimeout(function () { flash.remove(); }, 550);
+  }, 3500);
+}
+initFlashDismiss();
+document.addEventListener('turbo:load', initFlashDismiss);
 
 /* ── Falling petals ────────────────────────────── */
 (function () {

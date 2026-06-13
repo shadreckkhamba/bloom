@@ -606,7 +606,50 @@ h1, h2, h3, .display-1, .display-2, .serif {
   color: white;
 }
 
-/* ── RSVP attend choice buttons ── */
+/* ── RSVP attend choice cards ── */
+.inv-rsvp-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  width: 120px;
+  padding: 1.2rem 0.8rem;
+  border: 2px solid #e8e8e8;
+  border-radius: 16px;
+  background: white;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.82rem;
+  color: #888;
+  letter-spacing: 0.02em;
+  user-select: none;
+}
+.inv-rsvp-card:hover {
+  border-color: var(--gold-light);
+  color: var(--charcoal);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.07);
+}
+.inv-rsvp-card-icon {
+  width: 56px;
+  height: 56px;
+  object-fit: contain;
+}
+/* Selected — yes */
+.btn-check:checked + .inv-rsvp-card {
+  border-color: var(--gold);
+  background: var(--gold-pale);
+  color: var(--charcoal);
+  box-shadow: 0 6px 24px rgba(201,168,76,0.2);
+  transform: translateY(-2px);
+}
+/* Override for no-card specifically */
+#rsvp_no:checked + .inv-rsvp-card {
+  border-color: #e0a0a8;
+  background: #fff5f5;
+  color: #721c24;
+  box-shadow: 0 6px 20px rgba(220,53,69,0.1);
+}
 .inv-rsvp-btn {
   border: 2px solid #ddd;
   background: white;

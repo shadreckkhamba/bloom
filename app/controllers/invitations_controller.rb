@@ -62,9 +62,9 @@ class InvitationsController < ApplicationController
   private
 
   def find_guest
-    @guest = Guest.find_by(token: params[:token].to_s.upcase)
+    @guest = Guest.find_by(token: params[:token].to_s.strip.upcase)
     unless @guest
-      render file: Rails.root.join("public/404.html"), status: :not_found, layout: false
+      render plain: "This invitation link is not valid or has been removed.", status: :not_found
     end
   end
 
