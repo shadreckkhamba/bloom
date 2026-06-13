@@ -11,6 +11,7 @@ class DashboardController < ApplicationController
     @declined  = @guests.joins(:rsvp).where(rsvps: { status: :declined }).count
     @pending   = @total - @accepted - @declined
     @flagged   = @wedding.guests.where(flagged_shared: true)
+    @total_seats = @wedding.guests.joins(:rsvp).where(rsvps: { status: :accepted }).sum("rsvps.seats_reserved")
   end
 
   def messages

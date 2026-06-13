@@ -2,15 +2,18 @@
 
   <!-- Header -->
   <div class="d-flex justify-content-between align-items-start mb-5 flex-wrap gap-3">
-    <div>
-      <h1 style="font-size:2.2rem;" class="mb-1"><%= @wedding.couple_names %> 💍</h1>
-      <p class="text-muted mb-0">
-        <%= @wedding.venue %> &nbsp;·&nbsp;
-        <%= @wedding.wedding_date.strftime("%B %d, %Y") %>
-        <% if @wedding.days_until > 0 %>
-          &nbsp;·&nbsp; <span class="text-gold"><%= @wedding.days_until %> days to go</span>
-        <% end %>
-      </p>
+    <div class="d-flex align-items-center gap-3">
+      <%= image_tag "wedding.png", alt: "Wedding", style: "width:64px;height:64px;object-fit:contain;flex-shrink:0;" %>
+      <div>
+        <h1 style="font-size:2.2rem;" class="mb-1"><%= @wedding.couple_names %></h1>
+        <p class="text-muted mb-0">
+          <%= @wedding.venue %> &nbsp;·&nbsp;
+          <%= @wedding.wedding_date.strftime("%B %d, %Y") %>
+          <% if @wedding.days_until > 0 %>
+            &nbsp;·&nbsp; <span class="text-gold"><%= @wedding.days_until %> days to go</span>
+          <% end %>
+        </p>
+      </div>
     </div>
     <div class="d-flex gap-2">
       <%= link_to "Edit details", edit_wedding_path, class: "btn btn-bloom-outline btn-sm" %>
@@ -90,11 +93,11 @@
         </tbody>
       </table>
     </div>
-    <%= link_to "View all guests →", guests_path, class: "text-gold small" %>
-  <% else %>
-    <div class="text-center py-5 text-muted">
-      <p class="mb-3" style="font-size:1.1rem;">No guests yet.</p>
-      <%= link_to "Import guest list", guests_path, class: "btn btn-bloom" %>
+    <div class="d-flex justify-content-between align-items-center mt-3">
+      <%= link_to "View all guests →", guests_path, class: "text-gold small" %>
+      <span class="small text-muted">
+        Total seats needed: &nbsp;<strong class="text-gold"><%= @total_seats %></strong>
+      </span>
     </div>
   <% end %>
 

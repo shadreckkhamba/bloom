@@ -33,7 +33,7 @@
 
           <p class="inv-brand">Bloom by Florence 🌸</p>
 
-          <div class="inv-divider">💍</div>
+          <div class="inv-divider"><%= image_tag "wedding.png", alt: "💍", style: "width:36px;height:36px;object-fit:contain;" %></div>
 
           <h1 class="inv-names">
             <%= @wedding.bride_name %>
@@ -55,7 +55,8 @@
               <%= image_tag "location-icon.png", alt: "Venue", style: "width:16px;height:16px;object-fit:contain;vertical-align:middle;margin-right:6px;" %>
               <%= @wedding.venue %>
               <button class="inv-map-btn" onclick="document.getElementById('map-modal').classList.add('open')" aria-label="View venue map">
-                🗺️ View Map
+                <%= image_tag "map.png", alt: "Map", style: "width:14px;height:14px;object-fit:contain;" %>
+                View Map
               </button>
             </p>
 
@@ -115,10 +116,10 @@
 
               <div class="d-flex gap-2 justify-content-center mt-3 flex-wrap">
                 <button onclick="window.print()" class="btn btn-bloom-sm">
-                  🖨️ Print / Save PDF
+                  <%= image_tag "save.png", alt: "Print", style: "width:16px;height:16px;object-fit:contain;vertical-align:middle;margin-right:5px;" %>Print / Save PDF
                 </button>
                 <button onclick="downloadQR()" class="btn btn-bloom-outline-sm">
-                  ⬇️ Download PNG
+                  <%= image_tag "download.png", alt: "Download", style: "width:16px;height:16px;object-fit:contain;vertical-align:middle;margin-right:5px;" %>Download PNG
                 </button>
               </div>
 
@@ -261,11 +262,11 @@
       <div class="d-flex gap-2">
         <a href="<%= asset_path('venue.jpeg') %>" download="venue-map.jpeg"
            class="btn-map-action" title="Save map">
-          ⬇️ Save
+          <%= image_tag "download.png", alt: "Save", style: "width:13px;height:13px;object-fit:contain;vertical-align:middle;margin-right:4px;" %>Save
         </a>
         <button class="btn-map-action" title="Full screen"
                 onclick="document.getElementById('map-fullscreen').classList.add('open')">
-          ⛶ Expand
+          Expand
         </button>
         <button class="btn-map-action btn-map-close"
                 onclick="document.getElementById('map-modal').classList.remove('open')"
@@ -281,7 +282,7 @@
 <!-- Map fullscreen overlay -->
 <div class="map-fullscreen" id="map-fullscreen" role="dialog" aria-modal="true" aria-label="Venue map fullscreen">
   <button class="map-fullscreen-close" onclick="document.getElementById('map-fullscreen').classList.remove('open')" aria-label="Close fullscreen">✕</button>
-  <a href="<%= asset_path('venue.jpeg') %>" download="venue-map.jpeg" class="map-fullscreen-save" title="Save map">⬇️ Save</a>
+  <a href="<%= asset_path('venue.jpeg') %>" download="venue-map.jpeg" class="map-fullscreen-save" title="Save map"><%= image_tag "download.png", alt: "Save", style: "width:13px;height:13px;object-fit:contain;vertical-align:middle;margin-right:4px;" %>Save</a>
   <div class="map-fullscreen-img-wrap">
     <%= image_tag "venue.jpeg", alt: "Venue map fullscreen", class: "map-fullscreen-img" %>
   </div>
