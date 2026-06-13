@@ -9,7 +9,6 @@ module WhatsappHelper
       #{wedding.bride_name} and #{wedding.groom_name} would be honored by your presence at their wedding.
 
       📅 #{wedding.wedding_date.strftime("%A, %d %B %Y")}
-      📍 #{wedding.venue}
 
       Please confirm your attendance here:
       #{invitation_url(guest.token, host: request.host_with_port, protocol: request.protocol)}
