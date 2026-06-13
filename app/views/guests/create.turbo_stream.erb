@@ -1,0 +1,15 @@
+<%= turbo_stream.append "guests-tbody" do %>
+  <%= render "guest_row", guest: @guest %>
+<% end %>
+
+<%= turbo_stream.replace "guest-form" do %>
+  <%= render "form", guest: Guest.new, wedding: @wedding %>
+<% end %>
+
+<%= turbo_stream.replace "guest-form-errors" do %>
+  <div id="guest-form-errors"></div>
+<% end %>
+
+<%= turbo_stream.replace "guests-not-invited-count" do %>
+  <span id="guests-not-invited-count"><%= @wedding.guests.where(invitation_sent_at: nil).count %></span>
+<% end %>

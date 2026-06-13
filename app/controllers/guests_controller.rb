@@ -7,6 +7,25 @@ class GuestsController < ApplicationController
   def index
     @wedding = current_user.wedding
     @guests  = @wedding.guests.includes(:rsvp).order(:name)
+    @guest   = Guest.new
+  end
+
+  def create
+    @wedding = current_user.wedding
+    @guest   = @wedding.guests.build(guest_params)
+
+    respond_to do |format|
+      if @guest.save
+        format.turbo_stream
+        format.html { redirect_to guests_path, notice: "#{@guest.name} added." }
+      else
+        format.turbo_stream {
+          render turbo_stream: turbo_stream.replace("guest-form-errors",
+            partial: "guests/form_errors", locals: { guest: @guest })
+        }
+        format.html { redirect_to guests_path, alert: @guest.errors.full_messages.to_sentence }
+      end
+    end
   end
 
   def import
@@ -60,6 +79,10 @@ class GuestsController < ApplicationController
   end
 
   private
+
+  def guest_params
+    params.require(:guest).permit(:name, :phone)
+  end
 
   def whatsapp_message(guest, wedding)
     <<~MSG.strip

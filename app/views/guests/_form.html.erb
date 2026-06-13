@@ -1,0 +1,17 @@
+<%= form_with model: guest, url: guests_path, id: "guest-form" do |f| %>
+  <div class="row g-2 align-items-end">
+    <div class="col-sm-5">
+      <%= f.label :name, "Full Name", class: "form-label small text-muted mb-1" %>
+      <%= f.text_field :name, class: "form-control form-control-sm",
+            placeholder: "e.g. Mary Phiri", required: true, autocomplete: "off" %>
+    </div>
+    <div class="col-sm-4">
+      <%= f.label :phone, "Phone", class: "form-label small text-muted mb-1" %>
+      <%= f.telephone_field :phone, class: "form-control form-control-sm",
+            placeholder: "e.g. 0999123456", required: true, autocomplete: "off" %>
+    </div>
+    <div class="col-sm-3">
+      <%= f.submit "Add Guest", class: "btn btn-bloom btn-sm w-100" %>
+    </div>
+  </div>
+<% end %>

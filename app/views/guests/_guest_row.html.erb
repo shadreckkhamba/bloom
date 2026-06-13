@@ -1,0 +1,38 @@
+<tr id="guest-<%= guest.id %>" class="guest-row-new">
+  <td>
+    <span class="fw-normal"><%= guest.name %></span><br>
+    <code class="text-gold" style="font-size:0.7rem;"><%= guest.token %></code>
+  </td>
+  <td class="text-muted small"><%= guest.phone %></td>
+  <td>
+    <% status = guest.rsvp&.status || "pending" %>
+    <span class="status-badge badge-<%= status %>"><%= status.capitalize %></span>
+  </td>
+  <td>
+    <%= link_to whatsapp_invite_url(guest, @wedding || guest.wedding),
+          target: "_blank", rel: "noopener",
+          class: "btn btn-sm btn-whatsapp-icon #{ guest.invitation_sent_at ? 'btn-whatsapp-icon--sent' : '' }",
+          title: guest.invitation_sent_at ? "Sent #{time_ago_in_words(guest.invitation_sent_at)} ago — click to resend" : "Send invitation via WhatsApp" do %>
+      <span class="d-inline-flex align-items-center gap-1">
+        <%= image_tag "whatsapp-logo.png", alt: "WhatsApp", style: "width:15px;height:15px;flex-shrink:0;" %>
+        <span><%= guest.invitation_sent_at ? "Resend" : "Send" %></span>
+      </span>
+    <% end %>
+  </td>
+  <td class="text-end">
+    <div class="d-flex align-items-center justify-content-end gap-2">
+      <% unless guest.invitation_sent_at %>
+        <%= button_to mark_sent_guest_path(guest), method: :patch,
+              class: "btn btn-sm btn-outline-secondary",
+              title: "Mark as sent without opening WhatsApp" do %>
+          ✓
+        <% end %>
+      <% end %>
+      <%= button_to guest_path(guest), method: :delete,
+            class: "btn btn-sm btn-link text-muted p-0",
+            data: { turbo_confirm: "Remove #{guest.name} from the guest list?" } do %>
+        &times;
+      <% end %>
+    </div>
+  </td>
+</tr>

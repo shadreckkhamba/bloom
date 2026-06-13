@@ -1,100 +1,85 @@
-<div class="container py-5">
+<div class="container py-4">
 
+  <!-- Header -->
   <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
     <div>
-      <h1 style="font-size:2rem;" class="mb-0">Guest List</h1>
-      <p class="text-muted small mb-0"><%= @wedding.couple_names %></p>
+      <h1 class="mb-0" style="font-size:1.9rem;">Guest List</h1>
+      <p class="text-muted small mb-0"><%= @wedding.couple_names %> &nbsp;·&nbsp; <%= @wedding.wedding_date.strftime("%d %B %Y") %></p>
     </div>
     <%= link_to "← Dashboard", dashboard_path, class: "btn btn-bloom-outline btn-sm" %>
   </div>
 
-  <!-- Import row -->
+  <!-- Stats strip -->
   <div class="row g-3 mb-4">
-    <div class="col-md-6">
-      <div class="auth-card">
-        <h6 class="text-muted mb-3" style="letter-spacing:0.08em;text-transform:uppercase;font-size:0.75rem;">Import CSV</h6>
-        <%= form_with url: import_guests_path, multipart: true do |f| %>
-          <div class="input-group">
-            <%= f.file_field :file, accept: ".csv", class: "form-control form-control-sm" %>
-            <%= f.submit "Import", class: "btn btn-bloom btn-sm" %>
-          </div>
-          <p class="text-muted mt-1" style="font-size:0.72rem;">
-            CSV columns: <code>Name</code>, <code>Phone</code> &nbsp;·&nbsp;
-            Phone format: <code>0999123456</code>
-          </p>
-        <% end %>
+    <div class="col-6 col-md-3">
+      <div class="guest-stat-card">
+        <div class="guest-stat-num"><%= @guests.count %></div>
+        <div class="guest-stat-label">Total</div>
       </div>
     </div>
-    <div class="col-md-6">
-      <div class="auth-card h-100 d-flex flex-column justify-content-center">
-        <p class="small text-muted mb-1">
-          <strong><%= @guests.count { |g| g.invitation_sent_at.nil? }</strong> guests haven't been sent an invitation yet.
-        </p>
-        <p class="text-muted mb-0" style="font-size:0.78rem;">
-          Click 📲 next to each guest to open WhatsApp with their personal message pre-filled.
-          Mark them sent once done.
-        </p>
+    <div class="col-6 col-md-3">
+      <div class="guest-stat-card guest-stat-card--green">
+        <div class="guest-stat-num"><%= @guests.count { |g| g.rsvp&.accepted? } %></div>
+        <div class="guest-stat-label">Confirmed</div>
+      </div>
+    </div>
+    <div class="col-6 col-md-3">
+      <div class="guest-stat-card guest-stat-card--yellow">
+        <div class="guest-stat-num">
+          <span id="guests-not-invited-count"><%= @guests.count { |g| g.invitation_sent_at.nil? } %></span>
+        </div>
+        <div class="guest-stat-label">Not Invited</div>
+      </div>
+    </div>
+    <div class="col-6 col-md-3">
+      <div class="guest-stat-card guest-stat-card--red">
+        <div class="guest-stat-num"><%= @guests.count { |g| g.rsvp&.declined? } %></div>
+        <div class="guest-stat-label">Declined</div>
       </div>
     </div>
   </div>
 
+  <!-- Add guest form -->
+  <div class="auth-card mb-4">
+    <h6 class="text-muted mb-3" style="letter-spacing:0.08em;text-transform:uppercase;font-size:0.75rem;">Add a Guest</h6>
+    <div id="guest-form-errors"></div>
+    <%= render "form", guest: @guest, wedding: @wedding %>
+  </div>
+
+  <!-- Hint -->
+  <p class="small text-muted mb-3">
+    <%= image_tag "whatsapp-logo.png", alt: "WhatsApp", style: "width:15px;height:15px;vertical-align:middle;margin-right:4px;" %>
+    <strong id="guests-not-invited-count-hint"><%= @guests.count { |g| g.invitation_sent_at.nil? } %></strong>
+    guests haven't been sent an invitation yet. Click <strong>Send</strong> to open WhatsApp with their personal link pre-filled.
+  </p>
+
   <!-- Guest table -->
   <% if @guests.any? %>
-    <div class="table-responsive">
-      <table class="table guest-table align-middle">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Phone</th>
-            <th>Status</th>
-            <th>Invite</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @guests.each do |guest| %>
+    <div class="auth-card p-0 overflow-hidden">
+      <div class="table-responsive">
+        <table class="table guest-table align-middle mb-0">
+          <thead>
             <tr>
-              <td>
-                <%= guest.name %>
-                <br>
-                <code class="text-gold" style="font-size:0.72rem;"><%= guest.token %></code>
-              </td>
-              <td class="text-muted small"><%= guest.phone %></td>
-              <td>
-                <% status = guest.rsvp&.status || "pending" %>
-                <span class="status-badge badge-<%= status %>"><%= status.capitalize %></span>
-              </td>
-              <td>
-                <!-- WhatsApp Click-to-Chat -->
-                <%= link_to whatsapp_invite_url(guest, @wedding),
-                      target: "_blank", rel: "noopener",
-                      class: "btn btn-sm #{ guest.invitation_sent_at ? 'btn-outline-secondary' : 'btn-whatsapp' }",
-                      title: guest.invitation_sent_at ? "Sent #{time_ago_in_words(guest.invitation_sent_at)} ago" : "Send invitation" do %>
-                  📲 <%= guest.invitation_sent_at ? "Resend" : "Send" %>
-                <% end %>
-
-                <% unless guest.invitation_sent_at %>
-                  &nbsp;
-                  <%= button_to "✓ Mark sent", mark_sent_guest_path(guest),
-                        method: :patch,
-                        class: "btn btn-sm btn-outline-secondary",
-                        title: "Mark as sent without opening WhatsApp" %>
-                <% end %>
-              </td>
-              <td class="text-end">
-                <%= button_to "×", guest_path(guest), method: :delete,
-                      class: "btn btn-sm btn-link text-muted p-0",
-                      data: { turbo_confirm: "Remove #{guest.name}?" } %>
-              </td>
+              <th>Guest</th>
+              <th>Phone</th>
+              <th>RSVP</th>
+              <th>Send Invite</th>
+              <th></th>
             </tr>
-          <% end %>
-        </tbody>
-      </table>
+          </thead>
+          <tbody id="guests-tbody">
+            <% @guests.each do |guest| %>
+              <%= render "guest_row", guest: guest %>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
     </div>
   <% else %>
-    <div class="text-center py-5 text-muted">
-      <p class="mb-3">No guests yet.</p>
-      <p class="small">Upload a CSV above to get started.</p>
+    <div class="text-center py-5 text-muted" id="guests-empty">
+      <p class="mb-2" style="font-size:2rem;">🌸</p>
+      <p class="mb-1">No guests yet.</p>
+      <p class="small">Add your first guest above.</p>
     </div>
   <% end %>
 

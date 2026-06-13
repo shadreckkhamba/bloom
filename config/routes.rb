@@ -15,7 +15,7 @@ Rails.application.routes.draw do
   resource :wedding, only: [:new, :create, :edit, :update, :show]
 
   # Guest management (nested under wedding)
-  resources :guests, only: [:index, :destroy] do
+  resources :guests, only: [:index, :create, :destroy] do
     collection do
       post :import
       post :send_invitations
