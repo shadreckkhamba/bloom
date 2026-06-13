@@ -36,9 +36,9 @@
           <div class="inv-divider"><%= image_tag "wedding.png", alt: "💍", style: "width:36px;height:36px;object-fit:contain;" %></div>
 
           <h1 class="inv-names">
-            <%= @wedding.bride_name %>
-            <span class="inv-amp">&amp;</span>
             <%= @wedding.groom_name %>
+            <span class="inv-amp">&amp;</span>
+            <%= @wedding.bride_name %>
           </h1>
 
           <div class="inv-divider">🌸</div>
@@ -51,9 +51,15 @@
 
           <% if @verified || @rsvp %>
             <%# ── Venue, map, photo, message — only after verification ── %>
+            <% if @wedding.church_venue.present? %>
+              <p class="inv-detail inv-detail--muted">
+                <%= image_tag "location-icon.png", alt: "Church", style: "width:16px;height:16px;object-fit:contain;vertical-align:middle;margin-right:6px;" %>
+                ⛪ <%= @wedding.church_venue %>
+              </p>
+            <% end %>
             <p class="inv-detail inv-detail--muted">
               <%= image_tag "location-icon.png", alt: "Venue", style: "width:16px;height:16px;object-fit:contain;vertical-align:middle;margin-right:6px;" %>
-              <%= @wedding.venue %>
+              🥂 <%= @wedding.venue %>
               <button class="inv-map-btn" onclick="document.getElementById('map-modal').classList.add('open')" aria-label="View venue map">
                 <%= image_tag "map.png", alt: "Map", style: "width:14px;height:14px;object-fit:contain;" %>
                 View Map
@@ -105,7 +111,7 @@
               <div class="inv-qr-wrap" id="qr-svg">
                 <%= raw RQRCode::QRCode.new("BLOOM:#{@guest.token}:#{@guest.name.upcase}").as_svg(
                       offset: 0,
-                      color: "c9a84c",
+                      color: "3A9FC0",
                       shape_rendering: "crispEdges",
                       module_size: 6,
                       standalone: true

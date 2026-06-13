@@ -32,8 +32,13 @@
         </div>
 
         <div class="mb-3">
-          <%= f.label :venue, "Venue", class: "form-label small text-muted" %>
-          <%= f.text_field :venue, class: "form-control", required: true %>
+          <%= f.label :church_venue, "Church venue (optional)", class: "form-label small text-muted" %>
+          <%= f.text_field :church_venue, class: "form-control", placeholder: "e.g. St. Peter's Cathedral" %>
+        </div>
+
+        <div class="mb-3">
+          <%= f.label :venue, "Reception venue", class: "form-label small text-muted" %>
+          <%= f.text_field :venue, class: "form-control", required: true, placeholder: "e.g. Orient Gardens" %>
         </div>
 
         <div class="mb-3">
