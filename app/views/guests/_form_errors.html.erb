@@ -1,0 +1,7 @@
+<div id="guest-form-errors">
+  <% if guest.errors.any? %>
+    <div class="alert alert-danger small py-2 mb-2">
+      <%= guest.errors.full_messages.first %>
+    </div>
+  <% end %>
+</div>
