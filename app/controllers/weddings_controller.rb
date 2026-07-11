@@ -35,6 +35,7 @@ class WeddingsController < ApplicationController
 
   def wedding_params
     params.require(:wedding).permit(:bride_name, :groom_name, :wedding_date,
-                                    :venue, :church_venue, :theme, :welcome_message, :couple_photo)
+                                    :venue, :church_venue, :church_time, :dinner_time,
+                                    :theme, :welcome_message, :couple_photo)
   end
 end

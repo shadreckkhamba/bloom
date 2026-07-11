@@ -55,16 +55,38 @@
               <p class="inv-detail inv-detail--muted">
                 <%= image_tag "location-icon.png", alt: "Church", style: "width:16px;height:16px;object-fit:contain;vertical-align:middle;margin-right:6px;" %>
                 ⛪ <%= @wedding.church_venue %>
+                <% if @wedding.church_time.present? %>
+                  <span class="inv-time-badge">🕖 <%= @wedding.church_time %></span>
+                <% end %>
               </p>
             <% end %>
             <p class="inv-detail inv-detail--muted">
               <%= image_tag "location-icon.png", alt: "Venue", style: "width:16px;height:16px;object-fit:contain;vertical-align:middle;margin-right:6px;" %>
               🥂 <%= @wedding.venue %>
+              <% if @wedding.dinner_time.present? %>
+                <span class="inv-time-badge">🕓 <%= @wedding.dinner_time %></span>
+              <% end %>
               <button class="inv-map-btn" onclick="document.getElementById('map-modal').classList.add('open')" aria-label="View venue map">
                 <%= image_tag "map.png", alt: "Map", style: "width:14px;height:14px;object-fit:contain;" %>
                 View Map
               </button>
             </p>
+
+            <!-- Strictly by invite notice -->
+            <div class="inv-strict-note">
+              🎟️ <strong>Strictly by invitation only</strong>
+            </div>
+
+            <!-- Theme colours -->
+            <% if @wedding.theme.present? %>
+              <div class="inv-theme-row">
+                <span class="inv-theme-label">Colours</span>
+                <% @wedding.theme_colors.each do |color| %>
+                  <span class="inv-color-swatch" style="<%= color_swatch_style(color) %>" title="<%= color %>"></span>
+                  <span class="inv-color-name"><%= color %></span>
+                <% end %>
+              </div>
+            <% end %>
 
             <% if @wedding.couple_photo.present? %>
               <div class="inv-photo-wrap">

@@ -37,8 +37,18 @@
         </div>
 
         <div class="mb-3">
-          <%= f.label :venue, "Reception venue", class: "form-label small text-muted" %>
+          <%= f.label :church_time, "Church service time (optional)", class: "form-label small text-muted" %>
+          <%= f.text_field :church_time, class: "form-control", placeholder: "e.g. 7:30am – 10:00am" %>
+        </div>
+
+        <div class="mb-3">
+          <%= f.label :venue, "Reception / Dinner venue", class: "form-label small text-muted" %>
           <%= f.text_field :venue, class: "form-control", required: true, placeholder: "e.g. Orient Gardens" %>
+        </div>
+
+        <div class="mb-3">
+          <%= f.label :dinner_time, "Dinner time", class: "form-label small text-muted" %>
+          <%= f.text_field :dinner_time, class: "form-control", placeholder: "e.g. 4:00pm – 7:00pm" %>
         </div>
 
         <div class="mb-3">

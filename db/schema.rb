@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_06_13_213651) do
+ActiveRecord::Schema[8.1].define(version: 2026_07_11_000001) do
   create_table "guests", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.boolean "flagged_shared"
@@ -50,9 +50,12 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_13_213651) do
 
   create_table "weddings", force: :cascade do |t|
     t.string "bride_name"
+    t.string "bride_name"
     t.string "church_venue"
+    t.string "church_time"
     t.string "couple_photo"
     t.datetime "created_at", null: false
+    t.string "dinner_time"
     t.string "groom_name"
     t.string "theme"
     t.datetime "updated_at", null: false

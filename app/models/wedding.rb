@@ -8,6 +8,11 @@ class Wedding < ApplicationRecord
     "#{bride_name} & #{groom_name}"
   end
 
+  def theme_colors
+    return [] unless theme.present?
+    theme.split(",").map(&:strip)
+  end
+
   def days_until
     (wedding_date - Date.today).to_i
   end
