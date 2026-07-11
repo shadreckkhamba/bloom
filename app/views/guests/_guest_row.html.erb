@@ -1,8 +1,21 @@
-<tr id="guest-<%= guest.id %>" class="guest-row-new">
+<tr id="guest-<%= guest.id %>" class="guest-row-new" data-added-by="<%= guest.added_by_id %>">
   <td>
     <span class="fw-normal"><%= guest.name %></span><br>
     <code class="text-gold" style="font-size:0.7rem;"><%= guest.token %></code>
   </td>
+
+  <% w = wedding || guest.wedding %>
+  <% if w.has_partner? %>
+    <td>
+      <% adder = guest.added_by %>
+      <% if adder %>
+        <span class="added-by-badge <%= adder.id == w.user_id ? 'added-by-badge--owner' : 'added-by-badge--partner' %>">
+          <%= defined?(current_user) && adder.id == current_user&.id ? "You" : adder.name.split.first %>
+        </span>
+      <% end %>
+    </td>
+  <% end %>
+
   <td class="text-muted small"><%= guest.phone %></td>
   <td>
     <% status = guest.rsvp&.status || "pending" %>
@@ -10,7 +23,7 @@
   </td>
   <td>
     <% unless guest.rsvp %>
-      <%= link_to whatsapp_invite_url(guest, @wedding || guest.wedding),
+      <%= link_to whatsapp_invite_url(guest, w),
             target: "_blank", rel: "noopener",
             class: "btn btn-sm btn-whatsapp-icon #{ guest.invitation_sent_at ? 'btn-whatsapp-icon--sent' : '' }",
             title: guest.invitation_sent_at ? "Sent #{time_ago_in_words(guest.invitation_sent_at)} ago — click to resend" : "Send invitation via WhatsApp" do %>
@@ -32,10 +45,14 @@
           ✓
         <% end %>
       <% end %>
-      <%= button_to guest_path(guest), method: :delete,
-            class: "btn btn-sm btn-link text-muted p-0",
-            data: { turbo_confirm: "Remove #{guest.name} from the guest list?" } do %>
-        &times;
+      <%# Only show delete if owner or added this guest themselves %>
+      <% can_delete = defined?(current_user) && (w.owner?(current_user) || guest.added_by_id == current_user&.id) %>
+      <% if can_delete %>
+        <%= button_to guest_path(guest), method: :delete,
+              class: "btn btn-sm btn-link text-muted p-0",
+              data: { turbo_confirm: "Remove #{guest.name} from the guest list?" } do %>
+          &times;
+        <% end %>
       <% end %>
     </div>
   </td>

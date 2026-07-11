@@ -5,14 +5,15 @@ class GuestsController < ApplicationController
   before_action :require_wedding
 
   def index
-    @wedding = current_user.wedding
-    @guests  = @wedding.guests.includes(:rsvp).order(:name)
+    @wedding = current_wedding
+    @guests  = @wedding.guests.includes(:rsvp, :added_by).order(:name)
     @guest   = Guest.new
   end
 
   def create
-    @wedding = current_user.wedding
+    @wedding = current_wedding
     @guest   = @wedding.guests.build(guest_params)
+    @guest.added_by_id = current_user.id
 
     respond_to do |format|
       if @guest.save
@@ -29,7 +30,7 @@ class GuestsController < ApplicationController
   end
 
   def import
-    @wedding = current_user.wedding
+    @wedding = current_wedding
     file = params[:file]
 
     unless file&.content_type&.include?("csv") || file&.original_filename&.end_with?(".csv")
@@ -43,7 +44,7 @@ class GuestsController < ApplicationController
       next if name.blank? || phone.blank?
       next if @wedding.guests.exists?(phone: phone)
 
-      @wedding.guests.create!(name: name, phone: phone)
+      @wedding.guests.create!(name: name, phone: phone, added_by_id: current_user.id)
       count += 1
     end
 
@@ -53,11 +54,10 @@ class GuestsController < ApplicationController
   end
 
   def send_invitations
-    @wedding = current_user.wedding
+    @wedding = current_wedding
     guests   = @wedding.guests.where(invitation_sent_at: nil)
 
     guests.each do |guest|
-      # WhatsApp integration placeholder — replace with Twilio / Meta API
       message = whatsapp_message(guest, @wedding)
       Rails.logger.info "[WhatsApp] To: #{guest.phone} | #{message}"
       guest.update!(invitation_sent_at: Time.current)
@@ -67,13 +67,19 @@ class GuestsController < ApplicationController
   end
 
   def destroy
-    guest = current_user.wedding.guests.find(params[:id])
-    guest.destroy
-    redirect_to guests_path, notice: "Guest removed."
+    # Partners can only delete guests they added themselves
+    guest = current_wedding.guests.find(params[:id])
+
+    if current_wedding.owner?(current_user) || guest.added_by_id == current_user.id
+      guest.destroy
+      redirect_to guests_path, notice: "Guest removed."
+    else
+      redirect_to guests_path, alert: "You can only remove guests you added."
+    end
   end
 
   def mark_sent
-    guest = current_user.wedding.guests.find(params[:id])
+    guest = current_wedding.guests.find(params[:id])
     guest.update!(invitation_sent_at: Time.current)
     redirect_to guests_path, notice: "#{guest.name} marked as sent."
   end

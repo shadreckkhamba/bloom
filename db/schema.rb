@@ -10,8 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_07_11_000001) do
+ActiveRecord::Schema[8.1].define(version: 2026_07_11_000003) do
   create_table "guests", force: :cascade do |t|
+    t.integer "added_by_id"
     t.datetime "created_at", null: false
     t.boolean "flagged_shared"
     t.datetime "invitation_sent_at"
@@ -23,6 +24,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_11_000001) do
     t.integer "verify_attempts"
     t.datetime "verify_locked_until"
     t.integer "wedding_id", null: false
+    t.index ["added_by_id"], name: "index_guests_on_added_by_id"
     t.index ["token"], name: "index_guests_on_token", unique: true
     t.index ["wedding_id"], name: "index_guests_on_wedding_id"
   end
@@ -50,23 +52,29 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_11_000001) do
 
   create_table "weddings", force: :cascade do |t|
     t.string "bride_name"
-    t.string "bride_name"
-    t.string "church_venue"
     t.string "church_time"
+    t.string "church_venue"
     t.string "couple_photo"
     t.datetime "created_at", null: false
     t.string "dinner_time"
     t.string "groom_name"
+    t.integer "partner_id"
+    t.string "partner_invite_token"
+    t.integer "seat_limit"
     t.string "theme"
     t.datetime "updated_at", null: false
     t.integer "user_id", null: false
     t.string "venue"
     t.date "wedding_date"
     t.text "welcome_message"
+    t.index ["partner_id"], name: "index_weddings_on_partner_id"
+    t.index ["partner_invite_token"], name: "index_weddings_on_partner_invite_token", unique: true
     t.index ["user_id"], name: "index_weddings_on_user_id"
   end
 
+  add_foreign_key "guests", "users", column: "added_by_id"
   add_foreign_key "guests", "weddings"
   add_foreign_key "rsvps", "guests"
   add_foreign_key "weddings", "users"
+  add_foreign_key "weddings", "users", column: "partner_id"
 end

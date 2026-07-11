@@ -15,8 +15,11 @@
         </p>
       </div>
     </div>
-    <div class="d-flex gap-2">
-      <%= link_to "Edit details", edit_wedding_path, class: "btn btn-bloom-outline btn-sm" %>
+    <div class="d-flex gap-2 flex-wrap">
+      <% if wedding_owner? %>
+        <%= link_to "Edit details", edit_wedding_path, class: "btn btn-bloom-outline btn-sm" %>
+        <%= link_to "Partner 🔗", partner_invite_path, class: "btn btn-bloom-outline btn-sm" %>
+      <% end %>
       <%= link_to "Messages 💌", messages_path, class: "btn btn-bloom-outline btn-sm" %>
       <%= link_to "Manage guests", guests_path, class: "btn btn-bloom btn-sm" %>
     </div>
@@ -35,8 +38,8 @@
     </div>
   <% end %>
 
-  <!-- Stats -->
-  <div class="row g-3 mb-5">
+  <!-- Combined stats -->
+  <div class="row g-3 mb-4">
     <div class="col-6 col-md-3">
       <div class="stat-card">
         <div class="stat-number"><%= @total %></div>
@@ -63,6 +66,102 @@
     </div>
   </div>
 
+  <!-- Seat limit bar -->
+  <% if @seat_limit.present? %>
+    <% pct = [(@accepted.to_f / @seat_limit * 100).round, 100].min %>
+    <% low = @seats_remaining && @seats_remaining < 10 %>
+    <div class="auth-card mb-4 py-3">
+      <div class="d-flex justify-content-between align-items-center mb-2">
+        <span class="small text-muted" style="letter-spacing:0.06em;text-transform:uppercase;font-size:0.72rem;">Seats</span>
+        <span class="small <%= low ? 'text-danger fw-normal' : 'text-muted' %>">
+          <%= @accepted %> confirmed of <%= @seat_limit %>
+          <% if @seats_remaining %>
+            &nbsp;·&nbsp; <strong><%= @seats_remaining %></strong> remaining
+            <%= "⚠️" if low %>
+          <% end %>
+        </span>
+      </div>
+      <div class="progress" style="height:6px;border-radius:50px;">
+        <div class="progress-bar <%= low ? 'bg-danger' : '' %>"
+             role="progressbar"
+             style="width:<%= pct %>%;background:<%= low ? '' : 'var(--primary)' %>;"
+             aria-valuenow="<%= pct %>" aria-valuemin="0" aria-valuemax="100"></div>
+      </div>
+    </div>
+  <% end %>
+
+  <!-- Per-partner split panel -->
+  <% if @partner_stats %>
+    <%
+      my_stats    = current_user.id == @wedding.user_id ? @owner_stats  : @partner_stats
+      their_stats = current_user.id == @wedding.user_id ? @partner_stats : @owner_stats
+      their_name  = their_stats[:user].name.split.first
+      my_role     = @wedding.role_for(current_user)
+      their_role  = @wedding.role_for(their_stats[:user])
+      my_icon     = my_role    == :bride ? "woman.png" : "man.png"
+      their_icon  = their_role == :bride ? "woman.png" : "man.png"
+    %>
+    <div class="row g-3 mb-5">
+      <div class="col-md-6">
+        <div class="partner-panel partner-panel--owner">
+          <div class="partner-panel-label">
+            <%= image_tag my_icon, alt: "", style: "width:22px;height:22px;object-fit:contain;vertical-align:middle;margin-right:6px;" %>
+            Your guests
+          </div>
+          <div class="partner-panel-stats">
+            <div class="partner-stat">
+              <span class="partner-stat-num"><%= my_stats[:total] %></span>
+              <span class="partner-stat-label">Invited</span>
+            </div>
+            <div class="partner-stat">
+              <span class="partner-stat-num partner-stat-num--green"><%= my_stats[:accepted] %></span>
+              <span class="partner-stat-label">Confirmed</span>
+            </div>
+            <div class="partner-stat">
+              <span class="partner-stat-num partner-stat-num--muted"><%= my_stats[:not_sent] %></span>
+              <span class="partner-stat-label">Not sent</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="partner-panel partner-panel--partner">
+          <div class="partner-panel-label">
+            <%= image_tag their_icon, alt: "", style: "width:22px;height:22px;object-fit:contain;vertical-align:middle;margin-right:6px;" %>
+            <%= their_name %>'s guests
+          </div>
+          <div class="partner-panel-stats">
+            <div class="partner-stat">
+              <span class="partner-stat-num"><%= their_stats[:total] %></span>
+              <span class="partner-stat-label">Invited</span>
+            </div>
+            <div class="partner-stat">
+              <span class="partner-stat-num partner-stat-num--green"><%= their_stats[:accepted] %></span>
+              <span class="partner-stat-label">Confirmed</span>
+            </div>
+            <div class="partner-stat">
+              <span class="partner-stat-num partner-stat-num--muted"><%= their_stats[:not_sent] %></span>
+              <span class="partner-stat-label">Not sent</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  <% elsif wedding_owner? && !@wedding.has_partner? %>
+    <!-- Connect partner nudge -->
+    <div class="partner-connect-card mb-5">
+      <span style="font-size:1.6rem;">🔗</span>
+      <div class="flex-grow-1">
+        <p class="mb-1 fw-normal">Invite your partner to manage guests separately</p>
+        <p class="text-muted small mb-0">They get their own login and you'll both see the combined totals here.</p>
+      </div>
+      <%= link_to "Generate invite link →", partner_invite_path, class: "btn btn-bloom btn-sm flex-shrink-0" %>
+    </div>
+  <% else %>
+    <div class="mb-5"></div>
+  <% end %>
+
   <!-- Recent guests -->
   <% if @guests.any? %>
     <h2 class="mb-3" style="font-size:1.4rem;">Recent RSVPs</h2>
@@ -71,6 +170,7 @@
         <thead>
           <tr>
             <th>Guest</th>
+            <th>Added by</th>
             <th>Status</th>
             <th>Seats</th>
             <th>Sent</th>
@@ -80,6 +180,14 @@
           <% @guests.order(created_at: :desc).limit(10).each do |guest| %>
             <tr>
               <td><%= guest.name %></td>
+              <td>
+                <% adder = guest.added_by %>
+                <% if adder %>
+                  <span class="added-by-badge <%= adder.id == @wedding.user_id ? 'added-by-badge--owner' : 'added-by-badge--partner' %>">
+                    <%= adder.id == current_user.id ? "You" : adder.name.split.first %>
+                  </span>
+                <% end %>
+              </td>
               <td>
                 <% status = guest.rsvp&.status || "pending" %>
                 <span class="status-badge badge-<%= status %>"><%= status.capitalize %></span>

@@ -8,14 +8,21 @@ Rails.application.routes.draw do
   get    "/signup", to: "registrations#new", as: :signup
   post   "/signup", to: "registrations#create"
 
-  # Florence's dashboard
-  get "/dashboard", to: "dashboard#index", as: :dashboard
+  # Dashboard
+  get "/dashboard", to: "dashboard#index",    as: :dashboard
   get "/messages",  to: "dashboard#messages", as: :messages
 
   # Wedding management
   resource :wedding, only: [:new, :create, :edit, :update, :show]
 
-  # Guest management (nested under wedding)
+  # Partner accounts
+  get    "/partner/invite",      to: "partners#invite",     as: :partner_invite
+  post   "/partner/regenerate",  to: "partners#regenerate", as: :partner_regenerate
+  get    "/partner/accept",      to: "partners#accept",     as: :partner_accept
+  post   "/partner/accept",      to: "partners#confirm"
+  delete "/partner",             to: "partners#destroy",    as: :partner_destroy
+
+  # Guest management
   resources :guests, only: [:index, :create, :destroy] do
     collection do
       post :import
@@ -26,7 +33,7 @@ Rails.application.routes.draw do
     end
   end
 
-  # Check-in (venue volunteers)
+  # Check-in
   get  "/checkin",      to: "checkin#index",  as: :checkin
   post "/checkin/scan", to: "checkin#scan",   as: :checkin_scan
 

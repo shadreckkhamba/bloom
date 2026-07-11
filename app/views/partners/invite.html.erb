@@ -1,0 +1,99 @@
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-md-7 col-lg-6">
+
+      <div class="d-flex align-items-center gap-3 mb-4">
+        <%= link_to "← Dashboard", dashboard_path, class: "btn btn-bloom-outline btn-sm" %>
+        <h1 class="mb-0" style="font-size:1.8rem;">Partner Access</h1>
+      </div>
+
+      <% if @wedding.has_partner? %>
+        <!-- Partner already linked -->
+        <div class="auth-card mb-4">
+          <div class="d-flex align-items-center gap-3 mb-3">
+            <span style="font-size:2rem;">✅</span>
+            <div>
+              <p class="mb-0 fw-normal"><strong><%= @wedding.partner.name %></strong> is linked to this wedding.</p>
+              <p class="text-muted small mb-0"><%= @wedding.partner.email %></p>
+            </div>
+          </div>
+          <%= button_to "Remove partner access", partner_destroy_path, method: :delete,
+                class: "btn btn-sm btn-outline-danger",
+                data: { turbo_confirm: "This will remove #{@wedding.partner.name}'s access. Are you sure?" } %>
+        </div>
+
+      <% else %>
+        <!-- Share invite link -->
+        <div class="auth-card mb-4">
+          <h5 class="mb-1" style="font-size:1.1rem;">Invite your partner</h5>
+          <p class="text-muted small mb-4">
+            Share this link with <%= @wedding.partner_id ? @wedding.partner.name : "your partner" %>.
+            They'll create their own account and be connected to this wedding automatically.
+            The link expires once used.
+          </p>
+
+          <% invite_url = partner_accept_url(token: @wedding.partner_invite_token, host: request.host_with_port, protocol: request.protocol) %>
+
+          <div class="input-group mb-3">
+            <input type="text" id="invite-link" class="form-control form-control-sm"
+                   value="<%= invite_url %>" readonly style="font-size:0.8rem;">
+            <button class="btn btn-bloom btn-sm" onclick="copyInviteLink()" type="button" id="copy-btn">
+              Copy link
+            </button>
+          </div>
+
+          <div class="d-flex gap-3 align-items-center flex-wrap">
+            <!-- WhatsApp shortcut -->
+            <% wa_text = "Hi! Use this link to join our wedding on Bloom so we can manage guests together: #{invite_url}" %>
+            <a href="https://wa.me/?text=<%= ERB::Util.url_encode(wa_text) %>"
+               target="_blank" rel="noopener"
+               class="btn btn-sm btn-whatsapp-icon">
+              <%= image_tag "whatsapp-logo.png", alt: "", style: "width:14px;height:14px;vertical-align:middle;margin-right:5px;" %>
+              Send via WhatsApp
+            </a>
+
+            <%= button_to "Regenerate link", partner_regenerate_path,
+                  method: :post, class: "btn btn-sm btn-outline-secondary",
+                  data: { turbo_confirm: "This will invalidate the current link. Continue?" } %>
+          </div>
+        </div>
+      <% end %>
+
+      <!-- Seat limit -->
+      <div class="auth-card">
+        <h5 class="mb-1" style="font-size:1.1rem;">Seat limit</h5>
+        <p class="text-muted small mb-3">Set the maximum number of confirmed attendees so the dashboard can track remaining seats.</p>
+        <%= form_with model: @wedding, url: wedding_path, method: :patch do |f| %>
+          <div class="row g-2 align-items-end">
+            <div class="col-sm-5">
+              <%= f.label :seat_limit, "Maximum seats", class: "form-label small text-muted" %>
+              <%= f.number_field :seat_limit, class: "form-control form-control-sm",
+                    min: 1, placeholder: "e.g. 200",
+                    value: @wedding.seat_limit %>
+            </div>
+            <div class="col-sm-3">
+              <%= f.submit "Save", class: "btn btn-bloom btn-sm" %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+function copyInviteLink() {
+  const input = document.getElementById('invite-link');
+  const btn   = document.getElementById('copy-btn');
+  navigator.clipboard.writeText(input.value).then(function() {
+    btn.textContent = 'Copied!';
+    setTimeout(function() { btn.textContent = 'Copy link'; }, 2000);
+  }).catch(function() {
+    input.select();
+    document.execCommand('copy');
+    btn.textContent = 'Copied!';
+    setTimeout(function() { btn.textContent = 'Copy link'; }, 2000);
+  });
+}
+</script>

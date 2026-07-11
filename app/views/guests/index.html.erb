@@ -13,7 +13,7 @@
   <div class="row g-3 mb-4">
     <div class="col-6 col-md-3">
       <div class="guest-stat-card">
-        <div class="guest-stat-num"><%= @guests.count %></div>
+        <div class="guest-stat-num" id="stat-total"><%= @guests.count %></div>
         <div class="guest-stat-label">Total</div>
       </div>
     </div>
@@ -46,41 +46,80 @@
     <%= render "form", guest: @guest, wedding: @wedding %>
   </div>
 
-  <!-- Hint -->
-  <p class="small text-muted mb-3">
-    <%= image_tag "whatsapp-logo.png", alt: "WhatsApp", style: "width:15px;height:15px;vertical-align:middle;margin-right:4px;" %>
-    <strong id="guests-not-invited-count-hint"><%= @guests.count { |g| g.invitation_sent_at.nil? } %></strong>
-    guests haven't been sent an invitation yet. Click <strong>Send</strong> to open WhatsApp with their personal link pre-filled.
-  </p>
+  <!-- Hint + filter tabs -->
+  <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+    <p class="small text-muted mb-0" id="guests-hint">
+      <%= image_tag "whatsapp-logo.png", alt: "WhatsApp", style: "width:15px;height:15px;vertical-align:middle;margin-right:4px;" %>
+      <strong id="guests-not-invited-count-hint"><%= @guests.count { |g| g.invitation_sent_at.nil? } %></strong>
+      guests haven't been sent an invitation yet.
+    </p>
+
+    <% if @wedding.has_partner? %>
+      <div class="btn-group btn-group-sm" role="group" aria-label="Filter guests" id="guest-filter-tabs">
+        <button type="button" class="btn btn-bloom-outline active" onclick="filterGuests('all', this)">All</button>
+        <button type="button" class="btn btn-bloom-outline" onclick="filterGuests('mine', this)">Mine</button>
+        <button type="button" class="btn btn-bloom-outline" onclick="filterGuests('partner', this)">Partner's</button>
+      </div>
+    <% end %>
+  </div>
 
   <!-- Guest table -->
-  <% if @guests.any? %>
-    <div class="auth-card p-0 overflow-hidden">
-      <div class="table-responsive">
-        <table class="table guest-table align-middle mb-0">
-          <thead>
-            <tr>
-              <th>Guest</th>
-              <th>Phone</th>
-              <th>RSVP</th>
-              <th>Send Invite</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody id="guests-tbody">
-            <% @guests.each do |guest| %>
-              <%= render "guest_row", guest: guest %>
-            <% end %>
-          </tbody>
-        </table>
+  <div id="guests-table-wrap">
+    <% if @guests.any? %>
+      <div class="auth-card p-0 overflow-hidden">
+        <div class="table-responsive">
+          <table class="table guest-table align-middle mb-0">
+            <thead>
+              <tr>
+                <th>Guest</th>
+                <% if @wedding.has_partner? %>
+                  <th>Added by</th>
+                <% end %>
+                <th>Phone</th>
+                <th>RSVP</th>
+                <th>Send Invite</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="guests-tbody">
+              <% @guests.each do |guest| %>
+                <%= render "guest_row", guest: guest, wedding: @wedding, current_user: current_user %>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
       </div>
-    </div>
-  <% else %>
-    <div class="text-center py-5 text-muted" id="guests-empty">
-      <p class="mb-2" style="font-size:2rem;">🌸</p>
-      <p class="mb-1">No guests yet.</p>
-      <p class="small">Add your first guest above.</p>
-    </div>
-  <% end %>
+    <% else %>
+      <div class="text-center py-5 text-muted" id="guests-empty">
+        <p class="mb-2" style="font-size:2rem;">🌸</p>
+        <p class="mb-1">No guests yet.</p>
+        <p class="small">Add your first guest above.</p>
+      </div>
+    <% end %>
+  </div>
 
 </div>
+
+<% if @wedding.has_partner? %>
+<script>
+// Store the current user id and owner id for client-side filtering
+const CURRENT_USER_ID = <%= current_user.id %>;
+
+function filterGuests(filter, btn) {
+  // Update active tab
+  document.querySelectorAll('#guest-filter-tabs .btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+
+  document.querySelectorAll('#guests-tbody tr').forEach(function(row) {
+    const addedBy = parseInt(row.dataset.addedBy, 10);
+    if (filter === 'all') {
+      row.style.display = '';
+    } else if (filter === 'mine') {
+      row.style.display = (addedBy === CURRENT_USER_ID) ? '' : 'none';
+    } else if (filter === 'partner') {
+      row.style.display = (addedBy !== CURRENT_USER_ID) ? '' : 'none';
+    }
+  });
+}
+</script>
+<% end %>

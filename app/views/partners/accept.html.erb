@@ -1,0 +1,44 @@
+<div class="auth-page">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-5 col-lg-4">
+
+        <div class="text-center mb-4">
+          <p style="font-size:3rem;" class="mb-1">💍</p>
+          <h1 class="text-gold" style="font-size:1.8rem;"><%= @wedding.couple_names %></h1>
+          <p class="text-muted small"><%= @wedding.wedding_date.strftime("%A, %d %B %Y") %></p>
+        </div>
+
+        <div class="auth-card text-center">
+          <h2 class="mb-2" style="font-size:1.4rem;">You've been invited to co-manage this wedding</h2>
+          <p class="text-muted small mb-4">
+            You'll have your own login and be able to invite your guests separately.
+            You and your partner will both see the combined guest list.
+          </p>
+
+          <% if logged_in? %>
+            <%= button_to "Join as partner →", partner_accept_path(token: @token),
+                  method: :post, class: "btn btn-bloom w-100" %>
+            <p class="text-muted small mt-3 mb-0">
+              Signed in as <strong><%= current_user.name %></strong>.
+              Not you? <%= link_to "Sign out first", logout_path, method: :delete, class: "text-gold" %>
+            </p>
+          <% else %>
+            <%# Use a form POST so the server redirects to signup — token stays in the URL %>
+            <%= form_with url: partner_accept_path, method: :post do |f| %>
+              <input type="hidden" name="token" value="<%= @token %>">
+              <input type="hidden" name="intent" value="signup">
+              <%= f.submit "Create account & join →", class: "btn btn-bloom w-100 mb-3" %>
+            <% end %>
+            <p class="text-muted small mb-0">
+              Already have an account?
+              <%= link_to "Sign in", login_path(partner_token: @token), class: "text-gold" %>
+              — your invite will be applied automatically.
+            </p>
+          <% end %>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

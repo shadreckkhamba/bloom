@@ -1,5 +1,39 @@
-<%= turbo_stream.append "guests-tbody" do %>
-  <%= render "guest_row", guest: @guest %>
+<%
+  total       = @wedding.guests.count
+  not_invited = @wedding.guests.where(invitation_sent_at: nil).count
+  first_guest = total == 1
+%>
+
+<% if first_guest %>
+  <%= turbo_stream.replace "guests-table-wrap" do %>
+    <div id="guests-table-wrap">
+      <div class="auth-card p-0 overflow-hidden">
+        <div class="table-responsive">
+          <table class="table guest-table align-middle mb-0">
+            <thead>
+              <tr>
+                <th>Guest</th>
+                <% if @wedding.has_partner? %>
+                  <th>Added by</th>
+                <% end %>
+                <th>Phone</th>
+                <th>RSVP</th>
+                <th>Send Invite</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="guests-tbody">
+              <%= render "guest_row", guest: @guest, wedding: @wedding, current_user: current_user %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  <% end %>
+<% else %>
+  <%= turbo_stream.append "guests-tbody" do %>
+    <%= render "guest_row", guest: @guest, wedding: @wedding, current_user: current_user %>
+  <% end %>
 <% end %>
 
 <%= turbo_stream.replace "guest-form" do %>
@@ -10,6 +44,14 @@
   <div id="guest-form-errors"></div>
 <% end %>
 
+<%= turbo_stream.replace "stat-total" do %>
+  <div class="guest-stat-num" id="stat-total"><%= total %></div>
+<% end %>
+
 <%= turbo_stream.replace "guests-not-invited-count" do %>
-  <span id="guests-not-invited-count"><%= @wedding.guests.where(invitation_sent_at: nil).count %></span>
+  <span id="guests-not-invited-count"><%= not_invited %></span>
+<% end %>
+
+<%= turbo_stream.replace "guests-not-invited-count-hint" do %>
+  <strong id="guests-not-invited-count-hint"><%= not_invited %></strong>
 <% end %>

@@ -1,5 +1,6 @@
 class Guest < ApplicationRecord
   belongs_to :wedding
+  belongs_to :added_by, class_name: "User", foreign_key: :added_by_id, optional: true
   has_one :rsvp, dependent: :destroy
 
   validates :name, :phone, presence: true
@@ -7,6 +8,8 @@ class Guest < ApplicationRecord
   validates :token, uniqueness: true
 
   before_create :generate_token
+
+  scope :by_member, ->(user) { where(added_by_id: user.id) }
 
   MAX_VERIFY_ATTEMPTS = 3
   LOCKOUT_DURATION    = 15.minutes

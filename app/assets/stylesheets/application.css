@@ -29,9 +29,10 @@ h1, h2, h3, .display-1, .display-2, .serif {
 
 /* ── Navbar ─────────────────────────────── */
 .bloom-nav {
-  background: var(--black);
-  border-bottom: 2px solid var(--primary);
-  padding: 1rem 0;
+  background: linear-gradient(135deg, #1a2a35 0%, #1e3545 100%);
+  border-bottom: 1px solid rgba(173, 216, 230, 0.25);
+  padding: 0.85rem 0;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.18);
 }
 
 .bloom-brand {
@@ -40,6 +41,25 @@ h1, h2, h3, .display-1, .display-2, .serif {
   color: var(--primary-light) !important;
   text-decoration: none;
   letter-spacing: 0.04em;
+}
+
+.bloom-nav .text-muted {
+  color: rgba(173, 216, 230, 0.65) !important;
+}
+
+.bloom-nav .btn-outline-secondary {
+  color: rgba(173, 216, 230, 0.8);
+  border-color: rgba(173, 216, 230, 0.35);
+  font-size: 0.78rem;
+  padding: 0.3rem 0.9rem;
+  border-radius: 50px;
+  transition: all 0.2s;
+}
+
+.bloom-nav .btn-outline-secondary:hover {
+  background: rgba(173, 216, 230, 0.12);
+  color: var(--primary-light);
+  border-color: var(--primary-light);
 }
 
 /* ── Auth pages ─────────────────────────── */
@@ -801,3 +821,88 @@ h1, h2, h3, .display-1, .display-2, .serif {
   padding: 0.35rem 0.85rem;
 }
 .btn-whatsapp-icon--sent:hover { background: #f0fff5; color: #1ebe5d; }
+
+/* ── Added-by badge ── */
+.added-by-badge {
+  display: inline-block;
+  font-size: 0.68rem;
+  padding: 0.18em 0.65em;
+  border-radius: 50px;
+  letter-spacing: 0.04em;
+  font-weight: 400;
+}
+.added-by-badge--owner {
+  background: var(--primary-pale);
+  color: var(--primary);
+  border: 1px solid var(--primary-light);
+}
+.added-by-badge--partner {
+  background: #f3eafa;
+  color: #7b2fbe;
+  border: 1px solid #d8b4fe;
+}
+
+/* ── Partner split panel ── */
+.partner-panel {
+  background: white;
+  border: 1px solid var(--primary-light);
+  border-radius: 16px;
+  padding: 1.2rem 1.4rem;
+  box-shadow: 0 2px 12px rgba(58,159,192,0.07);
+  height: 100%;
+}
+.partner-panel--partner {
+  border-color: #d8b4fe;
+}
+.partner-panel-label {
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 0.9rem;
+}
+.partner-panel-stats {
+  display: flex;
+  gap: 1.4rem;
+  flex-wrap: wrap;
+}
+.partner-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.partner-stat-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--primary);
+  line-height: 1;
+}
+.partner-stat-num--green { color: #276749; }
+.partner-stat-num--muted { color: var(--muted); }
+.partner-stat-label {
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+/* ── Connect partner nudge card ── */
+.partner-connect-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: var(--primary-ultra);
+  border: 1px dashed var(--primary-light);
+  border-radius: 16px;
+  padding: 1.2rem 1.4rem;
+  flex-wrap: wrap;
+}
+
+/* ── Guest filter tab active state ── */
+#guest-filter-tabs .btn.active {
+  background: var(--primary);
+  color: white;
+  border-color: var(--primary);
+}

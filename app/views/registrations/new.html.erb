@@ -4,15 +4,22 @@
       <div class="col-md-5 col-lg-4">
         <div class="text-center mb-4">
           <h1 class="text-gold" style="font-size:2rem;">Bloom by Florence</h1>
-          <p class="text-muted small">🌸 Create your account</p>
+          <% if @partner_token.present? %>
+            <p class="text-muted small">💍 Create your account to join the wedding</p>
+          <% else %>
+            <p class="text-muted small">🌸 Create your account</p>
+          <% end %>
         </div>
         <div class="auth-card">
           <h2 class="mb-4" style="font-size:1.5rem;">Get started</h2>
-          <%= form_with model: @user, url: signup_path, data: { turbo: false } do |f| %>
+          <%= form_with model: @user, url: signup_path(partner_token: @partner_token), data: { turbo: false } do |f| %>
             <% if @user.errors.any? %>
               <div class="alert alert-danger small">
                 <%= @user.errors.full_messages.first %>
               </div>
+            <% end %>
+            <% if @partner_token.present? %>
+              <input type="hidden" name="partner_token" value="<%= @partner_token %>">
             <% end %>
             <div class="mb-3">
               <%= f.label :name, "Your name", class: "form-label small text-muted" %>
@@ -34,7 +41,7 @@
           <% end %>
         </div>
         <p class="text-center mt-3 small text-muted">
-          Already have an account? <%= link_to "Sign in", login_path, class: "text-gold" %>
+          Already have an account? <%= link_to "Sign in", login_path(partner_token: @partner_token), class: "text-gold" %>
         </p>
       </div>
     </div>
