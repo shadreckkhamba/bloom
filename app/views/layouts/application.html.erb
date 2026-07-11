@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bloom by Florence 🌸</title>
+    <title><%= app_name %></title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <!-- Bootstrap 5 -->
@@ -18,7 +18,7 @@
       <nav class="navbar navbar-expand-lg bloom-nav">
         <div class="container">
           <a class="navbar-brand bloom-brand" href="<%= dashboard_path %>">
-            Bloom by <%= current_user.wedding&.bride_name&.split&.first || "Florence" %> 🌸
+            <%= app_name %> 🌸
           </a>
           <div class="ms-auto d-flex align-items-center gap-3">
             <span class="text-muted small"><%= current_user.name %></span>

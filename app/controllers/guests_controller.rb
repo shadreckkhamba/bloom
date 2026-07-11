@@ -96,7 +96,11 @@ class GuestsController < ApplicationController
       #{wedding.bride_name} and #{wedding.groom_name} would be honored by your presence at their wedding.
       Please confirm your attendance below:
       #{guest.invitation_url}
-      With love, Bloom by Florence 🌸
+      #{app_signature}
     MSG
+  end
+
+  def app_signature
+    Rails.configuration.x.app_signature
   end
 end

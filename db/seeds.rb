@@ -1,11 +1,11 @@
-# Seed: Florence's account + wedding + sample guests
-user = User.find_or_create_by!(email: "florence@example.com") do |u|
-  u.name     = "Florence"
+# Seed: demo account + wedding + sample guests
+user = User.find_or_create_by!(email: "amina@example.com") do |u|
+  u.name     = "Amina"
   u.password = "password123"
 end
 
 wedding = user.wedding || user.create_wedding!(
-  bride_name:      "Florence",
+  bride_name:      "Amina",
   groom_name:      "Kelvin",
   wedding_date:    Date.new(2026, 12, 12),
   venue:           "Bingu International Convention Centre",

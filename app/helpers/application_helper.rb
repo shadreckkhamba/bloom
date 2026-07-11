@@ -1,4 +1,12 @@
 module ApplicationHelper
+  def app_name
+    Rails.configuration.x.app_name
+  end
+
+  def app_signature
+    Rails.configuration.x.app_signature
+  end
+
   # Maps a wedding colour name to a CSS background string for the swatch chip.
   COLOR_MAP = {
     "black"      => "#1a1a1a",

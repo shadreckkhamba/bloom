@@ -1,6 +1,5 @@
 module WhatsappHelper
   # Generates a WhatsApp Click-to-Chat URL with a pre-filled invitation message.
-  # Florence clicks this — WhatsApp opens with the message ready to send.
   def whatsapp_invite_url(guest, wedding)
     phone = normalise_whatsapp_phone(guest.phone)
     message = <<~MSG
@@ -13,7 +12,7 @@ module WhatsappHelper
       Please confirm your attendance here:
       #{invitation_url(guest.token, host: request.host_with_port, protocol: request.protocol)}
 
-      With love, Bloom by Florence 🌸
+      #{app_signature}
     MSG
 
     "https://wa.me/#{phone}?text=#{ERB::Util.url_encode(message.strip)}"
