@@ -84,12 +84,16 @@
 
             <!-- Theme colours -->
             <% if @wedding.theme.present? %>
-              <div class="inv-theme-row">
-                <span class="inv-theme-label">Colours</span>
-                <% @wedding.theme_colors.each do |color| %>
-                  <span class="inv-color-swatch" style="<%= color_swatch_style(color) %>" title="<%= color %>"></span>
-                  <span class="inv-color-name"><%= color %></span>
-                <% end %>
+              <div class="inv-colors-section">
+                <p class="inv-colors-heading">OUR WEDDING COLOURS</p>
+                <div class="inv-colors-grid">
+                  <% @wedding.theme_colors.each do |color| %>
+                    <div class="inv-color-card">
+                      <span class="inv-color-dot" style="<%= color_swatch_style(color) %>"></span>
+                      <span class="inv-color-label"><%= color %></span>
+                    </div>
+                  <% end %>
+                </div>
               </div>
             <% end %>
 

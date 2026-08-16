@@ -28,6 +28,11 @@ module ApplicationHelper
     "blush"      => "#DE9FA1",
     "champagne"  => "#F7E7CE",
     "peach"      => "#FFCBA4",
+    "nude"       => "#E8C9A0",
+    "dusty sage green"  => "#8FAF88",
+    "light sage green"  => "#B2C9AD",
+    "blush pink"        => "#DE9FA1",
+    "pale blush pink"   => "#F2C4C4",
   }.freeze
 
   def color_swatch_style(color_name)

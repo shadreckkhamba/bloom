@@ -1269,3 +1269,49 @@ h1, h2, h3, .display-1, .display-2, .serif {
   font-weight: 400;
   letter-spacing: 0.06em;
 }
+
+/* ── Wedding colour swatches (invitation page) ── */
+.inv-colors-section {
+  margin: 1.2rem auto 0.6rem;
+  text-align: center;
+}
+
+.inv-colors-heading {
+  font-family: 'Lato', sans-serif;
+  font-size: 0.68rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 0.9rem;
+}
+
+.inv-colors-grid {
+  display: flex;
+  justify-content: center;
+  gap: 1.2rem;
+  flex-wrap: wrap;
+}
+
+.inv-color-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.inv-color-dot {
+  display: block;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  flex-shrink: 0;
+}
+
+.inv-color-label {
+  font-family: 'Lato', sans-serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
