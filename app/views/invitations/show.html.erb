@@ -36,7 +36,7 @@
             <div class="inv-hero-photos">
               <%= image_tag "DEL00554_web.jpg", alt: @wedding.bride_name, class: "inv-hero-img", loading: "eager" %>
               <div class="inv-hero-divider" aria-hidden="true"></div>
-              <%= image_tag "DEL00564_web.jpg", alt: @wedding.groom_name, class: "inv-hero-img", loading: "eager" %>
+              <%= image_tag "DEL00564_web.jpg", alt: @wedding.groom_name, class: "inv-hero-img inv-hero-img--right", loading: "eager" %>
             </div>
             <div class="inv-hero-overlay">
               <p class="inv-hero-brand"><%= app_name %> 🌸</p>
@@ -363,21 +363,31 @@ function initFlashDismiss() {
 initFlashDismiss();
 document.addEventListener('turbo:load', initFlashDismiss);
 
-/* ── Falling petals ────────────────────────────── */
+/* ── Falling icons ────────────────────────────── */
 (function () {
-  const emojis = ['🌸', '🌷', '✿', '❀', '🌺', '💍'];
+  const icons = [
+    '<%= asset_path("icons/cake.png") %>',
+    '<%= asset_path("icons/cheers.png") %>',
+    '<%= asset_path("icons/love-bird.png") %>',
+    '<%= asset_path("icons/wedding-photography.png") %>',
+    '<%= asset_path("icons/wedding-ring.png") %>',
+    '<%= asset_path("icons/wedding-rings.png") %>',
+    '<%= asset_path("icons/icons8-wedding-50.png") %>',
+    '<%= asset_path("icons/wedding.png") %>'
+  ];
   const container = document.getElementById('petals');
   if (!container) return;
-  for (let i = 0; i < 22; i++) {
-    const p = document.createElement('span');
-    p.className = 'petal';
-    p.textContent = emojis[i % emojis.length];
-    p.style.left              = (Math.random() * 100) + 'vw';
-    p.style.animationDuration = (7 + Math.random() * 11) + 's';
-    p.style.animationDelay    = (Math.random() * 14) + 's';
-    p.style.fontSize          = (0.7 + Math.random() * 0.9) + 'rem';
-    p.style.opacity           = (0.3 + Math.random() * 0.4).toFixed(2);
-    container.appendChild(p);
+  for (let i = 0; i < 24; i++) {
+    const img = document.createElement('img');
+    img.src     = icons[i % icons.length];
+    img.alt     = '';
+    img.className = 'petal petal--icon';
+    img.style.left              = (Math.random() * 100) + 'vw';
+    img.style.animationDuration = (8 + Math.random() * 12) + 's';
+    img.style.animationDelay    = (Math.random() * 16) + 's';
+    img.style.width             = (18 + Math.random() * 14) + 'px';
+    img.style.opacity           = (0.55 + Math.random() * 0.35).toFixed(2);
+    container.appendChild(img);
   }
 })();
 

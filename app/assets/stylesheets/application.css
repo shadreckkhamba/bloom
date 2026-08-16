@@ -486,6 +486,10 @@ h1, h2, h3, .display-1, .display-2, .serif {
   top: -24px;
   animation: petal-fall linear infinite;
 }
+.petal--icon {
+  height: auto;
+  object-fit: contain;
+}
 @keyframes petal-fall {
   0%   { transform: translateY(0)     rotate(0deg)   translateX(0); }
   50%  { transform: translateY(50vh)  rotate(180deg) translateX(30px); }
@@ -1009,8 +1013,11 @@ h1, h2, h3, .display-1, .display-2, .serif {
   width: 50%;
   height: 100%;
   object-fit: cover;
-  object-position: center top;
+  object-position: center 15%;
   display: block;
+}
+.wedding-hero-img--right {
+  object-position: center 5%;
 }
 
 .wedding-hero-overlay {
@@ -1086,8 +1093,11 @@ h1, h2, h3, .display-1, .display-2, .serif {
   width: 50%;
   height: 100%;
   object-fit: cover;
-  object-position: center top;
+  object-position: center 15%;
   display: block;
+}
+.inv-hero-img--right {
+  object-position: center 5%;
 }
 
 /* thin decorative centre divider */

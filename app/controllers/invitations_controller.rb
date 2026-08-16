@@ -1,5 +1,7 @@
 class InvitationsController < ApplicationController
-  # No login required — public-facing
+  # No login required — public-facing guest page, no app chrome
+  layout false
+
   skip_before_action :verify_authenticity_token, only: []
 
   before_action :find_guest
