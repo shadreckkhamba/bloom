@@ -14,7 +14,7 @@
             <span style="font-size:2rem;">✅</span>
             <div>
               <p class="mb-0 fw-normal"><strong><%= @wedding.partner.name %></strong> is linked to this wedding.</p>
-              <p class="text-muted small mb-0"><%= @wedding.partner.email %></p>
+              <p class="text-muted small mb-0">@<%= @wedding.partner.username %></p>
             </div>
           </div>
           <%= button_to "Remove partner access", partner_destroy_path, method: :delete,

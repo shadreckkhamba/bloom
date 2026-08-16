@@ -1,10 +1,10 @@
 # Seed: demo account + wedding + sample guests
-user = User.find_or_create_by!(email: "amina@example.com") do |u|
+user = User.find_or_create_by!(username: "amina_kelvin") do |u|
   u.name     = "Amina"
   u.password = "password123"
 end
 
-wedding = user.wedding || user.create_wedding!(
+wedding = user.owned_wedding || user.create_owned_wedding!(
   bride_name:      "Amina",
   groom_name:      "Kelvin",
   wedding_date:    Date.new(2026, 12, 12),
@@ -23,7 +23,7 @@ wedding = user.wedding || user.create_wedding!(
   end
 end
 
-puts "✅ Seeded: #{user.email} / password123"
+puts "✅ Seeded: @#{user.username} / password123"
 puts "   Wedding: #{wedding.couple_names}"
 puts "   Guests:  #{wedding.guests.count}"
 wedding.guests.each { |g| puts "   #{g.name} → /i/#{g.token}" }

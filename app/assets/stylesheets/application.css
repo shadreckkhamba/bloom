@@ -906,3 +906,177 @@ h1, h2, h3, .display-1, .display-2, .serif {
   color: white;
   border-color: var(--primary);
 }
+
+/* ══════════════════════════════════════════════
+   SPLIT AUTH LAYOUT (login / signup)
+   ══════════════════════════════════════════════ */
+
+.auth-split-page {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* Photo side */
+.auth-split-photo {
+  display: none;
+  position: relative;
+  flex: 1;
+  overflow: hidden;
+}
+@media (min-width: 992px) {
+  .auth-split-photo { display: block; }
+}
+
+.auth-split-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+}
+
+.auth-split-photo-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(26,42,53,0.25) 0%, rgba(26,42,53,0.65) 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 2.5rem;
+  text-align: center;
+}
+
+.auth-split-brand {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2rem;
+  color: #fff;
+  letter-spacing: 0.06em;
+  margin-bottom: 0.4rem;
+}
+
+.auth-split-tagline {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 1.1rem;
+  color: rgba(255,255,255,0.8);
+  margin: 0;
+}
+
+/* Form side */
+.auth-split-form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 100%;
+  background: linear-gradient(135deg, var(--primary-ultra) 0%, #fff 60%, var(--primary-ultra) 100%);
+  padding: 2rem 1rem;
+}
+@media (min-width: 992px) {
+  .auth-split-form { flex: 0 0 440px; }
+}
+
+.auth-split-inner {
+  width: 100%;
+  max-width: 380px;
+}
+
+/* ══════════════════════════════════════════════
+   DASHBOARD WEDDING HERO BANNER
+   ══════════════════════════════════════════════ */
+
+.wedding-hero {
+  position: relative;
+  border-radius: 24px;
+  overflow: hidden;
+  height: 340px;
+  box-shadow: 0 16px 48px rgba(58,159,192,0.18);
+}
+
+@media (min-width: 768px) {
+  .wedding-hero { height: 400px; }
+}
+
+.wedding-hero-photos {
+  display: flex;
+  height: 100%;
+  gap: 3px;
+}
+
+.wedding-hero-img {
+  flex: 1;
+  width: 50%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+}
+
+.wedding-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(26,42,53,0.82) 0%, rgba(26,42,53,0.2) 55%, transparent 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 2rem;
+  text-align: center;
+}
+
+.wedding-hero-names {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 300;
+  color: #fff;
+  letter-spacing: 0.04em;
+  margin-bottom: 0.3rem;
+  line-height: 1.2;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.3);
+}
+
+.wedding-hero-date {
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.82);
+  margin-bottom: 0;
+  letter-spacing: 0.03em;
+}
+
+.wedding-hero .btn-bloom-outline {
+  background: rgba(255,255,255,0.12);
+  color: #fff;
+  border-color: rgba(255,255,255,0.5);
+  backdrop-filter: blur(4px);
+}
+.wedding-hero .btn-bloom-outline:hover {
+  background: rgba(255,255,255,0.22);
+  border-color: #fff;
+  color: #fff;
+}
+.wedding-hero .btn-bloom {
+  backdrop-filter: blur(4px);
+}
+
+/* ══════════════════════════════════════════════
+   INVITATION — COUPLE PHOTO PAIR
+   ══════════════════════════════════════════════ */
+
+.inv-couple-photos {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin: 1.4rem auto;
+  max-width: 320px;
+}
+
+.inv-couple-img {
+  flex: 1;
+  width: 50%;
+  aspect-ratio: 3/4;
+  object-fit: cover;
+  object-position: center top;
+  border-radius: 120px 120px 16px 16px;
+  border: 3px solid var(--primary-light);
+  box-shadow: 0 8px 32px rgba(58,159,192,0.18);
+  display: block;
+}

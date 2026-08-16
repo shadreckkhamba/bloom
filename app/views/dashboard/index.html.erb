@@ -1,27 +1,28 @@
 <div class="container py-5">
 
-  <!-- Header -->
-  <div class="d-flex justify-content-between align-items-start mb-5 flex-wrap gap-3">
-    <div class="d-flex align-items-center gap-3">
-      <%= image_tag "wedding.png", alt: "Wedding", style: "width:64px;height:64px;object-fit:contain;flex-shrink:0;" %>
-      <div>
-        <h1 style="font-size:2.2rem;" class="mb-1"><%= @wedding.couple_names %></h1>
-        <p class="text-muted mb-0">
-          <%= @wedding.venue %> &nbsp;·&nbsp;
-          <%= @wedding.wedding_date.strftime("%B %d, %Y") %>
-          <% if @wedding.days_until > 0 %>
-            &nbsp;·&nbsp; <span class="text-gold"><%= @wedding.days_until %> days to go</span>
-          <% end %>
-        </p>
-      </div>
+  <!-- Wedding Hero Banner -->
+  <div class="wedding-hero mb-5">
+    <div class="wedding-hero-photos">
+      <%= image_tag "DEL00554.jpg.jpeg", alt: @wedding.bride_name, class: "wedding-hero-img", loading: "lazy" %>
+      <%= image_tag "DEL00564.jpg.jpeg", alt: @wedding.groom_name, class: "wedding-hero-img", loading: "lazy" %>
     </div>
-    <div class="d-flex gap-2 flex-wrap">
-      <% if wedding_owner? %>
-        <%= link_to "Edit details", edit_wedding_path, class: "btn btn-bloom-outline btn-sm" %>
-        <%= link_to "Partner 🔗", partner_invite_path, class: "btn btn-bloom-outline btn-sm" %>
-      <% end %>
-      <%= link_to "Messages 💌", messages_path, class: "btn btn-bloom-outline btn-sm" %>
-      <%= link_to "Manage guests", guests_path, class: "btn btn-bloom btn-sm" %>
+    <div class="wedding-hero-overlay">
+      <h1 class="wedding-hero-names"><%= @wedding.couple_names %></h1>
+      <p class="wedding-hero-date">
+        <%= @wedding.venue %> &nbsp;·&nbsp;
+        <%= @wedding.wedding_date.strftime("%B %d, %Y") %>
+        <% if @wedding.days_until > 0 %>
+          &nbsp;·&nbsp; <span class="text-gold"><%= @wedding.days_until %> days to go</span>
+        <% end %>
+      </p>
+      <div class="d-flex gap-2 flex-wrap justify-content-center mt-3">
+        <% if wedding_owner? %>
+          <%= link_to "Edit details", edit_wedding_path, class: "btn btn-bloom-outline btn-sm" %>
+          <%= link_to "Partner 🔗", partner_invite_path, class: "btn btn-bloom-outline btn-sm" %>
+        <% end %>
+        <%= link_to "Messages 💌", messages_path, class: "btn btn-bloom-outline btn-sm" %>
+        <%= link_to "Manage guests", guests_path, class: "btn btn-bloom btn-sm" %>
+      </div>
     </div>
   </div>
 

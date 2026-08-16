@@ -5,7 +5,7 @@ class SessionsController < ApplicationController
   end
 
   def create
-    user = User.find_by(email: params[:email].to_s.downcase)
+    user = User.find_by(username: params[:username].to_s.downcase.strip)
     if user&.authenticate(params[:password])
       session[:user_id] = user.id
 
@@ -27,7 +27,7 @@ class SessionsController < ApplicationController
       return_to = session.delete(:return_to)
       redirect_to(return_to || dashboard_path, notice: "Welcome back, #{user.name.split.first} 🌸")
     else
-      flash.now[:alert] = "Invalid email or password."
+      flash.now[:alert] = "Invalid username or password."
       render :new, status: :unprocessable_entity
     end
   end

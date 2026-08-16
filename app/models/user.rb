@@ -4,7 +4,9 @@ class User < ApplicationRecord
   has_one :partner_wedding, class_name: "Wedding", foreign_key: :partner_id,   dependent: :nullify
 
   validates :name, presence: true
-  validates :email, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
+  validates :username, presence: true, uniqueness: { case_sensitive: false },
+                       format: { with: /\A[a-zA-Z0-9_.\-]+\z/, message: "can only contain letters, numbers, underscores, hyphens and dots" },
+                       length: { minimum: 3, maximum: 30 }
 
   # The wedding this user belongs to — either as owner or partner
   def wedding

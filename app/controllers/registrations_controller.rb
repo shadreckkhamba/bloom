@@ -8,7 +8,7 @@ class RegistrationsController < ApplicationController
 
   def create
     @user = User.new(user_params)
-    @user.email = @user.email.to_s.downcase
+    @user.username = @user.username.to_s.downcase.strip
 
     # Token comes from hidden field in form body, URL param, or session — in that order
     @partner_token = params[:partner_token].presence || session[:partner_token]
@@ -37,6 +37,6 @@ class RegistrationsController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:name, :email, :password, :password_confirmation)
+    params.require(:user).permit(:name, :username, :password, :password_confirmation)
   end
 end

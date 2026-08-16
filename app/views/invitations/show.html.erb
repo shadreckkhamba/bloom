@@ -88,12 +88,19 @@
               </div>
             <% end %>
 
+            <!-- Couple photos — always show the real assets after verification -->
+            <div class="inv-couple-photos">
+              <%= image_tag "DEL00554.jpg.jpeg",
+                    alt: @wedding.bride_name,
+                    class: "inv-couple-img",
+                    loading: "lazy" %>
+              <%= image_tag "DEL00564.jpg.jpeg",
+                    alt: @wedding.groom_name,
+                    class: "inv-couple-img",
+                    loading: "lazy" %>
+            </div>
             <% if @wedding.couple_photo.present? %>
-              <div class="inv-photo-wrap">
-                <img src="<%= @wedding.couple_photo %>"
-                     alt="<%= @wedding.couple_names %>"
-                     class="inv-photo">
-              </div>
+              <%# fallback external photo if set %>
             <% end %>
 
             <% if @wedding.welcome_message.present? %>
