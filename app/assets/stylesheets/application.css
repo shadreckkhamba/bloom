@@ -255,9 +255,10 @@ h1, h2, h3, .display-1, .display-2, .serif {
   background: rgba(255,255,255,0.97);
   border: 1px solid var(--primary-light);
   border-radius: 24px;
-  padding: 2.8rem 2rem;
+  padding: 0 2rem 2.8rem; /* no top padding — hero bleeds to top edge */
   box-shadow: 0 16px 64px rgba(58,159,192,0.13), 0 2px 8px rgba(0,0,0,0.04);
   backdrop-filter: blur(4px);
+  overflow: hidden;
 }
 
 /* Brand label */
@@ -1058,25 +1059,98 @@ h1, h2, h3, .display-1, .display-2, .serif {
 }
 
 /* ══════════════════════════════════════════════
-   INVITATION — COUPLE PHOTO PAIR
+   INVITATION — PHOTO HERO BANNER
    ══════════════════════════════════════════════ */
 
-.inv-couple-photos {
-  display: flex;
-  gap: 10px;
-  justify-content: center;
-  margin: 1.4rem auto;
-  max-width: 320px;
+.inv-hero {
+  position: relative;
+  width: calc(100% + 4rem); /* bleed past card padding */
+  margin: -2.8rem -2rem 0;  /* pull flush to card edges */
+  height: 340px;
+  overflow: hidden;
+  border-radius: 24px 24px 0 0;
 }
 
-.inv-couple-img {
+@media (max-width: 480px) {
+  .inv-hero { height: 260px; }
+}
+
+.inv-hero-photos {
+  display: flex;
+  height: 100%;
+  gap: 0;
+}
+
+.inv-hero-img {
   flex: 1;
   width: 50%;
-  aspect-ratio: 3/4;
+  height: 100%;
   object-fit: cover;
   object-position: center top;
-  border-radius: 120px 120px 16px 16px;
-  border: 3px solid var(--primary-light);
-  box-shadow: 0 8px 32px rgba(58,159,192,0.18);
   display: block;
+}
+
+/* thin decorative centre divider */
+.inv-hero-divider {
+  width: 3px;
+  flex-shrink: 0;
+  background: rgba(255,255,255,0.6);
+  position: relative;
+  z-index: 1;
+}
+
+.inv-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(15,25,32,0.80) 0%,
+    rgba(15,25,32,0.25) 45%,
+    transparent 100%
+  );
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 1.8rem 1.5rem;
+  text-align: center;
+}
+
+.inv-hero-brand {
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.7);
+  margin-bottom: 0.4rem;
+}
+
+.inv-hero-names {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.9rem, 7vw, 2.8rem);
+  font-weight: 300;
+  color: #fff;
+  line-height: 1.15;
+  letter-spacing: 0.02em;
+  text-shadow: 0 2px 16px rgba(0,0,0,0.4);
+  margin-bottom: 0.3rem;
+}
+
+.inv-hero-amp {
+  display: block;
+  font-style: italic;
+  font-size: 0.65em;
+  color: var(--primary-light);
+  line-height: 1.3;
+}
+
+.inv-hero-date {
+  font-size: 0.82rem;
+  color: rgba(255,255,255,0.78);
+  letter-spacing: 0.06em;
+  margin: 0;
+}
+
+/* card body padding below the hero */
+.inv-card-body {
+  padding-top: 1.6rem;
 }

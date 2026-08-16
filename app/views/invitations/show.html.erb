@@ -31,23 +31,28 @@
              ═══════════════════════════════════════ -->
         <div class="inv-card text-center">
 
-          <p class="inv-brand"><%= app_name %> 🌸</p>
+          <!-- ── Photo hero — always visible ── -->
+          <div class="inv-hero">
+            <div class="inv-hero-photos">
+              <%= image_tag "DEL00554.jpg.jpeg", alt: @wedding.bride_name, class: "inv-hero-img", loading: "eager" %>
+              <div class="inv-hero-divider" aria-hidden="true"></div>
+              <%= image_tag "DEL00564.jpg.jpeg", alt: @wedding.groom_name, class: "inv-hero-img", loading: "eager" %>
+            </div>
+            <div class="inv-hero-overlay">
+              <p class="inv-hero-brand"><%= app_name %> 🌸</p>
+              <h1 class="inv-hero-names">
+                <%= @wedding.groom_name %>
+                <span class="inv-hero-amp">&amp;</span>
+                <%= @wedding.bride_name %>
+              </h1>
+              <p class="inv-hero-date"><%= @wedding.wedding_date.strftime("%A, %d %B %Y") %></p>
+            </div>
+          </div>
 
-          <div class="inv-divider"><%= image_tag "wedding.png", alt: "💍", style: "width:36px;height:36px;object-fit:contain;" %></div>
-
-          <h1 class="inv-names">
-            <%= @wedding.groom_name %>
-            <span class="inv-amp">&amp;</span>
-            <%= @wedding.bride_name %>
-          </h1>
+          <!-- ── Card body ── -->
+          <div class="inv-card-body">
 
           <div class="inv-divider">🌸</div>
-
-          <!-- Date: always visible as a teaser -->
-          <p class="inv-detail">
-            <%= image_tag "calendar.png", alt: "Date", style: "width:20px;height:20px;object-fit:contain;vertical-align:middle;margin-right:6px;" %>
-            <%= @wedding.wedding_date.strftime("%A, %d %B %Y") %>
-          </p>
 
           <% if @verified || @rsvp %>
             <%# ── Venue, map, photo, message — only after verification ── %>
@@ -88,20 +93,7 @@
               </div>
             <% end %>
 
-            <!-- Couple photos — always show the real assets after verification -->
-            <div class="inv-couple-photos">
-              <%= image_tag "DEL00554.jpg.jpeg",
-                    alt: @wedding.bride_name,
-                    class: "inv-couple-img",
-                    loading: "lazy" %>
-              <%= image_tag "DEL00564.jpg.jpeg",
-                    alt: @wedding.groom_name,
-                    class: "inv-couple-img",
-                    loading: "lazy" %>
-            </div>
-            <% if @wedding.couple_photo.present? %>
-              <%# fallback external photo if set %>
-            <% end %>
+            <!-- Couple photos moved to hero banner above -->
 
             <% if @wedding.welcome_message.present? %>
               <p class="inv-quote">"<%= @wedding.welcome_message %>"</p>
@@ -278,6 +270,8 @@
               <% end %>
             </div>
           <% end %>
+
+          </div><!-- /.inv-card-body -->
 
         </div><!-- /.inv-card -->
 
