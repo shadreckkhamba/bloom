@@ -163,7 +163,72 @@
     <div class="mb-5"></div>
   <% end %>
 
-  <!-- Recent guests -->
+  <!-- Wedding Card Download — owners only -->
+  <% if wedding_owner? %>
+    <div class="auth-card mb-5 p-4">
+      <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
+        <div>
+          <h2 class="mb-0" style="font-size:1.3rem;">Wedding Card</h2>
+          <p class="text-muted small mb-0">Download your personalised wedding invitation card</p>
+        </div>
+        <button onclick="downloadWeddingCard()" class="btn btn-bloom btn-sm">
+          ⬇ Download Card
+        </button>
+      </div>
+
+      <!-- Card preview -->
+      <div class="wcard-preview-wrap">
+        <div class="wcard" id="wedding-card-canvas">
+          <%= image_tag "CardWithFlowersOnly.jpg",
+                alt: "Wedding card",
+                class: "wcard-bg",
+                id: "wcard-bg-img" %>
+          <div class="wcard-overlay">
+            <!-- Block 17–23%: TOGETHER WITH THEIR FAMILIES -->
+            <p class="wcard-static wcard-families">TOGETHER WITH THEIR FAMILIES</p>
+
+            <!-- Block 27–34%: Bride name -->
+            <p class="wcard-name wcard-bride"><%= @wedding.bride_name %></p>
+
+            <!-- Block 35–37%: "and" -->
+            <p class="wcard-static wcard-and">and</p>
+
+            <!-- Block 38–44%: Groom name -->
+            <p class="wcard-name wcard-groom"><%= @wedding.groom_name %></p>
+
+            <!-- Block 48–52%: Date lines -->
+            <p class="wcard-static wcard-dateline">REQUEST THE PLEASURE OF YOUR COMPANY</p>
+            <p class="wcard-date"><%= @wedding.wedding_date.strftime("%A, %d %B %Y") %></p>
+
+            <!-- Block 54–61%: Venue -->
+            <p class="wcard-static wcard-venuelabel">AT</p>
+            <p class="wcard-venue"><%= @wedding.venue %></p>
+
+            <!-- Block 62–63%: separator -->
+            <p class="wcard-static wcard-separator">——  ✦  ——</p>
+
+            <!-- Block 70–75%: Time & church -->
+            <% row = 70.5 %>
+            <% if @wedding.church_venue.present? %>
+              <p class="wcard-static wcard-timelabel" style="top:<%= row %>%;"><%= "SERVICE" %></p>
+              <% row += 3.5 %>
+              <p class="wcard-detail" style="top:<%= row %>%;"><%= @wedding.church_venue %></p>
+              <% row += 3.2 %>
+              <% if @wedding.church_time.present? %>
+                <p class="wcard-detail" style="top:<%= row %>%;"><%= @wedding.church_time %></p>
+                <% row += 3.5 %>
+              <% end %>
+            <% end %>
+            <% if @wedding.dinner_time.present? %>
+              <p class="wcard-static wcard-timelabel" style="top:<%= row %>%;">RECEPTION</p>
+              <% row += 3.5 %>
+              <p class="wcard-detail" style="top:<%= row %>%;"><%= @wedding.dinner_time %></p>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
   <% if @guests.any? %>
     <h2 class="mb-3" style="font-size:1.4rem;">Recent RSVPs</h2>
     <div class="table-responsive">
@@ -211,3 +276,30 @@
   <% end %>
 
 </div>
+
+<% if wedding_owner? %>
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+<script>
+function downloadWeddingCard() {
+  const card = document.getElementById('wedding-card-canvas');
+  const btn  = document.querySelector('[onclick="downloadWeddingCard()"]');
+  btn.textContent = 'Generating…';
+  btn.disabled = true;
+
+  html2canvas(card, {
+    scale: 3,           // 3× for high-res output
+    useCORS: true,
+    allowTaint: false,
+    backgroundColor: null,
+    logging: false
+  }).then(function(canvas) {
+    const a = document.createElement('a');
+    a.download = '<%= "#{@wedding.couple_names.gsub(/[^a-z0-9]/i, '_')}_wedding_card.png" %>';
+    a.href = canvas.toDataURL('image/png');
+    a.click();
+    btn.textContent = '⬇ Download Card';
+    btn.disabled = false;
+  });
+}
+</script>
+<% end %>
