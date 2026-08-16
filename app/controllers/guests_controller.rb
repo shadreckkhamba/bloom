@@ -87,7 +87,7 @@ class GuestsController < ApplicationController
   private
 
   def guest_params
-    params.require(:guest).permit(:name, :phone)
+    params.require(:guest).permit(:name, :phone, :table_number)
   end
 
   def whatsapp_message(guest, wedding)

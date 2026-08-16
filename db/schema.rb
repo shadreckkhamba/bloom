@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_08_16_032840) do
+ActiveRecord::Schema[8.1].define(version: 2026_08_16_123357) do
   create_table "guests", force: :cascade do |t|
     t.integer "added_by_id"
     t.datetime "created_at", null: false
@@ -18,6 +18,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_16_032840) do
     t.datetime "invitation_sent_at"
     t.string "name"
     t.string "phone"
+    t.string "table_number"
     t.string "token"
     t.datetime "updated_at", null: false
     t.string "verified_ip"

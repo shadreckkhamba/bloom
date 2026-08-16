@@ -143,7 +143,13 @@
                     ) %>
               </div>
 
-              <p class="inv-token-label"><%= @guest.token %></p>
+              <p class="inv-token-label">
+                <% if @guest.table_number.present? %>
+                  Table <%= @guest.table_number %>
+                <% else %>
+                  <%= @guest.token %>
+                <% end %>
+              </p>
 
               <div class="d-flex gap-2 justify-content-center mt-3 flex-wrap">
                 <button onclick="window.print()" class="btn btn-bloom-sm">

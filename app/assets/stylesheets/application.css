@@ -1328,3 +1328,16 @@ h1, h2, h3, .display-1, .display-2, .serif {
 .wedding-hero-img--right {
   object-position: center 30%;
 }
+
+/* ── Table number badge ── */
+.table-badge {
+  display: inline-block;
+  background: var(--primary-pale);
+  color: var(--primary);
+  border: 1px solid var(--primary-light);
+  border-radius: 50px;
+  font-size: 0.72rem;
+  padding: 0.2em 0.75em;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}

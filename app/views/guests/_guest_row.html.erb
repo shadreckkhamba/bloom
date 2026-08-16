@@ -1,7 +1,7 @@
 <tr id="guest-<%= guest.id %>" class="guest-row-new" data-added-by="<%= guest.added_by_id %>">
   <td>
     <span class="fw-normal"><%= guest.name %></span><br>
-    <code class="text-gold" style="font-size:0.7rem;"><%= guest.token %></code>
+    <code class="text-muted" style="font-size:0.7rem;"><%= guest.phone %></code>
   </td>
 
   <% w = wedding || guest.wedding %>
@@ -16,7 +16,13 @@
     </td>
   <% end %>
 
-  <td class="text-muted small"><%= guest.phone %></td>
+  <td>
+    <% if guest.table_number.present? %>
+      <span class="table-badge">Table <%= guest.table_number %></span>
+    <% else %>
+      <span class="text-muted small">—</span>
+    <% end %>
+  </td>
   <td>
     <% status = guest.rsvp&.status || "pending" %>
     <span class="status-badge badge-<%= status %>"><%= status.capitalize %></span>
