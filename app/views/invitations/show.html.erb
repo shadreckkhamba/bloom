@@ -77,26 +77,6 @@
               </button>
             </p>
 
-            <!-- Strictly by invite notice -->
-            <div class="inv-strict-note">
-              🎟️ <strong>Strictly by invitation only</strong>
-            </div>
-
-            <!-- Theme colours -->
-            <% if @wedding.theme.present? %>
-              <div class="inv-colors-section">
-                <p class="inv-colors-heading">OUR WEDDING COLOURS</p>
-                <div class="inv-colors-grid">
-                  <% @wedding.theme_colors.each do |color| %>
-                    <div class="inv-color-card">
-                      <span class="inv-color-dot" style="<%= color_swatch_style(color) %>"></span>
-                      <span class="inv-color-label"><%= color %></span>
-                    </div>
-                  <% end %>
-                </div>
-              </div>
-            <% end %>
-
             <!-- Couple photos moved to hero banner above -->
 
             <% if @wedding.welcome_message.present? %>
@@ -112,6 +92,21 @@
                 </div>
               <% end %>
             </div>
+
+            <!-- Wedding colours — shown after verification, above the ❤️ divider -->
+            <% if @wedding.theme.present? %>
+              <div class="inv-colors-section mt-3">
+                <p class="inv-colors-heading">OUR WEDDING COLOURS</p>
+                <div class="inv-swatch-row">
+                  <% @wedding.theme_colors.each do |color| %>
+                    <div class="inv-swatch-item">
+                      <div class="inv-swatch-block" style="<%= color_swatch_style(color) %>"></div>
+                      <span class="inv-swatch-name"><%= color %></span>
+                    </div>
+                  <% end %>
+                </div>
+              </div>
+            <% end %>
 
           <% else %>
             <%# ── Locked state — before verification ── %>
@@ -168,6 +163,20 @@
                   Thank you for celebrating this moment with us and for your warmth and generosity.
                 </p>
               </div>
+
+              <% if @wedding.theme.present? %>
+                <div class="inv-colors-section mt-4">
+                  <p class="inv-colors-heading">OUR WEDDING COLOURS</p>
+                  <div class="inv-swatch-row">
+                    <% @wedding.theme_colors.each do |color| %>
+                      <div class="inv-swatch-item">
+                        <div class="inv-swatch-block" style="<%= color_swatch_style(color) %>"></div>
+                        <span class="inv-swatch-name"><%= color %></span>
+                      </div>
+                    <% end %>
+                  </div>
+                </div>
+              <% end %>
 
               <div class="inv-policy-note mt-3">
                 <p class="inv-policy-text">
