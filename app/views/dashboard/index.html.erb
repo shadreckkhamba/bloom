@@ -184,45 +184,46 @@
                 class: "wcard-bg",
                 id: "wcard-bg-img" %>
           <div class="wcard-overlay">
-            <!-- Block 17–23%: TOGETHER WITH THEIR FAMILIES -->
-            <p class="wcard-static wcard-families">TOGETHER WITH THEIR FAMILIES</p>
+            <%# Line 1 — TOGETHER WITH THEIR FAMILIES %>
+            <p class="wcard-line wcard-line--sm wcard-line--spaced" style="top:17.5%;">TOGETHER WITH THEIR FAMILIES</p>
 
-            <!-- Block 27–34%: Bride name -->
-            <p class="wcard-name wcard-bride"><%= @wedding.bride_name %></p>
+            <%# Line 2 — Bride name (script) %>
+            <p class="wcard-line wcard-line--script" style="top:27%;"><%= @wedding.bride_name %></p>
 
-            <!-- Block 35–37%: "and" -->
-            <p class="wcard-static wcard-and">and</p>
+            <%# Line 3 — "and" %>
+            <p class="wcard-line wcard-line--sm wcard-line--italic" style="top:35.5%;">and</p>
 
-            <!-- Block 38–44%: Groom name -->
-            <p class="wcard-name wcard-groom"><%= @wedding.groom_name %></p>
+            <%# Line 4 — Groom name (script) %>
+            <p class="wcard-line wcard-line--script" style="top:39%;"><%= @wedding.groom_name %></p>
 
-            <!-- Block 48–52%: Date lines -->
-            <p class="wcard-static wcard-dateline">REQUEST THE PLEASURE OF YOUR COMPANY</p>
-            <p class="wcard-date"><%= @wedding.wedding_date.strftime("%A, %d %B %Y") %></p>
+            <%# Line 5 — REQUEST THE PLEASURE... %>
+            <p class="wcard-line wcard-line--xs wcard-line--spaced" style="top:48%;">REQUEST THE PLEASURE OF YOUR COMPANY</p>
 
-            <!-- Block 54–61%: Venue -->
-            <p class="wcard-static wcard-venuelabel">AT</p>
-            <p class="wcard-venue"><%= @wedding.venue %></p>
+            <%# Line 6 — AT THE CEREMONY OF THEIR WEDDING %>
+            <p class="wcard-line wcard-line--xs wcard-line--spaced" style="top:51%;">AT THE CEREMONY OF THEIR WEDDING</p>
 
-            <!-- Block 62–63%: separator -->
-            <p class="wcard-static wcard-separator">——  ✦  ——</p>
+            <%# Line 7 — Date in card format: SATURDAY | 24 | 2026 DECEMBER %>
+            <p class="wcard-line wcard-line--sm wcard-line--spaced" style="top:55%;">
+              <%= @wedding.wedding_date.strftime("%A").upcase %> | <%= @wedding.wedding_date.day %> | <%= @wedding.wedding_date.year %> <%= @wedding.wedding_date.strftime("%B").upcase %>
+            </p>
 
-            <!-- Block 70–75%: Time & church -->
-            <% row = 70.5 %>
-            <% if @wedding.church_venue.present? %>
-              <p class="wcard-static wcard-timelabel" style="top:<%= row %>%;"><%= "SERVICE" %></p>
-              <% row += 3.5 %>
-              <p class="wcard-detail" style="top:<%= row %>%;"><%= @wedding.church_venue %></p>
-              <% row += 3.2 %>
-              <% if @wedding.church_time.present? %>
-                <p class="wcard-detail" style="top:<%= row %>%;"><%= @wedding.church_time %></p>
-                <% row += 3.5 %>
-              <% end %>
-            <% end %>
+            <%# Line 8 — Time %>
             <% if @wedding.dinner_time.present? %>
-              <p class="wcard-static wcard-timelabel" style="top:<%= row %>%;">RECEPTION</p>
-              <% row += 3.5 %>
-              <p class="wcard-detail" style="top:<%= row %>%;"><%= @wedding.dinner_time %></p>
+              <p class="wcard-line wcard-line--xs wcard-line--spaced" style="top:59.5%;">AT <%= @wedding.dinner_time.upcase %></p>
+            <% else %>
+              <p class="wcard-line wcard-line--xs wcard-line--spaced" style="top:59.5%;">AT THE RECEPTION</p>
+            <% end %>
+
+            <%# Line 9 — Venue %>
+            <p class="wcard-line wcard-line--detail" style="top:64%;"><%= @wedding.venue.upcase %></p>
+
+            <%# Line 10 — Church venue if set %>
+            <% if @wedding.church_venue.present? %>
+              <p class="wcard-line wcard-line--xs wcard-line--spaced" style="top:69%;">CEREMONY</p>
+              <p class="wcard-line wcard-line--detail" style="top:72%;"><%= @wedding.church_venue.upcase %></p>
+              <% if @wedding.church_time.present? %>
+                <p class="wcard-line wcard-line--xs wcard-line--spaced" style="top:75.5%;"><%= @wedding.church_time.upcase %></p>
+              <% end %>
             <% end %>
           </div>
         </div>

@@ -1156,6 +1156,7 @@ h1, h2, h3, .display-1, .display-2, .serif {
 }
 
 
+
 /* ==============================================
    WEDDING CARD PREVIEW & DOWNLOAD
    ============================================== */
@@ -1190,120 +1191,59 @@ h1, h2, h3, .display-1, .display-2, .serif {
   pointer-events: none;
 }
 
-/* All overlay elements are absolute + centered */
-.wcard-overlay p {
+/* Every line is absolute + centred */
+.wcard-line {
   position: absolute;
-  left: 0; right: 0;
+  left: 6%; right: 6%;
   margin: 0;
   text-align: center;
-  line-height: 1;
+  line-height: 1.15;
+  color: #2c1a0e;
 }
 
-/* Static phrases (Lato, spaced caps) */
-.wcard-static {
+/* Script font — names */
+.wcard-line--script {
+  font-family: 'Great Vibes', cursive;
+  font-size: clamp(1.25rem, 4.8vw, 1.85rem);
+  letter-spacing: 0.01em;
+  color: #1a1a1a;
+}
+
+/* Small spaced caps — headings / labels */
+.wcard-line--sm {
   font-family: 'Lato', sans-serif;
+  font-size: clamp(0.34rem, 1.15vw, 0.48rem);
+  font-weight: 400;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+/* Extra-small spaced caps — sub-labels */
+.wcard-line--xs {
+  font-family: 'Lato', sans-serif;
+  font-size: clamp(0.28rem, 0.92vw, 0.38rem);
   font-weight: 400;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: #3a2a1a;
 }
 
-/* TOGETHER WITH THEIR FAMILIES — 17.5% */
-.wcard-families {
-  top: 17.5%;
-  font-size: clamp(0.36rem, 1.2vw, 0.5rem);
-}
-
-/* Bride name — 27% */
-.wcard-bride {
-  top: 27%;
-  font-family: 'Great Vibes', cursive;
-  font-size: clamp(1.3rem, 5vw, 1.9rem);
-  color: #1a1a1a;
-  letter-spacing: 0.02em;
-  line-height: 1;
-}
-
-/* "and" — 35.5% */
-.wcard-and {
-  top: 35.5%;
-  font-size: clamp(0.33rem, 1.1vw, 0.44rem);
+/* Italic modifier */
+.wcard-line--italic {
   font-style: italic;
   color: #6b4c2a;
   letter-spacing: 0.2em;
 }
 
-/* Groom name — 39% */
-.wcard-groom {
-  top: 39%;
-  font-family: 'Great Vibes', cursive;
-  font-size: clamp(1.3rem, 5vw, 1.9rem);
-  color: #1a1a1a;
-  letter-spacing: 0.02em;
-  line-height: 1;
+/* Letter-spacing shorthand */
+.wcard-line--spaced {
+  letter-spacing: 0.14em;
 }
 
-/* REQUEST THE PLEASURE OF YOUR COMPANY — 48% */
-.wcard-dateline {
-  top: 48%;
-  font-size: clamp(0.3rem, 0.95vw, 0.4rem);
-}
-
-/* Wedding date — 51% */
-.wcard-date {
-  top: 51%;
+/* Venue / detail lines — Cormorant italic */
+.wcard-line--detail {
   font-family: 'Cormorant Garamond', serif;
   font-style: italic;
-  font-size: clamp(0.48rem, 1.5vw, 0.62rem);
-  color: #3a2a1a;
-  letter-spacing: 0.06em;
-}
-
-/* "AT" — 54.5% */
-.wcard-venuelabel {
-  top: 54.5%;
-  font-size: clamp(0.3rem, 0.95vw, 0.4rem);
-}
-
-/* Venue name — 57% */
-.wcard-venue {
-  position: absolute;
-  left: 8%; right: 8%;
-  top: 57%;
-  text-align: center;
-  font-family: 'Cormorant Garamond', serif;
-  font-style: italic;
-  font-size: clamp(0.42rem, 1.4vw, 0.56rem);
-  color: #3a2a1a;
-  letter-spacing: 0.04em;
-  line-height: 1.3;
-}
-
-/* Decorative separator — 63% */
-.wcard-separator {
-  top: 63%;
-  font-family: 'Lato', sans-serif;
-  font-size: clamp(0.28rem, 0.9vw, 0.38rem);
-  color: #8b6a40;
-  letter-spacing: 0.08em;
-  text-transform: none;
-}
-
-/* SERVICE / RECEPTION label */
-.wcard-timelabel {
-  font-size: clamp(0.28rem, 0.9vw, 0.38rem);
-  color: #3a2a1a;
-}
-
-/* Time / church detail lines */
-.wcard-detail {
-  position: absolute;
-  left: 8%; right: 8%;
-  font-family: 'Cormorant Garamond', serif;
-  font-style: italic;
-  font-size: clamp(0.36rem, 1.2vw, 0.5rem);
-  color: #3a2a1a;
-  text-align: center;
+  font-size: clamp(0.38rem, 1.25vw, 0.52rem);
   letter-spacing: 0.04em;
   line-height: 1.3;
 }
