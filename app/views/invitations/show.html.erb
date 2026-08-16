@@ -56,26 +56,34 @@
 
           <% if @verified || @rsvp %>
             <%# ── Venue, map, photo, message — only after verification ── %>
-            <% if @wedding.church_venue.present? %>
-              <p class="inv-detail inv-detail--muted">
-                <%= image_tag "location-icon.png", alt: "Church", style: "width:16px;height:16px;object-fit:contain;vertical-align:middle;margin-right:6px;" %>
-                ⛪ <%= @wedding.church_venue %>
-                <% if @wedding.church_time.present? %>
-                  <span class="inv-time-badge">🕖 <%= @wedding.church_time %></span>
-                <% end %>
-              </p>
-            <% end %>
-            <p class="inv-detail inv-detail--muted">
-              <%= image_tag "location-icon.png", alt: "Venue", style: "width:16px;height:16px;object-fit:contain;vertical-align:middle;margin-right:6px;" %>
-              🥂 <%= @wedding.venue %>
-              <% if @wedding.dinner_time.present? %>
-                <span class="inv-time-badge">🕓 <%= @wedding.dinner_time %></span>
+
+            <div class="inv-venues">
+              <% if @wedding.church_venue.present? %>
+                <div class="inv-venue-row">
+                  <div class="inv-venue-icon">⛪</div>
+                  <div class="inv-venue-body">
+                    <span class="inv-venue-name"><%= @wedding.church_venue %></span>
+                    <% if @wedding.church_time.present? %>
+                      <span class="inv-time-badge">🕖 <%= @wedding.church_time %></span>
+                    <% end %>
+                  </div>
+                </div>
               <% end %>
-              <button class="inv-map-btn" onclick="document.getElementById('map-modal').classList.add('open')" aria-label="View venue map">
-                <%= image_tag "map.png", alt: "Map", style: "width:14px;height:14px;object-fit:contain;" %>
-                View Map
-              </button>
-            </p>
+
+              <div class="inv-venue-row">
+                <div class="inv-venue-icon">🥂</div>
+                <div class="inv-venue-body">
+                  <span class="inv-venue-name"><%= @wedding.venue %></span>
+                  <% if @wedding.dinner_time.present? %>
+                    <span class="inv-time-badge">🕓 <%= @wedding.dinner_time %></span>
+                  <% end %>
+                  <button class="inv-map-btn" onclick="document.getElementById('map-modal').classList.add('open')" aria-label="View venue map">
+                    <%= image_tag "map.png", alt: "Map", style: "width:13px;height:13px;object-fit:contain;" %>
+                    View Map
+                  </button>
+                </div>
+              </div>
+            </div>
 
             <!-- Couple photos moved to hero banner above -->
 
@@ -100,8 +108,7 @@
                 <div class="inv-swatch-row">
                   <% @wedding.theme_colors.each do |color| %>
                     <div class="inv-swatch-item">
-                      <div class="inv-swatch-block" style="<%= color_swatch_style(color) %>"></div>
-                      <span class="inv-swatch-name"><%= color %></span>
+                      <div class="inv-swatch-block" style="<%= color_swatch_style(color) %>" title="<%= color %>"></div>
                     </div>
                   <% end %>
                 </div>
@@ -163,20 +170,6 @@
                   Thank you for celebrating this moment with us and for your warmth and generosity.
                 </p>
               </div>
-
-              <% if @wedding.theme.present? %>
-                <div class="inv-colors-section mt-4">
-                  <p class="inv-colors-heading">OUR WEDDING COLOURS</p>
-                  <div class="inv-swatch-row">
-                    <% @wedding.theme_colors.each do |color| %>
-                      <div class="inv-swatch-item">
-                        <div class="inv-swatch-block" style="<%= color_swatch_style(color) %>"></div>
-                        <span class="inv-swatch-name"><%= color %></span>
-                      </div>
-                    <% end %>
-                  </div>
-                </div>
-              <% end %>
 
               <div class="inv-policy-note mt-3">
                 <p class="inv-policy-text">
