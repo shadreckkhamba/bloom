@@ -159,6 +159,15 @@
                 </p>
               </div>
 
+              <div class="inv-policy-note mt-3">
+                <p class="inv-policy-text">
+                  🎟️ <strong>Strictly by invitation only.</strong><br>
+                  Please do not bring additional guests beyond your reserved seat/s.<br>
+                  This will be an <strong>adults-only</strong> celebration.<br>
+                  We sincerely appreciate your understanding.
+                </p>
+              </div>
+
               <% if @rsvp.message.present? %>
                 <p class="text-muted mt-4 small fst-italic">"<%= @rsvp.message %>"</p>
               <% end %>
@@ -180,7 +189,17 @@
               <p class="inv-welcome">
                 Welcome, <span class="text-gold"><%= @guest.name.split.first %></span> ❤️
               </p>
-              <p class="text-muted small mb-4">Will you be joining us on this special day?</p>
+              <p class="text-muted small mb-3">Will you be joining us on this special day?</p>
+
+              <!-- Adults-only notice -->
+              <div class="inv-policy-note mb-4">
+                <p class="inv-policy-text">
+                  🎟️ <strong>Strictly by invitation only.</strong><br>
+                  Please do not bring additional guests beyond your reserved seat/s.<br>
+                  This will be an <strong>adults-only</strong> celebration.<br>
+                  We sincerely appreciate your understanding.
+                </p>
+              </div>
 
               <%= form_with url: invitation_rsvp_path(@guest.token), id: "rsvp-form", scope: :rsvp do |f| %>
 
@@ -204,29 +223,7 @@
                   </div>
                 </div>
 
-                <!-- Attending extras (hidden until "yes" selected) -->
-                <div id="attending-extras" style="display:none;" class="text-start">
-
-                  <div class="inv-form-group">
-                    <p class="inv-form-label">Will you be bringing your spouse?</p>
-                    <div class="d-flex gap-3 justify-content-center">
-                      <div>
-                        <input type="radio" class="btn-check" name="rsvp[bringing_spouse]"
-                               id="spouse_yes" value="true">
-                        <label class="btn inv-rsvp-btn px-4" for="spouse_yes">👫 Yes, +1</label>
-                      </div>
-                      <div>
-                        <input type="radio" class="btn-check" name="rsvp[bringing_spouse]"
-                               id="spouse_no" value="false" checked>
-                        <label class="btn inv-rsvp-btn px-4" for="spouse_no">🙋 Just me</label>
-                      </div>
-                    </div>
-                    <p class="text-muted mt-2 mb-0" style="font-size:0.75rem;text-align:center;">
-                      Each invitation covers a maximum of 2 guests.
-                    </p>
-                  </div>
-
-                </div>
+                <!-- Attending extras removed — adults-only, no extra guests -->
 
                 <!-- Message — always visible -->
                 <div class="inv-form-group text-start mt-3">
@@ -346,24 +343,7 @@ initCountdown();
 document.addEventListener('turbo:load',   initCountdown);
 document.addEventListener('turbo:render', initCountdown);
 
-/* ── RSVP form: show/hide extras ──────────────── */
-document.querySelectorAll('input[name="rsvp[status]"]').forEach(function (radio) {
-  radio.addEventListener('change', function () {
-    const extras = document.getElementById('attending-extras');
-    if (extras) extras.style.display = this.value === 'accepted' ? 'block' : 'none';
-  });
-});
-
-/* ── Spouse toggle auto-selects min seats ──────── */
-document.querySelectorAll('[data-role="spouse-toggle"]').forEach(function (radio) {
-  radio.addEventListener('change', function () {
-    if (this.value === 'true') {
-      const s2 = document.getElementById('seats_2');
-      const s1 = document.getElementById('seats_1');
-      if (s1 && s1.checked && s2) s2.checked = true;
-    }
-  });
-});
+/* ── RSVP form: spouse extras removed ── */
 
 /* ── Auto-dismiss flash ────────────────────────── */
 function initFlashDismiss() {

@@ -188,7 +188,7 @@
             <p class="wcard-line wcard-line--sm wcard-line--spaced" style="top:17.5%;line-height:1.7;">TOGETHER<br>WITH THEIR FAMILIES</p>
 
             <%# Line 2 — Bride name (script) %>
-            <p class="wcard-line wcard-line--script" style="top:24%;"><%= @wedding.bride_name %></p>
+            <p class="wcard-line wcard-line--script" style="top:27%;"><%= @wedding.bride_name %></p>
 
             <%# Line 3 — "and" %>
             <p class="wcard-line wcard-line--xs wcard-line--italic" style="top:33%;">and</p>
@@ -225,6 +225,13 @@
                 <p class="wcard-line wcard-line--xs wcard-line--spaced" style="top:82%;"><%= @wedding.church_time.upcase %></p>
               <% end %>
             <% end %>
+
+            <%# Policy lines at the bottom %>
+            <p class="wcard-line wcard-line--xs wcard-line--spaced" style="top:87%;letter-spacing:0.18em;">STRICTLY BY INVITATION</p>
+            <p class="wcard-line wcard-line--detail" style="top:91%;font-size:0.42rem;line-height:1.4;">
+              Please do not bring additional guests beyond your reserved seat/s.<br>
+              This will be an adults-only celebration.
+            </p>
           </div>
         </div>
       </div>
