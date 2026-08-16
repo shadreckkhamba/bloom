@@ -994,12 +994,12 @@ h1, h2, h3, .display-1, .display-2, .serif {
   position: relative;
   border-radius: 24px;
   overflow: hidden;
-  height: 340px;
+  height: 420px;
   box-shadow: 0 16px 48px rgba(58,159,192,0.18);
 }
 
 @media (min-width: 768px) {
-  .wedding-hero { height: 400px; }
+  .wedding-hero { height: 480px; }
 }
 
 .wedding-hero-photos {
@@ -1012,12 +1012,12 @@ h1, h2, h3, .display-1, .display-2, .serif {
   flex: 1;
   width: 50%;
   height: 100%;
-  object-fit: cover;
-  object-position: center 15%;
   display: block;
+  object-fit: cover;
+  object-position: center top;
 }
 .wedding-hero-img--right {
-  object-position: center 5%;
+  object-position: center 30%;
 }
 
 .wedding-hero-overlay {
@@ -1071,15 +1071,15 @@ h1, h2, h3, .display-1, .display-2, .serif {
 
 .inv-hero {
   position: relative;
-  width: calc(100% + 4rem); /* bleed past card padding */
-  margin: -2.8rem -2rem 0;  /* pull flush to card edges */
-  height: 340px;
+  width: calc(100% + 4rem);
+  margin: -2.8rem -2rem 0;
+  height: 480px;
   overflow: hidden;
   border-radius: 24px 24px 0 0;
 }
 
 @media (max-width: 480px) {
-  .inv-hero { height: 260px; }
+  .inv-hero { height: 380px; }
 }
 
 .inv-hero-photos {
@@ -1092,12 +1092,9 @@ h1, h2, h3, .display-1, .display-2, .serif {
   flex: 1;
   width: 50%;
   height: 100%;
-  object-fit: cover;
-  object-position: center 15%;
   display: block;
-}
-.inv-hero-img--right {
-  object-position: center 5%;
+  object-fit: cover;
+  object-position: center top;
 }
 
 /* thin decorative centre divider */
@@ -1324,4 +1321,10 @@ h1, h2, h3, .display-1, .display-2, .serif {
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--muted);
+}
+
+/* Push right hero image down so head isn't cropped */
+.inv-hero-img--right,
+.wedding-hero-img--right {
+  object-position: center 30%;
 }
