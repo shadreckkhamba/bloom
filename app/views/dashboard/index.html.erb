@@ -32,7 +32,7 @@
       <span style="font-size:1.1rem;">⚠️</span>
       <div>
         <strong>Possible shared links detected</strong> —
-        <%= @flagged.count %> invitation#{"s" if @flagged.count != 1} were opened from more than one device:
+        <%= @flagged.count %> invitation<%= "s" if @flagged.count != 1 %> were opened from more than one device:
         <span class="text-muted"><%= @flagged.map(&:name).join(", ") %></span>.
         Someone may have forwarded their link.
       </div>
