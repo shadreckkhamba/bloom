@@ -3,14 +3,15 @@
  */
 
 :root {
-  --primary:      #3A9FC0;
-  --primary-mid:  #5FB3CE;
-  --primary-light:#ADD8E6;
-  --primary-pale: #D4EBF2;
-  --primary-ultra:#EBF6FA;
-  --black:        #1a1a1a;
+  --primary:      #ADD8E6;   /* Light Blue */
+  --primary-mid:  #c5e3ed;
+  --primary-light:#d9eef5;
+  --primary-pale: #eef7fb;
+  --primary-ultra:#f6fbfd;
+  --black:        #1a1a1a;   /* Black */
+  --nude:         #E8C9A0;   /* Nude */
   --charcoal:     #2c2c2c;
-  --muted:        #6a8a94;
+  --muted:        #7a6a60;
   --white:        #ffffff;
 }
 
@@ -29,10 +30,10 @@ h1, h2, h3, .display-1, .display-2, .serif {
 
 /* ── Navbar ─────────────────────────────── */
 .bloom-nav {
-  background: linear-gradient(135deg, #1a2a35 0%, #1e3545 100%);
-  border-bottom: 1px solid rgba(173, 216, 230, 0.25);
+  background: linear-gradient(135deg, #1a1a1a 0%, #2c2c2c 100%);
+  border-bottom: 1px solid rgba(173,216,230,0.2);
   padding: 0.85rem 0;
-  box-shadow: 0 2px 16px rgba(0,0,0,0.18);
+  box-shadow: 0 2px 16px rgba(0,0,0,0.25);
 }
 
 .bloom-brand {
@@ -106,7 +107,7 @@ h1, h2, h3, .display-1, .display-2, .serif {
 
 /* ── Buttons ────────────────────────────── */
 .btn-bloom {
-  background: linear-gradient(135deg, var(--primary), #2d8aaa);
+  background: linear-gradient(135deg, #1a1a1a, #2c2c2c);
   color: white;
   border: none;
   border-radius: 50px;
@@ -117,22 +118,22 @@ h1, h2, h3, .display-1, .display-2, .serif {
   transition: all 0.25s;
 }
 .btn-bloom:hover {
-  background: linear-gradient(135deg, #2d8aaa, #1f6e8a);
+  background: linear-gradient(135deg, #2c2c2c, #1a1a1a);
   color: white;
   transform: translateY(-1px);
-  box-shadow: 0 6px 20px rgba(58,159,192,0.35);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.25);
 }
 
 .btn-bloom-outline {
   background: transparent;
-  color: var(--primary);
-  border: 1.5px solid var(--primary);
+  color: var(--black);
+  border: 1.5px solid var(--black);
   border-radius: 50px;
   padding: 0.6rem 2rem;
   transition: all 0.25s;
 }
 .btn-bloom-outline:hover {
-  background: var(--primary);
+  background: var(--black);
   color: white;
 }
 
@@ -416,7 +417,7 @@ h1, h2, h3, .display-1, .display-2, .serif {
 
 /* Small buttons for invitation page */
 .btn-bloom-sm {
-  background: linear-gradient(135deg, var(--primary), #2d8aaa);
+  background: linear-gradient(135deg, #1a1a1a, #2c2c2c);
   color: white;
   border: none;
   border-radius: 50px;
@@ -427,14 +428,14 @@ h1, h2, h3, .display-1, .display-2, .serif {
   transition: all 0.2s;
 }
 .btn-bloom-sm:hover {
-  background: linear-gradient(135deg, #2d8aaa, #1f6e8a);
+  background: linear-gradient(135deg, #2c2c2c, #1a1a1a);
   color: white;
   transform: translateY(-1px);
 }
 .btn-bloom-outline-sm {
   background: transparent;
-  color: var(--primary);
-  border: 1.5px solid var(--primary-light);
+  color: var(--black);
+  border: 1.5px solid var(--black);
   border-radius: 50px;
   padding: 0.45rem 1.4rem;
   font-size: 0.82rem;
@@ -443,7 +444,7 @@ h1, h2, h3, .display-1, .display-2, .serif {
 }
 .btn-bloom-outline-sm:hover {
   background: var(--primary-pale);
-  border-color: var(--primary);
+  border-color: var(--black);
 }
 
 /* Footer */
@@ -1016,9 +1017,6 @@ h1, h2, h3, .display-1, .display-2, .serif {
   object-fit: cover;
   object-position: center top;
 }
-.wedding-hero-img--right {
-  object-position: center 30%;
-}
 
 .wedding-hero-overlay {
   position: absolute;
@@ -1324,9 +1322,11 @@ h1, h2, h3, .display-1, .display-2, .serif {
 }
 
 /* Push right hero image down so head isn't cropped */
-.inv-hero-img--right,
-.wedding-hero-img--right {
+.inv-hero-img--right {
   object-position: center 30%;
+}
+.wedding-hero-img--right {
+  object-position: center 20%;
 }
 
 /* ── Table number badge ── */
