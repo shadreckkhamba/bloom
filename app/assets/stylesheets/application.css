@@ -3,11 +3,11 @@
  */
 
 :root {
-  --primary:      #ADD8E6;   /* Light Blue */
-  --primary-mid:  #c5e3ed;
-  --primary-light:#d9eef5;
+  --primary:      #4f86b8;   /* Brighter blue */
+  --primary-mid:  #8fb8d3;
+  --primary-light:#d9eaf3;
   --primary-pale: #eef7fb;
-  --primary-ultra:#f6fbfd;
+  --primary-ultra:#f8fbfd;
   --black:        #1a1a1a;   /* Black */
   --nude:         #E8C9A0;   /* Nude */
   --charcoal:     #2c2c2c;
@@ -15,11 +15,17 @@
   --white:        #ffffff;
 }
 
+html {
+  color-scheme: light;
+  background: var(--white);
+}
+
 body {
   font-family: 'Lato', sans-serif;
   font-weight: 300;
   color: var(--charcoal);
   background: var(--white);
+  color-scheme: light;
 }
 
 h1, h2, h3, .display-1, .display-2, .serif {
