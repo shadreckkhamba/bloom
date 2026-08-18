@@ -16,7 +16,7 @@
 }
 
 html {
-  color-scheme: light dark;
+  color-scheme: light;
   background: var(--white);
 }
 
@@ -25,7 +25,7 @@ body {
   font-weight: 300;
   color: var(--charcoal);
   background: var(--white);
-  color-scheme: light dark;
+  color-scheme: light;
 }
 
 h1, h2, h3, .display-1, .display-2, .serif {
@@ -45,18 +45,18 @@ h1, h2, h3, .display-1, .display-2, .serif {
 .bloom-brand {
   font-family: 'Cormorant Garamond', serif;
   font-size: 1.4rem;
-  color: #f8fbff !important;
+  color: var(--primary-light) !important;
   text-decoration: none;
   letter-spacing: 0.04em;
 }
 
 .bloom-nav .text-muted {
-  color: rgba(255, 255, 255, 0.8) !important;
+  color: rgba(173, 216, 230, 0.65) !important;
 }
 
 .bloom-nav .btn-outline-secondary {
-  color: rgba(255, 255, 255, 0.9);
-  border-color: rgba(255, 255, 255, 0.35);
+  color: rgba(173, 216, 230, 0.8);
+  border-color: rgba(173, 216, 230, 0.35);
   font-size: 0.78rem;
   padding: 0.3rem 0.9rem;
   border-radius: 50px;
@@ -64,9 +64,9 @@ h1, h2, h3, .display-1, .display-2, .serif {
 }
 
 .bloom-nav .btn-outline-secondary:hover {
-  background: rgba(255, 255, 255, 0.12);
-  color: #fff;
-  border-color: rgba(255, 255, 255, 0.75);
+  background: rgba(173, 216, 230, 0.12);
+  color: var(--primary-light);
+  border-color: var(--primary-light);
 }
 
 /* ── Auth pages ─────────────────────────── */
@@ -83,7 +83,6 @@ h1, h2, h3, .display-1, .display-2, .serif {
   border-radius: 16px;
   padding: 2.5rem;
   box-shadow: 0 8px 40px rgba(58,159,192,0.10);
-  color-scheme: only light;
 }
 
 /* ── Dashboard stats ────────────────────── */
@@ -94,7 +93,6 @@ h1, h2, h3, .display-1, .display-2, .serif {
   padding: 1.5rem;
   text-align: center;
   box-shadow: 0 4px 20px rgba(58,159,192,0.08);
-  color-scheme: only light;
 }
 
 .stat-number {
@@ -151,49 +149,6 @@ h1, h2, h3, .display-1, .display-2, .serif {
   box-shadow: 0 0 0 0.2rem rgba(58,159,192,0.18);
 }
 
-::placeholder {
-  color: rgba(44, 44, 44, 0.42);
-  font-weight: 300;
-  opacity: 1;
-}
-
-.form-control::placeholder,
-.form-select::placeholder,
-textarea.form-control::placeholder {
-  color: rgba(44, 44, 44, 0.42);
-  font-weight: 300;
-  opacity: 1;
-}
-
-.form-control::-webkit-input-placeholder,
-.form-select::-webkit-input-placeholder,
-textarea.form-control::-webkit-input-placeholder {
-  color: rgba(44, 44, 44, 0.42);
-  font-weight: 300;
-}
-
-.form-control::-moz-placeholder,
-.form-select::-moz-placeholder,
-textarea.form-control::-moz-placeholder {
-  color: rgba(44, 44, 44, 0.42);
-  font-weight: 300;
-  opacity: 1;
-}
-
-.form-control:-ms-input-placeholder,
-.form-select:-ms-input-placeholder,
-textarea.form-control:-ms-input-placeholder {
-  color: rgba(44, 44, 44, 0.42);
-  font-weight: 300;
-}
-
-.form-control::-ms-input-placeholder,
-.form-select::-ms-input-placeholder,
-textarea.form-control::-ms-input-placeholder {
-  color: rgba(44, 44, 44, 0.42);
-  font-weight: 300;
-}
-
 /* ── Guest table ────────────────────────── */
 .guest-table th {
   font-size: 0.7rem;
@@ -224,7 +179,6 @@ textarea.form-control::-ms-input-placeholder {
   background: white;
   max-width: 340px;
   margin: 0 auto;
-  color-scheme: only light;
 }
 
 /* ── Check-in screen ────────────────────── */
@@ -242,7 +196,6 @@ textarea.form-control::-ms-input-placeholder {
   padding: 1.2rem 1.4rem;
   box-shadow: 0 2px 12px rgba(58,159,192,0.07);
   height: 100%;
-  color-scheme: only light;
 }
 .message-card-header {
   display: flex;
@@ -313,7 +266,6 @@ textarea.form-control::-ms-input-placeholder {
   box-shadow: 0 16px 64px rgba(58,159,192,0.13), 0 2px 8px rgba(0,0,0,0.04);
   backdrop-filter: blur(4px);
   overflow: hidden;
-  color-scheme: only light;
 }
 
 /* Brand label */
@@ -1233,9 +1185,6 @@ textarea.form-control::-ms-input-placeholder {
   border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 12px 48px rgba(0,0,0,0.18);
-  background-color: #fff;
-  color-scheme: only light;
-  isolation: isolate;
 }
 
 .wcard-bg {
@@ -1245,24 +1194,12 @@ textarea.form-control::-ms-input-placeholder {
   height: 100%;
   object-fit: cover;
   display: block;
-  z-index: 0;
-}
-
-.wcard::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: rgba(255, 255, 255, 0.12);
-  pointer-events: none;
-  z-index: 1;
 }
 
 .wcard-overlay {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  color-scheme: only light;
-  z-index: 2;
 }
 
 /* Every line is absolute + centred */
@@ -1274,8 +1211,7 @@ textarea.form-control::-ms-input-placeholder {
   margin: 0;
   text-align: center;
   line-height: 1.2;
-  color: #1f1b17;
-  -webkit-text-fill-color: #1f1b17;
+  color: #2c1a0e;
 }
 
 /* Script font — names */
@@ -1283,50 +1219,32 @@ textarea.form-control::-ms-input-placeholder {
   font-family: 'Great Vibes', cursive;
   font-size: 2.2rem;
   letter-spacing: 0.01em;
-  color: #111111;
-  -webkit-text-fill-color: #111111;
+  color: #1a1a1a;
 }
 
 /* Small spaced caps — section headings */
 .wcard-line--sm {
   font-family: 'Lato', sans-serif;
   font-size: 0.72rem;
-  font-weight: 600;
+  font-weight: 400;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: #111111;
-  -webkit-text-fill-color: #111111;
 }
 
 /* Extra-small spaced caps */
 .wcard-line--xs {
   font-family: 'Lato', sans-serif;
   font-size: 0.62rem;
-  font-weight: 600;
+  font-weight: 400;
   letter-spacing: 0.13em;
   text-transform: uppercase;
-  color: #111111;
-  -webkit-text-fill-color: #111111;
 }
 
 /* Italic modifier (and / labels) */
 .wcard-line--italic {
   font-style: italic;
-  color: #4f381f;
-  -webkit-text-fill-color: #4f381f;
+  color: #6b4c2a;
   letter-spacing: 0.18em;
-}
-
-/* Strong emphasis line between names */
-.wcard-line--and {
-  font-family: 'Lato', sans-serif;
-  font-size: 0.78rem;
-  font-weight: 700;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: #111111;
-  -webkit-text-fill-color: #111111;
-  text-shadow: 0 1px 2px rgba(255,255,255,0.55);
 }
 
 /* Venue / detail — Cormorant italic */
@@ -1336,56 +1254,6 @@ textarea.form-control::-ms-input-placeholder {
   font-size: 0.75rem;
   letter-spacing: 0.04em;
   line-height: 1.35;
-  color: #2e241c;
-  -webkit-text-fill-color: #2e241c;
-}
-
-/* Wedding venue lines need to survive dark-mode color shifts */
-.wcard-line--venue {
-  font-family: 'Lato', sans-serif;
-  font-size: 0.82rem;
-  font-weight: 700;
-  font-style: normal;
-  letter-spacing: 0.11em;
-  color: #111111;
-  -webkit-text-fill-color: #111111;
-  text-shadow: 0 1px 2px rgba(255,255,255,0.55);
-}
-
-/* Bottom policy hint */
-.wcard-line--policy {
-  font-family: 'Lato', sans-serif;
-  font-size: 0.56rem;
-  font-weight: 600;
-  font-style: normal;
-  letter-spacing: 0.03em;
-  line-height: 1.35;
-  color: #111111;
-  -webkit-text-fill-color: #111111;
-  text-shadow: 0 1px 2px rgba(255,255,255,0.55);
-}
-
-@media (max-width: 480px) {
-  .wcard-line--sm {
-    font-size: 0.8rem;
-    letter-spacing: 0.12em;
-  }
-  .wcard-line--xs {
-    font-size: 0.7rem;
-    letter-spacing: 0.11em;
-  }
-  .wcard-line--detail {
-    font-size: 0.8rem;
-  }
-  .wcard-line--and {
-    font-size: 0.82rem;
-  }
-  .wcard-line--venue {
-    font-size: 0.9rem;
-  }
-  .wcard-line--policy {
-    font-size: 0.62rem;
-  }
 }
 
 /* ── Invitation policy notice (adults-only / no extra guests) ── */
@@ -1523,29 +1391,19 @@ textarea.form-control::-ms-input-placeholder {
 /* ── Force light theme on wedding card (dark mode override) ── */
 @media (prefers-color-scheme: dark) {
   .wcard {
-    color-scheme: only light;
-  }
-  .wcard::before {
-    background: rgba(255, 255, 255, 0.18);
+    color-scheme: light;
   }
   .wcard-line {
-    color: #1f1b17 !important;
+    color: #2c1a0e !important;
   }
   .wcard-line--script {
-    color: #111111 !important;
+    color: #1a1a1a !important;
   }
   .wcard-line--italic {
-    color: #4f381f !important;
-  }
-  .wcard-line--and,
-  .wcard-line--venue,
-  .wcard-line--policy {
-    color: #111111 !important;
-    -webkit-text-fill-color: #111111 !important;
-    text-shadow: 0 1px 2px rgba(255,255,255,0.55) !important;
+    color: #6b4c2a !important;
   }
   .wcard-line--detail {
-    color: #2e241c !important;
+    color: #3a2a1a !important;
   }
 }
 
