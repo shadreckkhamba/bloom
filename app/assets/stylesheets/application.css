@@ -16,7 +16,7 @@
 }
 
 html {
-  color-scheme: only light;
+  color-scheme: light dark;
   background: var(--white);
 }
 
@@ -25,7 +25,7 @@ body {
   font-weight: 300;
   color: var(--charcoal);
   background: var(--white);
-  color-scheme: only light;
+  color-scheme: light dark;
 }
 
 h1, h2, h3, .display-1, .display-2, .serif {
@@ -1245,6 +1245,16 @@ textarea.form-control::-ms-input-placeholder {
   height: 100%;
   object-fit: cover;
   display: block;
+  z-index: 0;
+}
+
+.wcard::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.12);
+  pointer-events: none;
+  z-index: 1;
 }
 
 .wcard-overlay {
@@ -1252,6 +1262,7 @@ textarea.form-control::-ms-input-placeholder {
   inset: 0;
   pointer-events: none;
   color-scheme: only light;
+  z-index: 2;
 }
 
 /* Every line is absolute + centred */
@@ -1264,6 +1275,7 @@ textarea.form-control::-ms-input-placeholder {
   text-align: center;
   line-height: 1.2;
   color: #1f1b17;
+  -webkit-text-fill-color: #1f1b17;
 }
 
 /* Script font — names */
@@ -1272,30 +1284,36 @@ textarea.form-control::-ms-input-placeholder {
   font-size: 2.2rem;
   letter-spacing: 0.01em;
   color: #111111;
+  -webkit-text-fill-color: #111111;
 }
 
 /* Small spaced caps — section headings */
 .wcard-line--sm {
   font-family: 'Lato', sans-serif;
   font-size: 0.72rem;
-  font-weight: 400;
+  font-weight: 600;
   letter-spacing: 0.15em;
   text-transform: uppercase;
+  color: #111111;
+  -webkit-text-fill-color: #111111;
 }
 
 /* Extra-small spaced caps */
 .wcard-line--xs {
   font-family: 'Lato', sans-serif;
   font-size: 0.62rem;
-  font-weight: 400;
+  font-weight: 600;
   letter-spacing: 0.13em;
   text-transform: uppercase;
+  color: #111111;
+  -webkit-text-fill-color: #111111;
 }
 
 /* Italic modifier (and / labels) */
 .wcard-line--italic {
   font-style: italic;
   color: #4f381f;
+  -webkit-text-fill-color: #4f381f;
   letter-spacing: 0.18em;
 }
 
@@ -1307,6 +1325,21 @@ textarea.form-control::-ms-input-placeholder {
   letter-spacing: 0.04em;
   line-height: 1.35;
   color: #2e241c;
+  -webkit-text-fill-color: #2e241c;
+}
+
+@media (max-width: 480px) {
+  .wcard-line--sm {
+    font-size: 0.8rem;
+    letter-spacing: 0.12em;
+  }
+  .wcard-line--xs {
+    font-size: 0.7rem;
+    letter-spacing: 0.11em;
+  }
+  .wcard-line--detail {
+    font-size: 0.8rem;
+  }
 }
 
 /* ── Invitation policy notice (adults-only / no extra guests) ── */
@@ -1445,6 +1478,9 @@ textarea.form-control::-ms-input-placeholder {
 @media (prefers-color-scheme: dark) {
   .wcard {
     color-scheme: only light;
+  }
+  .wcard::before {
+    background: rgba(255, 255, 255, 0.18);
   }
   .wcard-line {
     color: #1f1b17 !important;
