@@ -1317,6 +1317,18 @@ textarea.form-control::-ms-input-placeholder {
   letter-spacing: 0.18em;
 }
 
+/* Strong emphasis line between names */
+.wcard-line--and {
+  font-family: 'Lato', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #111111;
+  -webkit-text-fill-color: #111111;
+  text-shadow: 0 1px 2px rgba(255,255,255,0.55);
+}
+
 /* Venue / detail — Cormorant italic */
 .wcard-line--detail {
   font-family: 'Cormorant Garamond', serif;
@@ -1326,6 +1338,31 @@ textarea.form-control::-ms-input-placeholder {
   line-height: 1.35;
   color: #2e241c;
   -webkit-text-fill-color: #2e241c;
+}
+
+/* Wedding venue lines need to survive dark-mode color shifts */
+.wcard-line--venue {
+  font-family: 'Lato', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 700;
+  font-style: normal;
+  letter-spacing: 0.11em;
+  color: #111111;
+  -webkit-text-fill-color: #111111;
+  text-shadow: 0 1px 2px rgba(255,255,255,0.55);
+}
+
+/* Bottom policy hint */
+.wcard-line--policy {
+  font-family: 'Lato', sans-serif;
+  font-size: 0.56rem;
+  font-weight: 600;
+  font-style: normal;
+  letter-spacing: 0.03em;
+  line-height: 1.35;
+  color: #111111;
+  -webkit-text-fill-color: #111111;
+  text-shadow: 0 1px 2px rgba(255,255,255,0.55);
 }
 
 @media (max-width: 480px) {
@@ -1339,6 +1376,15 @@ textarea.form-control::-ms-input-placeholder {
   }
   .wcard-line--detail {
     font-size: 0.8rem;
+  }
+  .wcard-line--and {
+    font-size: 0.82rem;
+  }
+  .wcard-line--venue {
+    font-size: 0.9rem;
+  }
+  .wcard-line--policy {
+    font-size: 0.62rem;
   }
 }
 
@@ -1490,6 +1536,13 @@ textarea.form-control::-ms-input-placeholder {
   }
   .wcard-line--italic {
     color: #4f381f !important;
+  }
+  .wcard-line--and,
+  .wcard-line--venue,
+  .wcard-line--policy {
+    color: #111111 !important;
+    -webkit-text-fill-color: #111111 !important;
+    text-shadow: 0 1px 2px rgba(255,255,255,0.55) !important;
   }
   .wcard-line--detail {
     color: #2e241c !important;

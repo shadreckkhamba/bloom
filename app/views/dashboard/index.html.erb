@@ -237,7 +237,7 @@
             <p class="wcard-line wcard-line--script" style="top:26%;"><%= @wedding.bride_name %></p>
 
             <%# Line 3 — "and" %>
-            <p class="wcard-line wcard-line--xs wcard-line--italic" style="top:34%;">and</p>
+            <p class="wcard-line wcard-line--and" style="top:34%;">AND</p>
 
             <%# Line 4 — Groom name (script) %>
             <p class="wcard-line wcard-line--script" style="top:37%;"><%= @wedding.groom_name %></p>
@@ -277,12 +277,12 @@
             <% end %>
 
             <%# Line 7 — Venue %>
-            <p class="wcard-line wcard-line--detail" style="top:67%;"><%= @wedding.venue.upcase %></p>
+            <p class="wcard-line wcard-line--venue" style="top:67%;"><%= @wedding.venue.upcase %></p>
 
             <%# Line 8 — Church venue if set %>
             <% if @wedding.church_venue.present? %>
               <p class="wcard-line wcard-line--xs wcard-line--spaced" style="top:73%;">CEREMONY</p>
-              <p class="wcard-line wcard-line--detail" style="top:77%;"><%= @wedding.church_venue.upcase %></p>
+              <p class="wcard-line wcard-line--venue" style="top:77%;"><%= @wedding.church_venue.upcase %></p>
               <% if @wedding.church_time.present? %>
                 <p class="wcard-line wcard-line--xs wcard-line--spaced" style="top:82%;"><%= @wedding.church_time.upcase %></p>
               <% end %>
@@ -290,7 +290,7 @@
 
             <%# Policy lines at the bottom %>
             <p class="wcard-line wcard-line--xs wcard-line--spaced" style="top:87%;letter-spacing:0.18em;">STRICTLY BY INVITATION</p>
-            <p class="wcard-line wcard-line--detail" style="top:91%;font-size:0.42rem;line-height:1.4;">
+            <p class="wcard-line wcard-line--policy" style="top:90.5%;">
               Please do not bring additional guests beyond your reserved seat/s.<br>
               This will be an adults-only celebration.
             </p>
