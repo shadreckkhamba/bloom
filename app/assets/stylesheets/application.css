@@ -16,7 +16,7 @@
 }
 
 html {
-  color-scheme: light;
+  color-scheme: only light;
   background: var(--white);
 }
 
@@ -25,7 +25,7 @@ body {
   font-weight: 300;
   color: var(--charcoal);
   background: var(--white);
-  color-scheme: light;
+  color-scheme: only light;
 }
 
 h1, h2, h3, .display-1, .display-2, .serif {
@@ -83,6 +83,7 @@ h1, h2, h3, .display-1, .display-2, .serif {
   border-radius: 16px;
   padding: 2.5rem;
   box-shadow: 0 8px 40px rgba(58,159,192,0.10);
+  color-scheme: only light;
 }
 
 /* ── Dashboard stats ────────────────────── */
@@ -93,6 +94,7 @@ h1, h2, h3, .display-1, .display-2, .serif {
   padding: 1.5rem;
   text-align: center;
   box-shadow: 0 4px 20px rgba(58,159,192,0.08);
+  color-scheme: only light;
 }
 
 .stat-number {
@@ -222,6 +224,7 @@ textarea.form-control::-ms-input-placeholder {
   background: white;
   max-width: 340px;
   margin: 0 auto;
+  color-scheme: only light;
 }
 
 /* ── Check-in screen ────────────────────── */
@@ -239,6 +242,7 @@ textarea.form-control::-ms-input-placeholder {
   padding: 1.2rem 1.4rem;
   box-shadow: 0 2px 12px rgba(58,159,192,0.07);
   height: 100%;
+  color-scheme: only light;
 }
 .message-card-header {
   display: flex;
@@ -309,6 +313,7 @@ textarea.form-control::-ms-input-placeholder {
   box-shadow: 0 16px 64px rgba(58,159,192,0.13), 0 2px 8px rgba(0,0,0,0.04);
   backdrop-filter: blur(4px);
   overflow: hidden;
+  color-scheme: only light;
 }
 
 /* Brand label */
@@ -1228,6 +1233,9 @@ textarea.form-control::-ms-input-placeholder {
   border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 12px 48px rgba(0,0,0,0.18);
+  background-color: #fff;
+  color-scheme: only light;
+  isolation: isolate;
 }
 
 .wcard-bg {
@@ -1243,6 +1251,7 @@ textarea.form-control::-ms-input-placeholder {
   position: absolute;
   inset: 0;
   pointer-events: none;
+  color-scheme: only light;
 }
 
 /* Every line is absolute + centred */
@@ -1254,7 +1263,7 @@ textarea.form-control::-ms-input-placeholder {
   margin: 0;
   text-align: center;
   line-height: 1.2;
-  color: #2c1a0e;
+  color: #1f1b17;
 }
 
 /* Script font — names */
@@ -1262,7 +1271,7 @@ textarea.form-control::-ms-input-placeholder {
   font-family: 'Great Vibes', cursive;
   font-size: 2.2rem;
   letter-spacing: 0.01em;
-  color: #1a1a1a;
+  color: #111111;
 }
 
 /* Small spaced caps — section headings */
@@ -1286,7 +1295,7 @@ textarea.form-control::-ms-input-placeholder {
 /* Italic modifier (and / labels) */
 .wcard-line--italic {
   font-style: italic;
-  color: #6b4c2a;
+  color: #4f381f;
   letter-spacing: 0.18em;
 }
 
@@ -1297,6 +1306,7 @@ textarea.form-control::-ms-input-placeholder {
   font-size: 0.75rem;
   letter-spacing: 0.04em;
   line-height: 1.35;
+  color: #2e241c;
 }
 
 /* ── Invitation policy notice (adults-only / no extra guests) ── */
@@ -1434,19 +1444,19 @@ textarea.form-control::-ms-input-placeholder {
 /* ── Force light theme on wedding card (dark mode override) ── */
 @media (prefers-color-scheme: dark) {
   .wcard {
-    color-scheme: light;
+    color-scheme: only light;
   }
   .wcard-line {
-    color: #2c1a0e !important;
+    color: #1f1b17 !important;
   }
   .wcard-line--script {
-    color: #1a1a1a !important;
+    color: #111111 !important;
   }
   .wcard-line--italic {
-    color: #6b4c2a !important;
+    color: #4f381f !important;
   }
   .wcard-line--detail {
-    color: #3a2a1a !important;
+    color: #2e241c !important;
   }
 }
 
