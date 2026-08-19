@@ -1413,6 +1413,16 @@ h1, h2, h3, .display-1, .display-2, .serif {
 }
 
 /* ── Wedding card stays high-contrast on a light card background ── */
+@media (prefers-color-scheme: dark) {
+  .wcard-line,
+  .wcard-line--script,
+  .wcard-line--italic,
+  .wcard-line--detail {
+    color: #fff !important;
+    -webkit-text-fill-color: #fff !important;
+    text-shadow: 0 0 1px rgba(255,255,255,0.95), 0 0 3px rgba(255,255,255,0.35);
+  }
+}
 
 /* ── Venue rows on invitation page ── */
 .inv-venues {
