@@ -993,6 +993,51 @@ h1, h2, h3, .display-1, .display-2, .serif {
   max-width: 380px;
 }
 
+@media (max-width: 991.98px) {
+  .auth-split-page {
+    flex-direction: column;
+  }
+
+  .auth-split-photo {
+    display: block;
+    flex: 0 0 auto;
+    min-height: 240px;
+    height: 38vh;
+    max-height: 320px;
+  }
+
+  .auth-split-photo-overlay {
+    background: linear-gradient(to top, rgba(255,255,255,0.90) 0%, rgba(255,255,255,0.22) 100%);
+    justify-content: flex-end;
+    padding: 1.5rem 1.25rem;
+  }
+
+  .auth-split-brand {
+    color: var(--black);
+  }
+
+  .auth-split-tagline {
+    color: rgba(26,26,26,0.78);
+  }
+
+  .auth-split-form {
+    flex: 1 1 auto;
+    width: 100%;
+    padding: 1.5rem 1rem 2rem;
+  }
+
+  .auth-split-inner {
+    max-width: 430px;
+  }
+
+  .auth-split-inner .text-gold,
+  .auth-split-inner .text-muted,
+  .auth-split-inner .form-label,
+  .auth-split-inner .form-text {
+    color: var(--black) !important;
+  }
+}
+
 /* ══════════════════════════════════════════════
    DASHBOARD WEDDING HERO BANNER
    ══════════════════════════════════════════════ */
