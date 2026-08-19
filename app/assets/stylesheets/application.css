@@ -1216,8 +1216,8 @@ h1, h2, h3, .display-1, .display-2, .serif {
   margin: 0;
   text-align: center;
   line-height: 1.2;
-  color: #2c1a0e;
-  -webkit-text-fill-color: #2c1a0e;
+  color: #000;
+  -webkit-text-fill-color: #000;
 }
 
 /* Script font — names */
@@ -1225,8 +1225,8 @@ h1, h2, h3, .display-1, .display-2, .serif {
   font-family: 'Great Vibes', cursive;
   font-size: 2.2rem;
   letter-spacing: 0.01em;
-  color: #1a1a1a;
-  -webkit-text-fill-color: #1a1a1a;
+  color: #000;
+  -webkit-text-fill-color: #000;
 }
 
 /* Small spaced caps — section headings */
@@ -1250,7 +1250,7 @@ h1, h2, h3, .display-1, .display-2, .serif {
 /* Italic modifier (and / labels) */
 .wcard-line--italic {
   font-style: italic;
-  color: #6b4c2a;
+  color: #000;
   letter-spacing: 0.18em;
 }
 
@@ -1261,8 +1261,8 @@ h1, h2, h3, .display-1, .display-2, .serif {
   font-size: 0.75rem;
   letter-spacing: 0.04em;
   line-height: 1.35;
-  color: #3a2a1a;
-  -webkit-text-fill-color: #3a2a1a;
+  color: #000;
+  -webkit-text-fill-color: #000;
 }
 
 /* ── Invitation policy notice (adults-only / no extra guests) ── */
