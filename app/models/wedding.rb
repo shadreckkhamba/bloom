@@ -40,7 +40,7 @@ class Wedding < ApplicationRecord
 
   # ── Display helpers ──────────────────────────────────────────────────────
   def couple_names
-    "#{bride_name} & #{groom_name}"
+    "#{groom_name} & #{bride_name}"
   end
 
   def theme_colors

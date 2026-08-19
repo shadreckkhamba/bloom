@@ -5,7 +5,7 @@ module WhatsappHelper
     message = <<~MSG
       Hello #{guest.name} 💍
 
-      #{wedding.bride_name} and #{wedding.groom_name} would be honored by your presence at their wedding.
+      #{wedding.groom_name} and #{wedding.bride_name} would be honored by your presence at their wedding.
 
       📅 #{wedding.wedding_date.strftime("%A, %d %B %Y")}
 
