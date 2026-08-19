@@ -316,8 +316,14 @@ function downloadWeddingCard() {
     scale: 3,           // 3× for high-res output
     useCORS: true,
     allowTaint: false,
-    backgroundColor: null,
-    logging: false
+    backgroundColor: '#ffffff',
+    logging: false,
+    onclone: function(clonedDoc) {
+      const clonedCard = clonedDoc.getElementById('wedding-card-canvas');
+      if (clonedCard) clonedCard.classList.add('wcard--export');
+      if (clonedDoc.documentElement) clonedDoc.documentElement.style.colorScheme = 'light';
+      if (clonedDoc.body) clonedDoc.body.style.backgroundColor = '#ffffff';
+    }
   }).then(function(canvas) {
     const a = document.createElement('a');
     a.download = '<%= "#{@wedding.couple_names.gsub(/[^a-z0-9]/i, '_')}_wedding_card.png" %>';
