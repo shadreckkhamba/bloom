@@ -1523,6 +1523,46 @@ h1, h2, h3, .display-1, .display-2, .serif {
   line-height: 1.12;
 }
 
+.wcard-flow-stack {
+  position: absolute;
+  left: 4%;
+  right: 4%;
+  top: 60.8%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+  text-align: center;
+}
+
+.wcard-flow-stack--ceremony {
+  top: 60.8%;
+}
+
+.wcard-flow-stack--reception-only {
+  top: 60.8%;
+}
+
+.wcard-flow-line {
+  position: static;
+  left: auto;
+  right: auto;
+  width: 100%;
+  margin: 0;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.wcard-flow-line.wcard-line--detail {
+  line-height: 1.25;
+}
+
+.wcard-flow-section-gap {
+  height: 0.45rem;
+  width: 100%;
+}
+
 .wcard-palette {
   forced-color-adjust: none;
   -webkit-print-color-adjust: exact;

@@ -269,32 +269,30 @@
               <%= @wedding.wedding_date.strftime("%A").upcase %>&nbsp;|&nbsp;<span style="font-weight:700;"><%= @wedding.wedding_date.day %></span>&nbsp;<%= @wedding.wedding_date.strftime("%B").upcase %>&nbsp;|&nbsp;<%= @wedding.wedding_date.year %>
             </p>
 
-            <% if @wedding.church_venue.present? %>
-              <%# Ceremony first, then reception %>
-              <p class="wcard-line wcard-line--xs wcard-line--compact" style="top:61%;">CEREMONY</p>
-              <p class="wcard-line wcard-line--detail wcard-line--compact-detail" style="top:63.5%;"><%= @wedding.church_venue.upcase %></p>
-              <% if @wedding.church_time.present? %>
-                <p class="wcard-line wcard-line--xs wcard-line--compact" style="top:66.1%;"><%= @wedding.church_time.upcase %></p>
+            <div class="wcard-flow-stack <%= @wedding.church_venue.present? ? 'wcard-flow-stack--ceremony' : 'wcard-flow-stack--reception-only' %>">
+              <% if @wedding.church_venue.present? %>
+                <%# Ceremony first, then reception %>
+                <p class="wcard-line wcard-line--xs wcard-line--compact wcard-flow-line">CEREMONY</p>
+                <p class="wcard-line wcard-line--detail wcard-line--compact-detail wcard-flow-line"><%= @wedding.church_venue.upcase %></p>
+                <% if @wedding.church_time.present? %>
+                  <p class="wcard-line wcard-line--xs wcard-line--compact wcard-flow-line">AT <%= @wedding.church_time.upcase %></p>
+                <% end %>
               <% end %>
-              <p class="wcard-line wcard-line--xs wcard-line--compact" style="top:70.8%;">RECEPTION</p>
-              <p class="wcard-line wcard-line--detail wcard-line--compact-detail" style="top:73.3%;"><%= @wedding.venue.upcase %></p>
-              <% if @wedding.dinner_time.present? %>
-                <p class="wcard-line wcard-line--xs wcard-line--compact" style="top:75.9%;">AT <%= @wedding.dinner_time.upcase %></p>
-              <% end %>
-            <% else %>
-              <p class="wcard-line wcard-line--xs wcard-line--compact" style="top:61%;">RECEPTION</p>
-              <p class="wcard-line wcard-line--detail wcard-line--compact-detail" style="top:63.5%;"><%= @wedding.venue.upcase %></p>
-              <% if @wedding.dinner_time.present? %>
-                <p class="wcard-line wcard-line--xs wcard-line--compact" style="top:66.1%;">AT <%= @wedding.dinner_time.upcase %></p>
-              <% end %>
-            <% end %>
 
-            <%# Policy lines at the bottom %>
-            <p class="wcard-line wcard-line--xs wcard-line--spaced" style="top:82%;letter-spacing:0.18em;">STRICTLY BY INVITATION</p>
-            <p class="wcard-line wcard-line--detail" style="top:86%;font-size:0.42rem;line-height:1.4;">
-              Please do not bring additional guests beyond your reserved seat/s.<br>
-              This will be an adults-only celebration.
-            </p>
+              <p class="wcard-line wcard-line--xs wcard-line--compact wcard-flow-line">RECEPTION</p>
+              <p class="wcard-line wcard-line--detail wcard-line--compact-detail wcard-flow-line"><%= @wedding.venue.upcase %></p>
+              <% if @wedding.dinner_time.present? %>
+                <p class="wcard-line wcard-line--xs wcard-line--compact wcard-flow-line">AT <%= @wedding.dinner_time.upcase %></p>
+              <% end %>
+
+              <%# Policy lines at the bottom %>
+              <div class="wcard-flow-section-gap"></div>
+              <p class="wcard-line wcard-line--xs wcard-line--spaced wcard-flow-line">STRICTLY BY INVITATION</p>
+              <p class="wcard-line wcard-line--detail wcard-flow-line" style="font-size:0.42rem;line-height:1.4;">
+                Please do not bring additional guests beyond your reserved seat/s.<br>
+                This will be an adults-only celebration.
+              </p>
+            </div>
           </div>
         </div>
       </div>
