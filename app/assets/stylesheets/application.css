@@ -1563,6 +1563,10 @@ h1, h2, h3, .display-1, .display-2, .serif {
   width: 100%;
 }
 
+.wcard-flow-section-gap--between-venues {
+  height: 0.8rem;
+}
+
 .wcard-palette {
   forced-color-adjust: none;
   -webkit-print-color-adjust: exact;
