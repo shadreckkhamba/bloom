@@ -836,19 +836,23 @@ h1, h2, h3, .display-1, .display-2, .serif {
 
 /* ── Theme colour swatches ── */
 .inv-theme-row {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 0.9rem 0.75rem;
-  margin: 0.9rem 0 0.4rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(98px, 1fr));
+  gap: 0.75rem;
+  margin: 0.9rem auto 0.4rem;
+  max-width: 360px;
 }
 .inv-theme-item {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 0.35rem;
-  min-width: 64px;
+  align-items: stretch;
+  gap: 0.45rem;
+  padding: 0.58rem 0.55rem 0.5rem;
+  min-width: 0;
+  background: rgba(255,255,255,0.96);
+  border: 1px solid rgba(79,134,184,0.16);
+  border-radius: 14px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.04);
 }
 .inv-theme-label {
   font-size: 0.7rem;
@@ -859,9 +863,9 @@ h1, h2, h3, .display-1, .display-2, .serif {
 }
 .inv-color-swatch {
   display: inline-block;
-  width: 24px;
+  width: 100%;
   height: 24px;
-  border-radius: 50%;
+  border-radius: 999px;
   vertical-align: middle;
   box-shadow: 0 1px 4px rgba(0,0,0,0.18);
   flex-shrink: 0;
@@ -871,12 +875,14 @@ h1, h2, h3, .display-1, .display-2, .serif {
   print-color-adjust: exact;
 }
 .inv-color-name {
-  font-size: 0.72rem;
-  color: #666;
-  letter-spacing: 0.03em;
-  text-transform: capitalize;
+  font-size: 0.68rem;
+  color: #333;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
   text-align: center;
-  line-height: 1.25;
+  line-height: 1.2;
+  font-weight: 600;
+  word-break: break-word;
 }
 
 /* ── Guest row slide-in ── */
@@ -1483,6 +1489,34 @@ h1, h2, h3, .display-1, .display-2, .serif {
   forced-color-adjust: none;
   -webkit-print-color-adjust: exact;
   print-color-adjust: exact;
+}
+
+.wcard-palette-legend {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(108px, 1fr));
+  gap: 0.55rem;
+  margin-top: 0.9rem;
+}
+
+.wcard-palette-chip {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.45rem 0.65rem;
+  border-radius: 999px;
+  border: 1px solid var(--primary-light);
+  background: rgba(255,255,255,0.96);
+  box-shadow: 0 3px 10px rgba(0,0,0,0.04);
+}
+
+.wcard-palette-chip-label {
+  font-family: 'Lato', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #333;
+  line-height: 1.1;
 }
 
 .wcard-palette-dot {
