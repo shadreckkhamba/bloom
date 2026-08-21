@@ -1138,18 +1138,29 @@ h1, h2, h3, .display-1, .display-2, .serif {
     max-height: 320px;
   }
 
+  .auth-split-img {
+    filter: saturate(1.06) contrast(1.04);
+  }
+
   .auth-split-photo-overlay {
-    background: linear-gradient(to top, rgba(255,255,255,0.90) 0%, rgba(255,255,255,0.22) 100%);
+    background: linear-gradient(
+      to top,
+      rgba(15,25,32,0.62) 0%,
+      rgba(15,25,32,0.18) 55%,
+      rgba(15,25,32,0.02) 100%
+    );
     justify-content: flex-end;
     padding: 1.5rem 1.25rem;
   }
 
   .auth-split-brand {
-    color: var(--black);
+    color: #fff;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.35);
   }
 
   .auth-split-tagline {
-    color: rgba(26,26,26,0.78);
+    color: rgba(255,255,255,0.88);
+    text-shadow: 0 1px 3px rgba(0,0,0,0.28);
   }
 
   .auth-split-form {
