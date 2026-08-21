@@ -306,31 +306,75 @@
 <% if wedding_owner? %>
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 <script>
+function fitWeddingCardNames() {
+  const card = document.getElementById('wedding-card-canvas');
+  if (!card) return;
+
+  card.querySelectorAll('.wcard-line--script').forEach(function(el) {
+    el.style.whiteSpace = 'nowrap';
+    el.style.overflow = 'hidden';
+    el.style.textOverflow = 'clip';
+    el.style.fontSize = '';
+
+    const computed = window.getComputedStyle(el);
+    const baseFontSize = parseFloat(computed.fontSize) || 35;
+    const minFontSize = 18;
+    const maxWidth = el.clientWidth;
+
+    if (!maxWidth) return;
+
+    let fontSize = baseFontSize;
+    el.style.fontSize = fontSize + 'px';
+
+    if (el.scrollWidth <= maxWidth) return;
+
+    const scale = maxWidth / el.scrollWidth;
+    fontSize = Math.max(minFontSize, fontSize * scale * 0.98);
+    el.style.fontSize = fontSize + 'px';
+
+    while (el.scrollWidth > maxWidth && fontSize > minFontSize) {
+      fontSize = Math.max(minFontSize, fontSize - 0.5);
+      el.style.fontSize = fontSize + 'px';
+    }
+  });
+}
+
+document.addEventListener('DOMContentLoaded', fitWeddingCardNames);
+window.addEventListener('load', fitWeddingCardNames);
+window.addEventListener('resize', fitWeddingCardNames);
+if (document.fonts && document.fonts.ready) {
+  document.fonts.ready.then(fitWeddingCardNames).catch(function() {});
+}
+
 function downloadWeddingCard() {
   const card = document.getElementById('wedding-card-canvas');
   const btn  = document.querySelector('[onclick="downloadWeddingCard()"]');
   btn.textContent = 'Generating…';
   btn.disabled = true;
 
-  html2canvas(card, {
-    scale: 3,           // 3× for high-res output
-    useCORS: true,
-    allowTaint: false,
-    backgroundColor: '#ffffff',
-    logging: false,
-    onclone: function(clonedDoc) {
-      const clonedCard = clonedDoc.getElementById('wedding-card-canvas');
-      if (clonedCard) clonedCard.classList.add('wcard--export');
-      if (clonedDoc.documentElement) clonedDoc.documentElement.style.colorScheme = 'light';
-      if (clonedDoc.body) clonedDoc.body.style.backgroundColor = '#ffffff';
-    }
-  }).then(function(canvas) {
-    const a = document.createElement('a');
-    a.download = '<%= "#{@wedding.couple_names.gsub(/[^a-z0-9]/i, '_')}_wedding_card.png" %>';
-    a.href = canvas.toDataURL('image/png');
-    a.click();
-    btn.textContent = '⬇ Download Card';
-    btn.disabled = false;
+  fitWeddingCardNames();
+
+  window.requestAnimationFrame(function() {
+    html2canvas(card, {
+      scale: 3,           // 3× for high-res output
+      useCORS: true,
+      allowTaint: false,
+      backgroundColor: '#ffffff',
+      logging: false,
+      onclone: function(clonedDoc) {
+        const clonedCard = clonedDoc.getElementById('wedding-card-canvas');
+        if (clonedCard) clonedCard.classList.add('wcard--export');
+        if (clonedDoc.documentElement) clonedDoc.documentElement.style.colorScheme = 'light';
+        if (clonedDoc.body) clonedDoc.body.style.backgroundColor = '#ffffff';
+      }
+    }).then(function(canvas) {
+      const a = document.createElement('a');
+      a.download = '<%= "#{@wedding.couple_names.gsub(/[^a-z0-9]/i, '_')}_wedding_card.png" %>';
+      a.href = canvas.toDataURL('image/png');
+      a.click();
+      btn.textContent = '⬇ Download Card';
+      btn.disabled = false;
+    });
   });
 }
 </script>
