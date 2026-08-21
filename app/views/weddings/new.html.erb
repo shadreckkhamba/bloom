@@ -23,7 +23,11 @@
         <div class="row g-3 mb-3">
           <div class="col-sm-6">
             <%= f.label :wedding_date, "Wedding date", class: "form-label small text-muted" %>
-            <%= f.date_field :wedding_date, class: "form-control", required: true %>
+            <div class="wedding-date-selects">
+              <%= f.date_select :wedding_date,
+                                { order: [:day, :month, :year], start_year: 1980, end_year: Date.current.year + 20 },
+                                { class: "form-select" } %>
+            </div>
           </div>
           <div class="col-sm-6">
             <%= f.label :theme, "Wedding colours", class: "form-label small text-muted" %>

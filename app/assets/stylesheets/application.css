@@ -237,6 +237,18 @@ h1, h2, h3, .display-1, .display-2, .serif {
   box-shadow: 0 0 0 0.2rem rgba(58,159,192,0.18);
 }
 
+.wedding-date-selects {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.wedding-date-selects .form-select {
+  width: auto;
+  flex: 1 1 7rem;
+  min-width: 0;
+}
+
 /* ── Guest table ────────────────────────── */
 .guest-table th {
   font-size: 0.7rem;
