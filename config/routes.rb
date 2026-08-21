@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   delete "/logout", to: "sessions#destroy",  as: :logout
   get    "/signup", to: "registrations#new", as: :signup
   post   "/signup", to: "registrations#create"
+  resource :account, only: [:edit, :update]
 
   # Dashboard
   get "/dashboard", to: "dashboard#index",    as: :dashboard

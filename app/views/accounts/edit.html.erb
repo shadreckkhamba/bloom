@@ -1,0 +1,46 @@
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-md-7 col-lg-6">
+      <h1 class="mb-1" style="font-size:2rem;">Account Settings</h1>
+      <p class="text-muted mb-4">Update your display name, username, or password.</p>
+
+      <div class="auth-card">
+        <%= form_with model: @user, url: account_path, method: :patch do |f| %>
+          <% if @user.errors.any? %>
+            <div class="alert alert-danger small"><%= @user.errors.full_messages.first %></div>
+          <% end %>
+
+          <div class="mb-3">
+            <%= f.label :name, "Display name", class: "form-label small text-muted" %>
+            <%= f.text_field :name, class: "form-control", required: true, autocomplete: "name" %>
+          </div>
+
+          <div class="mb-3">
+            <%= f.label :username, "Username", class: "form-label small text-muted" %>
+            <%= f.text_field :username, class: "form-control", required: true,
+                  autocomplete: "username", autocapitalize: "none", spellcheck: "false" %>
+            <div class="form-text">This is what you use to sign in.</div>
+          </div>
+
+          <div class="mb-3">
+            <%= f.label :password, "New password", class: "form-label small text-muted" %>
+            <%= f.password_field :password, class: "form-control", minlength: 8,
+                  autocomplete: "new-password" %>
+          </div>
+
+          <div class="mb-4">
+            <%= f.label :password_confirmation, "Confirm new password", class: "form-label small text-muted" %>
+            <%= f.password_field :password_confirmation, class: "form-control",
+                  autocomplete: "new-password" %>
+            <div class="form-text">Leave both password fields blank to keep your current password.</div>
+          </div>
+
+          <div class="d-flex gap-2 flex-wrap">
+            <%= f.submit "Update account", class: "btn btn-bloom" %>
+            <%= link_to "Back to dashboard", dashboard_path, class: "btn btn-bloom-outline" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
