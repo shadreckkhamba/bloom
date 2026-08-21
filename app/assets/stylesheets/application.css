@@ -438,31 +438,34 @@ h1, h2, h3, .display-1, .display-2, .serif {
   display: flex;
   gap: 0.8rem;
   justify-content: center;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
+  width: 100%;
   margin: 0.5rem 0;
 }
 .inv-cd-unit {
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-width: 58px;
+  flex: 1 1 0;
+  min-width: 0;
   background: var(--primary-pale);
   border: 1px solid var(--primary-light);
   border-radius: 10px;
-  padding: 0.5rem 0.4rem 0.3rem;
+  padding: 0.5rem 0.25rem 0.35rem;
 }
 .inv-cd-num {
   font-family: 'Cormorant Garamond', serif;
-  font-size: 2rem;
+  font-size: clamp(1.2rem, 5vw, 2rem);
   font-weight: 600;
   color: var(--primary);
   line-height: 1;
 }
 .inv-cd-label {
-  font-size: 0.6rem;
-  letter-spacing: 0.14em;
+  font-size: clamp(0.45rem, 1.8vw, 0.6rem);
+  letter-spacing: 0.12em;
   color: var(--muted);
   margin-top: 2px;
+  white-space: nowrap;
 }
 
 /* Verify section */
