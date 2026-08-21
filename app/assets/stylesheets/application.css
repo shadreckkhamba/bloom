@@ -1305,7 +1305,7 @@ h1, h2, h3, .display-1, .display-2, .serif {
 
 @media (max-width: 480px) {
   .wcard-line--script {
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     letter-spacing: 0;
   }
 }
