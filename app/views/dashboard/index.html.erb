@@ -318,7 +318,7 @@ function fitWeddingCardNames() {
 
     const computed = window.getComputedStyle(el);
     const baseFontSize = parseFloat(computed.fontSize) || 35;
-    const minFontSize = 16;
+    const minFontSize = window.matchMedia('(max-width: 480px)').matches ? 13 : 16;
     const maxWidth = el.clientWidth;
 
     if (!maxWidth) return;
