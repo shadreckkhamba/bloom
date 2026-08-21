@@ -26,8 +26,9 @@
             <%= f.date_field :wedding_date, class: "form-control", required: true %>
           </div>
           <div class="col-sm-6">
-            <%= f.label :theme, "Theme (e.g. Gold & White)", class: "form-label small text-muted" %>
-            <%= f.text_field :theme, class: "form-control", placeholder: "Gold & White" %>
+            <%= f.label :theme, "Wedding colours", class: "form-label small text-muted" %>
+            <%= f.text_field :theme, class: "form-control", placeholder: "Light Blue, Black, White, Nude" %>
+            <div class="form-text">Separate multiple colours with commas, &, /, or and.</div>
           </div>
         </div>
 

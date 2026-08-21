@@ -45,7 +45,11 @@ class Wedding < ApplicationRecord
 
   def theme_colors
     return [] unless theme.present?
-    theme.split(",").map(&:strip)
+
+    theme
+      .split(/\s*(?:,|\/|\||&|\+|\band\b)\s*/i)
+      .map(&:strip)
+      .reject(&:blank?)
   end
 
   def days_until
