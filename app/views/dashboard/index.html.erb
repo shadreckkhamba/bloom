@@ -300,22 +300,12 @@
       </div>
 
       <div class="wcard-palette-legend mt-3" aria-label="Wedding colour palette">
-        <div class="wcard-palette-chip">
-          <span class="wcard-palette-dot wcard-palette-dot--light-blue"></span>
-          <span class="wcard-palette-chip-label">Light Blue</span>
-        </div>
-        <div class="wcard-palette-chip">
-          <span class="wcard-palette-dot wcard-palette-dot--black"></span>
-          <span class="wcard-palette-chip-label">Black</span>
-        </div>
-        <div class="wcard-palette-chip">
-          <span class="wcard-palette-dot wcard-palette-dot--white"></span>
-          <span class="wcard-palette-chip-label">White</span>
-        </div>
-        <div class="wcard-palette-chip">
-          <span class="wcard-palette-dot wcard-palette-dot--nude"></span>
-          <span class="wcard-palette-chip-label">Nude</span>
-        </div>
+        <% fixed_wedding_palette.each do |color| %>
+          <div class="wcard-palette-chip">
+            <span class="wcard-palette-dot wcard-palette-dot--<%= color[:key] %>"></span>
+            <span class="wcard-palette-chip-label"><%= color[:name] %></span>
+          </div>
+        <% end %>
       </div>
     </div>
   <% end %>

@@ -874,6 +874,30 @@ h1, h2, h3, .display-1, .display-2, .serif {
   -webkit-print-color-adjust: exact;
   print-color-adjust: exact;
 }
+.inv-color-swatch--light-blue {
+  background: #ADD8E6;
+  border-color: rgba(0,0,0,0.24);
+}
+.inv-color-swatch--black {
+  background: #1a1a1a;
+  border-color: rgba(255,255,255,0.12);
+}
+.inv-color-swatch--white {
+  background: #ffffff;
+  border-color: #9c9c9c;
+}
+.inv-color-swatch--nude {
+  background: #E8C9A0;
+  border-color: rgba(0,0,0,0.24);
+}
+@media (prefers-color-scheme: dark) {
+  .inv-color-swatch--light-blue {
+    background: #93bfd7;
+  }
+  .inv-color-swatch--nude {
+    background: #d9b486;
+  }
+}
 .inv-color-name {
   font-size: 0.68rem;
   color: #333;

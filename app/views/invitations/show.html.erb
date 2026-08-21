@@ -103,19 +103,17 @@
             </div>
 
             <!-- Wedding colours — shown after verification, above the ❤️ divider -->
-            <% if @wedding.theme.present? %>
-              <div class="inv-colors-section mt-3">
-                <p class="inv-colors-heading">OUR WEDDING COLOURS</p>
-                <div class="inv-theme-row">
-                  <% @wedding.theme_colors.each do |color| %>
-                    <div class="inv-theme-item">
-                      <div class="inv-color-swatch" style="<%= color_swatch_style(color) %>" title="<%= color %>"></div>
-                      <span class="inv-color-name"><%= color %></span>
-                    </div>
-                  <% end %>
-                </div>
+            <div class="inv-colors-section mt-3">
+              <p class="inv-colors-heading">OUR WEDDING COLOURS</p>
+              <div class="inv-theme-row">
+                <% fixed_wedding_palette.each do |color| %>
+                  <div class="inv-theme-item">
+                    <div class="inv-color-swatch inv-color-swatch--<%= color[:key] %>" title="<%= color[:name] %>" aria-hidden="true"></div>
+                    <span class="inv-color-name"><%= color[:name] %></span>
+                  </div>
+                <% end %>
               </div>
-            <% end %>
+            </div>
 
           <% else %>
             <%# ── Locked state — before verification ── %>

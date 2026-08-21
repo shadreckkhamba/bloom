@@ -48,6 +48,17 @@ module ApplicationHelper
     "pale blush pink"
   ].freeze
 
+  FIXED_WEDDING_PALETTE = [
+    { name: "Light Blue", key: "light-blue" },
+    { name: "Black",      key: "black" },
+    { name: "White",      key: "white" },
+    { name: "Nude",       key: "nude" }
+  ].freeze
+
+  def fixed_wedding_palette
+    FIXED_WEDDING_PALETTE
+  end
+
   def color_swatch_style(color_name)
     key = color_name.to_s.downcase.strip
     hex = COLOR_MAP[key]
