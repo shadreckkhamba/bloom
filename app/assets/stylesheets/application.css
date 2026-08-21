@@ -839,8 +839,15 @@ h1, h2, h3, .display-1, .display-2, .serif {
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 0.5rem;
+  gap: 0.9rem 0.75rem;
   margin: 0.9rem 0 0.4rem;
+}
+.inv-theme-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+  min-width: 64px;
 }
 .inv-theme-label {
   font-size: 0.7rem;
@@ -851,8 +858,8 @@ h1, h2, h3, .display-1, .display-2, .serif {
 }
 .inv-color-swatch {
   display: inline-block;
-  width: 18px;
-  height: 18px;
+  width: 22px;
+  height: 22px;
   border-radius: 50%;
   vertical-align: middle;
   box-shadow: 0 1px 4px rgba(0,0,0,0.18);
@@ -863,6 +870,8 @@ h1, h2, h3, .display-1, .display-2, .serif {
   color: #666;
   letter-spacing: 0.03em;
   text-transform: capitalize;
+  text-align: center;
+  line-height: 1.25;
 }
 
 /* ── Guest row slide-in ── */

@@ -106,10 +106,11 @@
             <% if @wedding.theme.present? %>
               <div class="inv-colors-section mt-3">
                 <p class="inv-colors-heading">OUR WEDDING COLOURS</p>
-                <div class="inv-swatch-row">
+                <div class="inv-theme-row">
                   <% @wedding.theme_colors.each do |color| %>
-                    <div class="inv-swatch-item">
-                      <div class="inv-swatch-block" style="<%= color_swatch_style(color) %>" title="<%= color %>"></div>
+                    <div class="inv-theme-item">
+                      <div class="inv-color-swatch" style="<%= color_swatch_style(color) %>" title="<%= color %>"></div>
+                      <span class="inv-color-name"><%= color %></span>
                     </div>
                   <% end %>
                 </div>

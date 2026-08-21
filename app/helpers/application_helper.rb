@@ -38,7 +38,11 @@ module ApplicationHelper
   def color_swatch_style(color_name)
     hex = COLOR_MAP[color_name.downcase.strip]
     bg  = hex || color_name  # fall back to raw value (e.g. a CSS colour word)
-    border = (color_name.downcase.strip == "white" || color_name.downcase.strip == "ivory") ? "border:1px solid #ddd;" : ""
+    border = if color_name.downcase.strip == "white" || color_name.downcase.strip == "ivory"
+               "border:1px solid #bbb;"
+             else
+               "border:1px solid rgba(0,0,0,0.14);"
+             end
     "background:#{bg};#{border}"
   end
 end
