@@ -337,6 +337,7 @@ h1, h2, h3, .display-1, .display-2, .serif {
 .inv-body {
   background: linear-gradient(160deg, var(--primary-ultra) 0%, #f0f8fc 50%, var(--primary-pale) 100%);
   min-height: 100vh;
+  color-scheme: light;
 }
 
 .inv-page {
@@ -858,12 +859,16 @@ h1, h2, h3, .display-1, .display-2, .serif {
 }
 .inv-color-swatch {
   display: inline-block;
-  width: 22px;
-  height: 22px;
+  width: 24px;
+  height: 24px;
   border-radius: 50%;
   vertical-align: middle;
   box-shadow: 0 1px 4px rgba(0,0,0,0.18);
   flex-shrink: 0;
+  background-clip: padding-box;
+  forced-color-adjust: none;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
 }
 .inv-color-name {
   font-size: 0.72rem;
@@ -1331,12 +1336,16 @@ h1, h2, h3, .display-1, .display-2, .serif {
   color: #1b1b1b;
   color-scheme: light;
   isolation: isolate;
+  forced-color-adjust: none;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
 }
 
 .wcard--export {
   background-color: #fff !important;
   color: #000 !important;
   color-scheme: light !important;
+  forced-color-adjust: none;
 }
 
 .wcard--export .wcard-line,
@@ -1468,6 +1477,57 @@ h1, h2, h3, .display-1, .display-2, .serif {
 
 .wcard-line--compact-detail {
   line-height: 1.12;
+}
+
+.wcard-palette {
+  forced-color-adjust: none;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+.wcard-palette-dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin: 0 2px;
+  vertical-align: middle;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+  border: 1px solid transparent;
+  flex-shrink: 0;
+  forced-color-adjust: none;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+.wcard-palette-dot--light-blue {
+  background: #ADD8E6;
+  border-color: rgba(0,0,0,0.24);
+}
+
+.wcard-palette-dot--black {
+  background: #1a1a1a;
+  border-color: rgba(255,255,255,0.12);
+}
+
+.wcard-palette-dot--white {
+  background: #ffffff;
+  border-color: #9c9c9c;
+}
+
+.wcard-palette-dot--nude {
+  background: #E8C9A0;
+  border-color: rgba(0,0,0,0.24);
+}
+
+@media (prefers-color-scheme: dark) {
+  .wcard-palette-dot--light-blue {
+    background: #93bfd7;
+  }
+
+  .wcard-palette-dot--nude {
+    background: #d9b486;
+  }
 }
 
 /* ── Invitation policy notice (adults-only / no extra guests) ── */

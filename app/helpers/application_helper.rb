@@ -35,14 +35,28 @@ module ApplicationHelper
     "pale blush pink"   => "#F2C4C4",
   }.freeze
 
+  LIGHT_SWATCH_COLORS = [
+    "white",
+    "ivory",
+    "light blue",
+    "lightblue",
+    "nude",
+    "champagne",
+    "peach",
+    "blush",
+    "blush pink",
+    "pale blush pink"
+  ].freeze
+
   def color_swatch_style(color_name)
-    hex = COLOR_MAP[color_name.downcase.strip]
-    bg  = hex || color_name  # fall back to raw value (e.g. a CSS colour word)
-    border = if color_name.downcase.strip == "white" || color_name.downcase.strip == "ivory"
-               "border:1px solid #bbb;"
-             else
-               "border:1px solid rgba(0,0,0,0.14);"
-             end
-    "background:#{bg};#{border}"
+    key = color_name.to_s.downcase.strip
+    hex = COLOR_MAP[key]
+    bg  = hex || color_name # fall back to raw value (e.g. a CSS colour word)
+
+    if LIGHT_SWATCH_COLORS.include?(key)
+      "background-color:#{bg};border:1px solid rgba(0,0,0,0.42);box-shadow:inset 0 0 0 1px rgba(255,255,255,0.55), 0 1px 4px rgba(0,0,0,0.18);"
+    else
+      "background-color:#{bg};border:1px solid rgba(0,0,0,0.14);"
+    end
   end
 end
