@@ -69,6 +69,10 @@ h1, h2, h3, .display-1, .display-2, .serif {
   border-color: var(--primary-light);
 }
 
+.bloom-user-dropdown {
+  position: relative;
+}
+
 .bloom-user-dropdown .bloom-user-toggle {
   color: var(--primary-light);
   border: 1px solid rgba(173,216,230,0.35);
@@ -78,6 +82,13 @@ h1, h2, h3, .display-1, .display-2, .serif {
   font-size: 0.8rem;
   line-height: 1.2;
   box-shadow: none;
+  transition: background-color 180ms ease, border-color 180ms ease, color 180ms ease, box-shadow 180ms ease;
+}
+
+.bloom-user-dropdown .bloom-user-toggle::after {
+  margin-left: 0.45rem;
+  vertical-align: 0.15em;
+  transition: transform 180ms ease;
 }
 
 .bloom-user-dropdown .bloom-user-toggle:hover,
@@ -89,10 +100,36 @@ h1, h2, h3, .display-1, .display-2, .serif {
 }
 
 .bloom-user-dropdown .dropdown-menu {
+  display: block;
   background: #1f1f1f;
   border: 1px solid rgba(173,216,230,0.18);
   box-shadow: 0 16px 36px rgba(0,0,0,0.32);
   margin-top: 0.45rem;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(-8px) scale(0.98);
+  transform-origin: top right;
+  will-change: opacity, transform;
+  transition:
+    opacity 180ms ease,
+    transform 180ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    visibility 0s linear 180ms;
+}
+
+.bloom-user-dropdown .dropdown-menu.show {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateY(0) scale(1);
+  transition:
+    opacity 180ms ease,
+    transform 180ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    visibility 0s;
+}
+
+.bloom-user-dropdown .bloom-user-toggle[aria-expanded="true"]::after {
+  transform: rotate(180deg) translateY(-0.08em);
 }
 
 .bloom-user-dropdown .dropdown-item {
