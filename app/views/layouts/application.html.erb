@@ -22,9 +22,19 @@
             <%= app_name %> 🌸
           </a>
           <div class="ms-auto d-flex align-items-center gap-3 flex-wrap">
-            <span class="text-muted small"><%= current_user.name %></span>
-            <%= link_to "Account", edit_account_path, class: "btn btn-sm btn-outline-secondary" %>
-            <%= button_to "Sign out", logout_path, method: :delete, class: "btn btn-sm btn-outline-secondary" %>
+            <div class="dropdown bloom-user-dropdown">
+              <button class="btn btn-sm bloom-user-toggle dropdown-toggle"
+                      type="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false">
+                <%= current_user.name %>
+              </button>
+              <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark">
+                <li><%= link_to "Account", edit_account_path, class: "dropdown-item" %></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><%= link_to "Sign out", logout_path, class: "dropdown-item text-danger", data: { turbo_method: :delete } %></li>
+              </ul>
+            </div>
           </div>
         </div>
       </nav>

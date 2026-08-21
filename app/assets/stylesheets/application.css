@@ -69,6 +69,57 @@ h1, h2, h3, .display-1, .display-2, .serif {
   border-color: var(--primary-light);
 }
 
+.bloom-user-dropdown .bloom-user-toggle {
+  color: var(--primary-light);
+  border: 1px solid rgba(173,216,230,0.35);
+  background: rgba(255,255,255,0.03);
+  border-radius: 999px;
+  padding: 0.28rem 0.85rem;
+  font-size: 0.8rem;
+  line-height: 1.2;
+  box-shadow: none;
+}
+
+.bloom-user-dropdown .bloom-user-toggle:hover,
+.bloom-user-dropdown .bloom-user-toggle:focus {
+  color: #fff;
+  border-color: var(--primary-light);
+  background: rgba(173,216,230,0.12);
+  box-shadow: none;
+}
+
+.bloom-user-dropdown .dropdown-menu {
+  background: #1f1f1f;
+  border: 1px solid rgba(173,216,230,0.18);
+  box-shadow: 0 16px 36px rgba(0,0,0,0.32);
+  margin-top: 0.45rem;
+}
+
+.bloom-user-dropdown .dropdown-item {
+  color: var(--primary-light);
+  font-size: 0.9rem;
+}
+
+.bloom-user-dropdown .dropdown-item:hover,
+.bloom-user-dropdown .dropdown-item:focus {
+  background: rgba(173,216,230,0.12);
+  color: #fff;
+}
+
+.bloom-user-dropdown .dropdown-item.text-danger {
+  color: #ffb3b3 !important;
+}
+
+.bloom-user-dropdown .dropdown-item.text-danger:hover,
+.bloom-user-dropdown .dropdown-item.text-danger:focus {
+  background: rgba(220,53,69,0.18);
+  color: #ffd0d0 !important;
+}
+
+.bloom-user-dropdown .dropdown-divider {
+  border-top-color: rgba(173,216,230,0.18);
+}
+
 /* ── Auth pages ─────────────────────────── */
 .auth-page {
   min-height: 100vh;
