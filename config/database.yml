@@ -20,12 +20,12 @@ test:
   <<: *default
   database: storage/test.sqlite3
 
-# Store production database in the storage/ directory, which by default
-# is mounted as a persistent Docker volume in config/deploy.yml.
+# Production uses an external PostgreSQL database, such as Supabase, via
+# DATABASE_URL. Keep the connection string in the environment, not in git.
 production:
   primary:
     adapter: postgresql
-    url: <%= ENV["DATABASE_URL"] %>
+    url: <%= ENV.fetch("DATABASE_URL") %>
     pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   cache:
     <<: *default

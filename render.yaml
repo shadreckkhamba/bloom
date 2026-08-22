@@ -1,9 +1,3 @@
-databases:
-  - name: bloom-db
-    databaseName: bloom
-    user: bloom
-    plan: free
-
 services:
   - type: web
     name: bloom
@@ -15,9 +9,7 @@ services:
       - key: RAILS_MASTER_KEY
         sync: false
       - key: DATABASE_URL
-        fromDatabase:
-          name: bloom-db
-          property: connectionString
+        sync: false
       - key: RAILS_ENV
         value: production
       - key: RAILS_LOG_TO_STDOUT
