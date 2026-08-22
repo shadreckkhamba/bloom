@@ -44,7 +44,7 @@
 
           <div class="d-flex gap-3 align-items-center flex-wrap">
             <!-- WhatsApp shortcut -->
-            <% wa_text = "Hi! Use this link to join our wedding on Bloom so we can manage guests together: #{invite_url}" %>
+            <% wa_text = "Hi! Use this link to join our wedding on Bloom so we can manage guests together:\n\n#{invite_url}" %>
             <a href="https://wa.me/?text=<%= ERB::Util.url_encode(wa_text) %>"
                target="_blank" rel="noopener"
                class="btn btn-sm btn-whatsapp-icon">

@@ -10,6 +10,7 @@ module WhatsappHelper
       📅 #{wedding.wedding_date.strftime("%A, %d %B %Y")}
 
       Please confirm your attendance here:
+
       #{invitation_url(guest.token, host: request.host_with_port, protocol: request.protocol)}
 
       #{app_signature}
