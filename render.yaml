@@ -5,6 +5,7 @@ services:
     plan: free
     buildCommand: "./bin/render-build.sh"
     startCommand: "bundle exec rails server -p $PORT"
+    healthCheckPath: /health
     envVars:
       - key: RAILS_MASTER_KEY
         sync: false
