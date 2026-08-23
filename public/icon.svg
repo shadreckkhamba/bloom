@@ -1,3 +1,30 @@
-<svg width="512" height="512" xmlns="http://www.w3.org/2000/svg">
-  <circle cx="256" cy="256" r="256" fill="red"/>
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="bg" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(176 152) rotate(68) scale(388)">
+      <stop offset="0" stop-color="#FFFDFB"/>
+      <stop offset="1" stop-color="#F8ECE2"/>
+    </radialGradient>
+    <radialGradient id="petal" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(256 256) scale(140)">
+      <stop offset="0" stop-color="#FFE8F0"/>
+      <stop offset="1" stop-color="#EAA7C0"/>
+    </radialGradient>
+    <radialGradient id="center" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(256 256) scale(56)">
+      <stop offset="0" stop-color="#FFF7DF"/>
+      <stop offset="1" stop-color="#E8C9A0"/>
+    </radialGradient>
+  </defs>
+  <rect width="512" height="512" rx="120" fill="url(#bg)"/>
+  <g>
+    <circle cx="256" cy="142" r="58" fill="url(#petal)"/>
+    <circle cx="316" cy="172" r="58" fill="url(#petal)"/>
+    <circle cx="344" cy="232" r="58" fill="url(#petal)"/>
+    <circle cx="316" cy="292" r="58" fill="url(#petal)"/>
+    <circle cx="256" cy="320" r="58" fill="url(#petal)"/>
+    <circle cx="196" cy="292" r="58" fill="url(#petal)"/>
+    <circle cx="168" cy="232" r="58" fill="url(#petal)"/>
+    <circle cx="196" cy="172" r="58" fill="url(#petal)"/>
+    <circle cx="256" cy="256" r="52" fill="url(#center)"/>
+    <circle cx="256" cy="256" r="28" fill="#FFF6DE"/>
+    <circle cx="256" cy="256" r="11" fill="#D08C58"/>
+  </g>
 </svg>
