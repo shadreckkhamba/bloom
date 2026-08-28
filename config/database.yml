@@ -25,7 +25,7 @@ test:
 production:
   primary:
     adapter: postgresql
-    url: <%= ENV.fetch("DATABASE_URL") { raise "DATABASE_URL is not set" if Rails.env.production? } %>
+    url: <%= ENV["DATABASE_URL"] %>
     pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   cache:
     <<: *default
