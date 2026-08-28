@@ -57,6 +57,12 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
+  # Set the app host for URL generation (used in mailers, partner invite links, etc.)
+  # Set APP_HOST env var on the server, e.g. bloom.mphetasystems.com
+  if (host = ENV["APP_HOST"].presence)
+    routes.default_url_options = { host: host, protocol: "https" }
+  end
+
   # Only use :id for inspections in production.
   config.active_record.attributes_for_inspect = [ :id ]
 

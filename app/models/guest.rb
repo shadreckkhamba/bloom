@@ -15,7 +15,7 @@ class Guest < ApplicationRecord
   LOCKOUT_DURATION    = 15.minutes
 
   def invitation_url
-    "#{Rails.application.routes.url_helpers.root_url.chomp('/')}i/#{token}"
+    Rails.application.routes.url_helpers.invitation_url(token, host: Rails.application.routes.default_url_options[:host] || "localhost:3000", protocol: Rails.application.routes.default_url_options[:protocol] || "http")
   end
 
   def status

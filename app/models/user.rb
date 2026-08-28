@@ -4,7 +4,7 @@ class User < ApplicationRecord
   has_one :partner_wedding, class_name: "Wedding", foreign_key: :partner_id,   dependent: :nullify
 
   validates :name, presence: true
-  validates :username, presence: true, uniqueness: { case_sensitive: false },
+  validates :username, presence: true,
                        format: { with: /\A[a-zA-Z0-9_.\-]+\z/, message: "can only contain letters, numbers, underscores, hyphens and dots" },
                        length: { minimum: 3, maximum: 30 }
 
