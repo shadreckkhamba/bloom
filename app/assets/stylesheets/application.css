@@ -1437,7 +1437,7 @@ h1, h2, h3, .display-1, .display-2, .serif {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  z-index: 1;
+  z-index: 2;
 }
 
 /* Every line is absolute + centred */
@@ -1451,23 +1451,25 @@ h1, h2, h3, .display-1, .display-2, .serif {
   line-height: 1.2;
   color: #000;
   -webkit-text-fill-color: #000;
+  text-shadow: 0 0 8px rgba(255,255,255,0.9), 0 0 12px rgba(255,255,255,0.7), 0 1px 2px rgba(255,255,255,0.8);
 }
 
 /* Script font — names */
 .wcard-line--script {
   font-family: 'Great Vibes', cursive;
-  font-size: 1.4rem;
+  font-size: 1.8rem;
   letter-spacing: 0.01em;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: clip;
   color: #000;
   -webkit-text-fill-color: #000;
+  text-shadow: 0 0 10px rgba(255,255,255,0.95), 0 0 14px rgba(255,255,255,0.8), 0 1px 3px rgba(255,255,255,0.9);
 }
 
 @media (max-width: 480px) {
   .wcard-line--script {
-    font-size: 1.3rem;
+    font-size: 1.5rem;
     letter-spacing: 0;
   }
 }
@@ -1529,6 +1531,7 @@ h1, h2, h3, .display-1, .display-2, .serif {
   line-height: 1.35;
   color: #000;
   -webkit-text-fill-color: #000;
+  text-shadow: 0 0 8px rgba(255,255,255,0.9), 0 0 12px rgba(255,255,255,0.7), 0 1px 2px rgba(255,255,255,0.8);
 }
 
 .wcard-line--compact-detail {
@@ -1548,11 +1551,11 @@ h1, h2, h3, .display-1, .display-2, .serif {
 }
 
 .wcard-flow-stack--ceremony {
-  top: 60.8%;
+  top: 65.5%;
 }
 
 .wcard-flow-stack--reception-only {
-  top: 60.8%;
+  top: 65.5%;
 }
 
 .wcard-flow-line {

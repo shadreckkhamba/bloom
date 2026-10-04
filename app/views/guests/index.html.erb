@@ -123,3 +123,29 @@ function filterGuests(filter, btn) {
 }
 </script>
 <% end %>
+
+<script>
+function copyInviteLink(btn, url) {
+  navigator.clipboard.writeText(url).then(function() {
+    const orig = btn.textContent;
+    btn.textContent = '✓';
+    btn.classList.add('btn-success');
+    btn.classList.remove('btn-outline-secondary');
+    setTimeout(function() {
+      btn.textContent = orig;
+      btn.classList.remove('btn-success');
+      btn.classList.add('btn-outline-secondary');
+    }, 2000);
+  }).catch(function() {
+    // Fallback for older browsers
+    const el = document.createElement('textarea');
+    el.value = url;
+    document.body.appendChild(el);
+    el.select();
+    document.execCommand('copy');
+    document.body.removeChild(el);
+    btn.textContent = '✓';
+    setTimeout(function() { btn.textContent = '📋'; }, 2000);
+  });
+}
+</script>
