@@ -5,7 +5,7 @@ class Wedding < ApplicationRecord
                        optional: true
   has_many :guests, dependent: :destroy
 
-  validates :bride_name, :groom_name, :wedding_date, :venue, presence: true
+  # All fields are optional to allow partial saves during editing
 
   # ── Role helpers ────────────────────────────────────────────────────────
   def owner?(user)
