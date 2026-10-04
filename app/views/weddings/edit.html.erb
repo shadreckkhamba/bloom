@@ -12,11 +12,11 @@
         <div class="row g-3 mb-3">
           <div class="col-sm-6">
             <%= f.label :groom_name, "Groom's name", class: "form-label small text-muted" %>
-            <%= f.text_field :groom_name, class: "form-control", required: true %>
+            <%= f.text_field :groom_name, class: "form-control" %>
           </div>
           <div class="col-sm-6">
             <%= f.label :bride_name, "Bride's name", class: "form-label small text-muted" %>
-            <%= f.text_field :bride_name, class: "form-control", required: true %>
+            <%= f.text_field :bride_name, class: "form-control" %>
           </div>
         </div>
 
@@ -48,7 +48,7 @@
 
         <div class="mb-3">
           <%= f.label :venue, "Reception / Dinner venue", class: "form-label small text-muted" %>
-          <%= f.text_field :venue, class: "form-control", required: true, placeholder: "e.g. Orient Gardens" %>
+          <%= f.text_field :venue, class: "form-control", placeholder: "e.g. Orient Gardens" %>
         </div>
 
         <div class="mb-3">
