@@ -1535,6 +1535,9 @@ h1, h2, h3, .display-1, .display-2, .serif {
   white-space: normal;
   word-wrap: break-word;
   overflow-wrap: break-word;
+  max-width: 85%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .wcard-line--compact-detail {
