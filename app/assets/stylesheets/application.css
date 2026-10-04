@@ -1451,7 +1451,7 @@ h1, h2, h3, .display-1, .display-2, .serif {
   line-height: 1.2;
   color: #ADD8E6;
   -webkit-text-fill-color: #ADD8E6;
-  text-shadow: 0 0 8px rgba(0,0,0,0.6), 0 1px 3px rgba(0,0,0,0.8);
+  text-shadow: 0 0 10px rgba(0,0,0,0.8), 0 0 15px rgba(0,0,0,0.6), 0 2px 4px rgba(0,0,0,0.9);
 }
 
 /* Script font — names */
