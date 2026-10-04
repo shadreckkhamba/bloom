@@ -232,16 +232,16 @@
           
           <div class="wcard-overlay">
             <%# Line 1 — TOGETHER WITH THEIR FAMILIES (two lines) %>
-            <p class="wcard-line wcard-line--sm wcard-line--spaced" style="top:22%;line-height:1.7;">TOGETHER<br>WITH THEIR FAMILIES</p>
+            <p class="wcard-line wcard-line--sm wcard-line--spaced" style="top:19%;line-height:1.7;">TOGETHER<br>WITH THEIR FAMILIES</p>
 
             <%# Line 2 — Groom name (script) %>
-            <p class="wcard-line wcard-line--script" style="top:31%;"><%= @wedding.groom_name %></p>
+            <p class="wcard-line wcard-line--script" style="top:27.5%;"><%= @wedding.groom_name %></p>
 
             <%# Line 3 — "and" %>
-            <p class="wcard-line wcard-line--xs wcard-line--italic" style="top:39%;">and</p>
+            <p class="wcard-line wcard-line--xs wcard-line--italic" style="top:35.5%;">and</p>
 
             <%# Line 4 — Bride name (script) %>
-            <p class="wcard-line wcard-line--script" style="top:44%;"><%= @wedding.bride_name %></p>
+            <p class="wcard-line wcard-line--script" style="top:40.5%;"><%= @wedding.bride_name %></p>
 
             <%# Color dots — vertical stack in bottom right corner %>
             <p class="wcard-line wcard-palette wcard-palette--vertical" aria-hidden="true" style="position:absolute;bottom:2%;right:2%;left:auto;text-align:right;display:flex;flex-direction:column;gap:4px;align-items:flex-end;">
@@ -252,13 +252,13 @@
             </p>
 
             <%# Line 3 — REQUEST THE PLEASURE... %>
-            <p class="wcard-line wcard-line--xs wcard-line--spaced" style="top:53%;">REQUEST THE PLEASURE OF YOUR COMPANY</p>
+            <p class="wcard-line wcard-line--xs wcard-line--spaced" style="top:49%;">REQUEST THE PLEASURE OF YOUR COMPANY</p>
 
             <%# Line 4 — AT THE CEREMONY OF THEIR WEDDING %>
-            <p class="wcard-line wcard-line--xs wcard-line--spaced" style="top:56%;">AT THE CEREMONY OF THEIR WEDDING</p>
+            <p class="wcard-line wcard-line--xs wcard-line--spaced" style="top:52%;">AT THE CEREMONY OF THEIR WEDDING</p>
 
             <%# Line 5 — Date %>
-            <p class="wcard-line wcard-line--date wcard-line--compact" style="top:59.5%;">
+            <p class="wcard-line wcard-line--date wcard-line--compact" style="top:55.5%;">
               <%= @wedding.wedding_date.strftime("%A").upcase %>&nbsp;|&nbsp;<span style="font-weight:700;"><%= @wedding.wedding_date.day %></span>&nbsp;<%= @wedding.wedding_date.strftime("%B").upcase %>&nbsp;|&nbsp;<%= @wedding.wedding_date.year %>
             </p>
 
@@ -285,6 +285,13 @@
               <p class="wcard-line wcard-line--detail wcard-flow-line" style="font-size:0.42rem;line-height:1.4;">
                 Please do not bring additional guests beyond your reserved seat/s.<br>
                 This will be an adults-only celebration.
+              </p>
+              
+              <%# Contact details %>
+              <div class="wcard-flow-section-gap" style="height:0.6rem;"></div>
+              <p class="wcard-line wcard-line--xs wcard-flow-line" style="font-size:0.48rem;line-height:1.5;letter-spacing:0.02em;">
+                +265 999 27 92 39 Ms Natasha Mhango<br>
+                +265 996 57 32 00 Mr Allan Nyasulu
               </p>
             </div>
           </div>
