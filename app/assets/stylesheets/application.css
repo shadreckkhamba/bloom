@@ -1578,6 +1578,11 @@ h1, h2, h3, .display-1, .display-2, .serif {
 
 .wcard-flow-line.wcard-line--detail {
   line-height: 1.25;
+  width: 70% !important;
+  max-width: 70% !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
 }
 
 .wcard-flow-section-gap {
