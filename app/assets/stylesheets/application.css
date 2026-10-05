@@ -1578,10 +1578,19 @@ h1, h2, h3, .display-1, .display-2, .serif {
 
 .wcard-flow-line.wcard-line--detail {
   line-height: 1.25;
-  width: 70% !important;
-  max-width: 70% !important;
+  width: 50% !important;
+  max-width: 50% !important;
   margin-left: auto !important;
   margin-right: auto !important;
+  text-align: center !important;
+}
+
+@media (max-width: 480px) {
+  .wcard-flow-line.wcard-line--detail {
+    width: 60% !important;
+    max-width: 60% !important;
+    font-size: 0.65rem !important;
+  }
 }
 }
 
